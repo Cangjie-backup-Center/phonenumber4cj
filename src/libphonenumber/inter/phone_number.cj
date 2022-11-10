@@ -4,7 +4,6 @@ from serialization import serialization.*
 from std import collection.*
 
 public class PhoneNumber <: Serializable<PhoneNumber> {
-
     private static let serialVersionUID: Int64 = 1
     private var hasCountryCode: Bool = false
     private var countryCode_: Int64 = 0
@@ -24,14 +23,16 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
     private var preferredDomesticCarrierCode_: String = ""
 
     public func serialize(): DataModel {
-        return DataModelStruct().add(field<Bool>("hasCountryCode", hasCountryCode)).add(field<Int64>("countryCode_", countryCode_))
-                                .add(field<Bool>("hasNationalNumber", hasNationalNumber)).add(field<Int64>("nationalNumber_", nationalNumber_))
-                                .add(field<Bool>("hasExtension", hasExtension)).add(field<String>("extension_", extension_))
-                                .add(field<Bool>("hasItalianLeadingZero", hasItalianLeadingZero)).add(field<Bool>("italianLeadingZero_", italianLeadingZero_))
-                                .add(field<Bool>("hasNumberOfLeadingZeros", hasNumberOfLeadingZeros)).add(field<Int64>("numberOfLeadingZeros_", numberOfLeadingZeros_))
-                                .add(field<Bool>("hasRawInput", hasRawInput)).add(field<String>("rawInput_", rawInput_))
-                                .add(field<Bool>("hasCountryCodeSource", hasCountryCodeSource))
-                                .add(field<Bool>("hasPreferredDomesticCarrierCode", hasPreferredDomesticCarrierCode)).add(field<String>("preferredDomesticCarrierCode_", preferredDomesticCarrierCode_))
+        return DataModelStruct().add(field<Bool>("hasCountryCode", hasCountryCode)).add(
+            field<Int64>("countryCode_", countryCode_)).add(field<Bool>("hasNationalNumber", hasNationalNumber)).add(
+            field<Int64>("nationalNumber_", nationalNumber_)).add(field<Bool>("hasExtension", hasExtension)).add(
+            field<String>("extension_", extension_)).add(field<Bool>("hasItalianLeadingZero", hasItalianLeadingZero)).
+        add(field<Bool>("italianLeadingZero_", italianLeadingZero_)).add(
+            field<Bool>("hasNumberOfLeadingZeros", hasNumberOfLeadingZeros)).add(
+            field<Int64>("numberOfLeadingZeros_", numberOfLeadingZeros_)).add(field<Bool>("hasRawInput", hasRawInput)).
+        add(field<String>("rawInput_", rawInput_)).add(field<Bool>("hasCountryCodeSource", hasCountryCodeSource)).add(
+            field<Bool>("hasPreferredDomesticCarrierCode", hasPreferredDomesticCarrierCode)).add(
+            field<String>("preferredDomesticCarrierCode_", preferredDomesticCarrierCode_))
     }
 
     public static func deserialize(dm: DataModel): PhoneNumber {
@@ -62,7 +63,7 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
         countryCodeSource_ = CountryCodeSource.UNSPECIFIED
     }
 
-    public func hasCountryCodes(): Bool { 
+    public func hasCountryCodes(): Bool {
         return hasCountryCode
     }
 
@@ -82,7 +83,7 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
         return this
     }
 
-    public func hasNationalNumbers(): Bool { 
+    public func hasNationalNumbers(): Bool {
         return hasNationalNumber
     }
 
@@ -102,7 +103,7 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
         return this
     }
 
-    public func hasExtensions(): Bool { 
+    public func hasExtensions(): Bool {
         return hasExtension
     }
 
@@ -125,7 +126,7 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
         return this
     }
 
-    public func hasItalianLeadingZeros(): Bool { 
+    public func hasItalianLeadingZeros(): Bool {
         return hasItalianLeadingZero
     }
 
@@ -145,7 +146,7 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
         return this
     }
 
-    public func hasNumbersOfLeadingZeros(): Bool { 
+    public func hasNumbersOfLeadingZeros(): Bool {
         return hasNumberOfLeadingZeros
     }
 
@@ -165,7 +166,7 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
         return this
     }
 
-    public func hasRawInputs(): Bool { 
+    public func hasRawInputs(): Bool {
         return hasRawInput
     }
 
@@ -188,7 +189,7 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
         return this
     }
 
-    public func hasCountryCodeSources(): Bool { 
+    public func hasCountryCodeSources(): Bool {
         return hasCountryCodeSource
     }
 
@@ -208,7 +209,7 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
         return this
     }
 
-    public func hasPreferredDomesticCarrierCodes(): Bool { 
+    public func hasPreferredDomesticCarrierCodes(): Bool {
         return hasPreferredDomesticCarrierCode
     }
 
@@ -232,67 +233,65 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
     }
 
     public func clear(): PhoneNumber {
-      clearCountryCodes()
-      clearNationalNumbers()
-      clearExtensions()
-      clearItalianLeadingZeros()
-      clearNumberOfLeadingZeros()
-      clearRawInputs()
-      clearCountryCodeSources()
-      clearPreferredDomesticCarrierCodes()
-      return this
+        clearCountryCodes()
+        clearNationalNumbers()
+        clearExtensions()
+        clearItalianLeadingZeros()
+        clearNumberOfLeadingZeros()
+        clearRawInputs()
+        clearCountryCodeSources()
+        clearPreferredDomesticCarrierCodes()
+        return this
     }
 
     public func mergeFrom(other: PhoneNumber): PhoneNumber {
-      if (other.hasCountryCodes()) {
-        setCountryCodes(other.getCountryCodes())
-      }
-      if (other.hasNationalNumbers()) {
-        setNationalNumbers(other.getNationalNumbers())
-      }
-      if (other.hasExtensions()) {
-        setExtensions(other.getExtensions())
-      }
-      if (other.hasItalianLeadingZeros()) {
-        setItalianLeadingZeros(other.isItalianLeadingZeros())
-      }
-      if (other.hasNumbersOfLeadingZeros()) {
-        setNumberOfLeadingZeros(other.getNumbersOfLeadingZeros())
-      }
-      if (other.hasRawInputs()) {
-        setRawInputs(other.getRawInputs())
-      }
-      if (other.hasCountryCodeSources()) {
-        setCountryCodeSources(other.getCountryCodeSources())
-      }
-      if (other.hasPreferredDomesticCarrierCodes()) {
-        setPreferredDomesticCarrierCodes(other.getPreferredDomesticCarrierCodes())
-      }
-      return this
+        if (other.hasCountryCodes()) {
+            setCountryCodes(other.getCountryCodes())
+        }
+        if (other.hasNationalNumbers()) {
+            setNationalNumbers(other.getNationalNumbers())
+        }
+        if (other.hasExtensions()) {
+            setExtensions(other.getExtensions())
+        }
+        if (other.hasItalianLeadingZeros()) {
+            setItalianLeadingZeros(other.isItalianLeadingZeros())
+        }
+        if (other.hasNumbersOfLeadingZeros()) {
+            setNumberOfLeadingZeros(other.getNumbersOfLeadingZeros())
+        }
+        if (other.hasRawInputs()) {
+            setRawInputs(other.getRawInputs())
+        }
+        if (other.hasCountryCodeSources()) {
+            setCountryCodeSources(other.getCountryCodeSources())
+        }
+        if (other.hasPreferredDomesticCarrierCodes()) {
+            setPreferredDomesticCarrierCodes(other.getPreferredDomesticCarrierCodes())
+        }
+        return this
     }
 
     public func exactlySameAs(other: PhoneNumber): Bool {
-
-      if (refEq(this, other)) {
-        return true
-      }
-      return ( countryCode_ == other.countryCode_ 
-                && nationalNumber_ == other.nationalNumber_ 
-                && extension_.equals(other.extension_)
-                && italianLeadingZero_ == other.italianLeadingZero_ 
-                && numberOfLeadingZeros_ == other.numberOfLeadingZeros_ 
-                && rawInput_.equals(other.rawInput_)
-                && countryCodeSource_ == other.countryCodeSource_ 
-                && preferredDomesticCarrierCode_.equals(other.preferredDomesticCarrierCode_) 
-                && hasPreferredDomesticCarrierCodes() == other.hasPreferredDomesticCarrierCodes()
-            )
+        if (refEq(this, other)) {
+            return true
+        }
+        return (countryCode_ == other.countryCode_
+            && nationalNumber_ == other.nationalNumber_
+            && extension_.equals(other.extension_)
+            && italianLeadingZero_ == other.italianLeadingZero_
+            && numberOfLeadingZeros_ == other.numberOfLeadingZeros_
+            && rawInput_.equals(other.rawInput_)
+            && countryCodeSource_ == other.countryCodeSource_
+            && preferredDomesticCarrierCode_.equals(other.preferredDomesticCarrierCode_)
+            && hasPreferredDomesticCarrierCodes() == other.hasPreferredDomesticCarrierCodes())
     }
 
-    /*
+    /* 
      * 从 proto 自动生成的 hashCode 函数的简化形式
      * 通常被认为是等于它们显式设置的等价物，一般不检查是否有值
      * 唯一的例外是首选的国内运营商代码
-    */
+     */
     public func hashCode(): Int64 {
         var hash: Int64 = 41
         hash = (53 * hash) + getCountryCodes()
@@ -340,23 +339,20 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
             outputString.append(" Country Code Source: ").append(countryCodeSource_.toString())
         }
         if (hasPreferredDomesticCarrierCodes()) {
-            outputString.append(" Preferred Domestic Carrier Code: ").
-            append(preferredDomesticCarrierCode_)
+            outputString.append(" Preferred Domestic Carrier Code: ").append(preferredDomesticCarrierCode_)
         }
         return outputString.toString()
     }
-
 }
 
 public enum CountryCodeSource {
-
     | FROM_NUMBER_WITH_PLUS_SIGN
     | FROM_NUMBER_WITH_IDD
     | FROM_NUMBER_WITHOUT_PLUS_SIGN
     | FROM_DEFAULT_COUNTRY
     | UNSPECIFIED
 
-    public operator func == (that: CountryCodeSource): Bool {
+    public operator func ==(that: CountryCodeSource): Bool {
         match ((this, that)) {
             case (FROM_NUMBER_WITH_PLUS_SIGN, FROM_NUMBER_WITH_PLUS_SIGN) => true
             case (FROM_NUMBER_WITH_IDD, FROM_NUMBER_WITH_IDD) => true
@@ -367,17 +363,17 @@ public enum CountryCodeSource {
         }
     }
 
-    public operator func != (that: CountryCodeSource): Bool {
+    public operator func !=(that: CountryCodeSource): Bool {
         return !(this == that)
     }
 
     public func toString(): String {
-        return match(this) {
-            case FROM_NUMBER_WITH_PLUS_SIGN                => "FROM_NUMBER_WITH_PLUS_SIGN"
-            case FROM_NUMBER_WITH_IDD          => "FROM_NUMBER_WITH_IDD"
-            case FROM_NUMBER_WITHOUT_PLUS_SIGN               => "FROM_NUMBER_WITHOUT_PLUS_SIGN"
-            case FROM_DEFAULT_COUNTRY   => "FROM_DEFAULT_COUNTRY"
-            case UNSPECIFIED            => "UNSPECIFIED"
+        return match (this) {
+            case FROM_NUMBER_WITH_PLUS_SIGN => "FROM_NUMBER_WITH_PLUS_SIGN"
+            case FROM_NUMBER_WITH_IDD => "FROM_NUMBER_WITH_IDD"
+            case FROM_NUMBER_WITHOUT_PLUS_SIGN => "FROM_NUMBER_WITHOUT_PLUS_SIGN"
+            case FROM_DEFAULT_COUNTRY => "FROM_DEFAULT_COUNTRY"
+            case UNSPECIFIED => "UNSPECIFIED"
         }
     }
 }

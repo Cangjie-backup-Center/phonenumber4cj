@@ -1,7 +1,7 @@
 // EXEC: cjc %import-path %L %l %f
 // EXEC: ./main
 from std import collection.*
-from phonenumber import libphonenumber.*
+from phonenumber import libphonenumber.inter.*
 from phonenumber import libphonenumber.data.*
 
 main() {

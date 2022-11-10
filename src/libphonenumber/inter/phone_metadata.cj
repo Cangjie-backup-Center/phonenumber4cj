@@ -1,4 +1,4 @@
-package libphonenumber
+package libphonenumber.inter
 
 from std import io.*
 from std import collection.*
@@ -107,7 +107,7 @@ public open class PhonemetadataNumberFormat <: Equatable<PhonemetadataNumberForm
         return this
     }
 
-    public func writeExternal(objectOutput: ArrayList<String>): Unit {}
+    public func writeExternal(): Unit {}
 
     public func readExternal(objectInput: Iterator<String>): Unit {
         setPattern(objectInput.next().getOrThrow())
@@ -259,7 +259,7 @@ public open class PhonemetadataPhoneNumberDesc <: Equatable<PhonemetadataPhoneNu
         return nationalNumberPattern_ == (other.nationalNumberPattern_) && possibleLength_ == (other.possibleLength_) &&
             possibleLengthLocalOnly_ == (other.possibleLengthLocalOnly_) && exampleNumber_ == (other.exampleNumber_)
     }
-    public func writeExternal(objectOutput: ArrayList<String>): Unit {}
+    public func writeExternal(): Unit {}
 
     public func readExternal(objectInput: Iterator<String>): Unit {
         if (Bool.parse(objectInput.next().getOrThrow())) {
@@ -907,7 +907,7 @@ public open class PhonemetadataPhoneMetadata <: Equatable<PhonemetadataPhoneMeta
         return this
     }
 
-    public func writeExternal(objectOutput: ArrayList<String>): Unit {}
+    public func writeExternal(): Unit {}
 
     public func readExternal(objectInput: Iterator<String>): Unit {
         var hasDesc: Bool = Bool.parse(objectInput.next().getOrThrow())
@@ -1118,7 +1118,7 @@ public open class PhonemetadataPhoneMetadataCollection {
         return this
     }
 
-    public func writeExternal(objectOutput: ArrayList<String>): Unit {}
+    public func writeExternal(): Unit {}
 
     public func readExternal(objectInput: ArrayList<String>): Unit {
         var data: Iterator<String> = objectInput.iterator()
