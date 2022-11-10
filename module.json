@@ -7,7 +7,7 @@
   "requires": {},
   "package_requires": {},
   "foreign_requires": {},
-  "output_type": "executable",
+  "output_type": "dynamic",
   "command_option": "",
   "condition_option": {},
   "link_option": "",

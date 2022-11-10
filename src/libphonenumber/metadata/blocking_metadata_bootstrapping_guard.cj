@@ -31,7 +31,7 @@ class BlockingMetadataBootstrappingGuard<T> <: MetadataBootstrappingGuard<T> whe
     private func bootstrapMetadata(phoneMetadataFile: ArrayList<String>): Unit {
         synchronized(lock) {
             var hash: Int64 = phoneMetadataFile.toString().hashCode()
-            if (!loadedFiles.contains(hash.toString())) {
+            if (loadedFiles.contains(hash.toString())) {
                 return
             }
             var phoneMetadata: Collection<PhonemetadataPhoneMetadata> = read(phoneMetadataFile)
