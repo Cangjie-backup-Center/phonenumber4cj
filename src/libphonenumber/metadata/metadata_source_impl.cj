@@ -1,6 +1,7 @@
 package libphonenumber.metadata
 
 import libphonenumber.inter.*
+import libphonenumber.internal.*
 
 public class MetadataSourceImpl <: MetadataSource {
     private let phoneMetadataFileNameProvider: PhoneMetadataFileNameProvider
@@ -20,10 +21,20 @@ public class MetadataSourceImpl <: MetadataSource {
     }
 
     public func getMetadataForNonGeographicalRegion(countryCallingCode: Int32): PhonemetadataPhoneMetadata {
-        return PhonemetadataPhoneMetadata()
+        if (GeoEntityUtility.isGeoEntity(countryCallingCode)) {
+            throw IllegalArgumentException("${countryCallingCode}" + " calling code belongs to a geo entity")
+        }
+        return bootstrappingGuard
+            .getOrBootstrap(phoneMetadataFileNameProvider.getFor("${countryCallingCode}"))
+            .getMetadataBy(countryCallingCode)
     }
 
     public func getMetadataForRegion(regionCode: String): PhonemetadataPhoneMetadata {
-        return PhonemetadataPhoneMetadata()
+        if (!GeoEntityUtility.isGeoEntity(regionCode)) {
+            throw IllegalArgumentException("${regionCode}" + " region code is a non-geo entity")
+        }
+        return bootstrappingGuard
+            .getOrBootstrap(phoneMetadataFileNameProvider.getFor(regionCode))
+            .getMetadataBy(regionCode)
     }
 }

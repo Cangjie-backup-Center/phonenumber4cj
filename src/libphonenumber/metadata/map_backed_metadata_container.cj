@@ -21,14 +21,16 @@ public class MapBackedMetadataContainer<T> <: MetadataContainer where T <: Hasha
     }
 
     func getMetadataBy(key: T): Option<PhonemetadataPhoneMetadata> {
-        return Option<PhonemetadataPhoneMetadata>.None
+        return metadataMap.get(key)
     }
 
     func getKeyProvider(): KeyProvider<T> {
         return keyProvider
     }
 
-    public func accept(PhonemetadataPhoneMetadata: PhonemetadataPhoneMetadata): Unit {}
+    public func accept(phonemetadataPhoneMetadata: PhonemetadataPhoneMetadata): Unit {
+        metadataMap.put(keyProvider.getKeyOf(phonemetadataPhoneMetadata), phonemetadataPhoneMetadata)
+    }
 }
 
 public interface KeyProvider<T> {

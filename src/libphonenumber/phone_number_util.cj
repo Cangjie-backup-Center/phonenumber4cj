@@ -3,11 +3,16 @@ package libphonenumber
 from std import io.*
 from std import collection.*
 from std import regex.*
+from std import sync.*
+from std import log.*
 import libphonenumber.internal.*
 import libphonenumber.metadata.*
 import libphonenumber.inter.*
 
 public open class PhoneNumberUtil {
+
+    private static let lock = ReentrantMutex()
+
     static let REGEX_FLAGS: Int32 = 0x40 | 0x02
 
     private static let MIN_LENGTH_FOR_NSN: Int32 = 2
@@ -136,14 +141,28 @@ public open class PhoneNumberUtil {
     private let metadataSource: MetadataSource
     private let countryCallingCodeToRegionCodeMap: HashMap<Int32, ArrayList<String>>
     private let matcherApi: MatcherApi = RegexBasedMatcher.create()
-    private let nanpaRegions: HashSet<String> = HashSet<String>()
+    private let nanpaRegions: HashSet<String> = HashSet<String>(35)
     private let regexCache: RegexCache = RegexCache(100)
-    private let supportedRegions: HashSet<String> = HashSet<String>()
+    private let supportedRegions: HashSet<String> = HashSet<String>(320)
     private let countryCodesForNonGeographicalRegion: HashSet<Int32> = HashSet<Int32>()
+    private var logger: SimpleLogger = SimpleLogger()
 
     init(metadataSource: MetadataSource, countryCallingCodeToRegionCodeMap: HashMap<Int32, ArrayList<String>>) {
         this.metadataSource = metadataSource
         this.countryCallingCodeToRegionCodeMap = countryCallingCodeToRegionCodeMap
+        for ((k, v) in countryCallingCodeToRegionCodeMap) {
+            var regionCodes: ArrayList<String> = v
+            if (regionCodes.size == 1 && REGION_CODE_FOR_NON_GEO_ENTITY.equals(regionCodes.get(0).getOrThrow())) {
+                countryCodesForNonGeographicalRegion.put(k)
+            } else {
+                supportedRegions.putAll(regionCodes)
+            }
+        }
+        if (supportedRegions.remove(REGION_CODE_FOR_NON_GEO_ENTITY)) {
+            logger.log(LogLevel.WARN, "invalid metadata (country calling code was mapped to the non-geo "
+          + "entity as well as specific region(s))")
+        }
+        nanpaRegions.putAll(countryCallingCodeToRegionCodeMap.get(NANPA_COUNTRY_CODE).getOrThrow())
     }
 
     static func extractPossibleNumber(number: String): String {
@@ -192,7 +211,9 @@ public open class PhoneNumberUtil {
     }
 
     static func setInstance(util: PhoneNumberUtil): Unit {
-        instance = util
+        synchronized(lock) {
+            instance = util
+        }
     }
 
     public open func getSupportedRegions(): HashSet<String> {
@@ -228,15 +249,27 @@ public open class PhoneNumberUtil {
     }
 
     public static func getInstance(): Option<PhoneNumberUtil> {
-        return Option<PhoneNumberUtil>.None
+        synchronized(lock) {
+            match (instance) {
+                case None => 
+                    var metadataLoader: MetadataLoader = DefaultMetadataDependenciesProvider.getInstance().getMetadataLoader()
+                    setInstance(createInstance(metadataLoader).getOrThrow())
+                case _ => ()
+            }
+        }
+        return instance.getOrThrow()
     }
 
-    public func createInstance(metadataLoader: MetadataLoader): Option<PhoneNumberUtil> {
-        return Option<PhoneNumberUtil>.None
+    public static func createInstance(metadataLoader: MetadataLoader): Option<PhoneNumberUtil> {
+        return createInstance(MetadataSourceImpl(
+            DefaultMetadataDependenciesProvider.getInstance().getPhoneNumberMetadataFileNameProvider(),
+            metadataLoader, 
+            DefaultMetadataDependenciesProvider.getInstance().getMetadataParser()
+            ))
     }
 
-    private func createInstance(metadataSource: MetadataSource): Option<PhoneNumberUtil> {
-        return Option<PhoneNumberUtil>.None
+    public static func createInstance(metadataSource: MetadataSource): Option<PhoneNumberUtil> {
+        return PhoneNumberUtil(metadataSource, HashMap<Int32, ArrayList<String>>())
     }
 
     static func formattingRuleHasFirstGroupOnly(nationalPrefixFormattingRule: String): Bool {

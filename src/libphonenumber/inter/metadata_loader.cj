@@ -4,5 +4,5 @@ from std import io.*
 from std import collection.*
 
 public interface MetadataLoader {
-    func loadMetadata(metadataFileName: String): ArrayList<String>
+    func loadMetadata(metadataFileName: ArrayList<String>): ArrayList<String>
 }
