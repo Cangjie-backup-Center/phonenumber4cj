@@ -1,7 +1,6 @@
 package libphonenumber.inter
 
 public class PhoneNumberMatch {
-
     private var start: Int64
     private var rawString: String
     private var number: PhoneNumber
@@ -44,9 +43,10 @@ public class PhoneNumberMatch {
         var opt = obj as PhoneNumberMatch
         var result = opt.getOrThrow()
         var other: PhoneNumberMatch = result
-        return rawString.equals(other.rawString) 
-                && (start == other.start)
-                && number.equals(other.number)
+        var isRawString = rawString.equals(other.rawString)
+        var isStart = (start == other.start)
+        var isNumber = number.equals(other.number)
+        return isRawString && isStart && isNumber
     }
 
     public func toString(): String {
