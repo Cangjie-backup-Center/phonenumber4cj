@@ -6,7 +6,7 @@ import libphonenumber.inter.*
 public class ClassPathResourceMetadataLoader <: MetadataLoader {
     public init() {}
 
-    public func loadMetadata(metadataFileName: String): ArrayList<String> {
-        return ArrayList<String>()
+    public func loadMetadata(metadataFileName: ArrayList<String>): ArrayList<String> {
+        return metadataFileName
     }
 }

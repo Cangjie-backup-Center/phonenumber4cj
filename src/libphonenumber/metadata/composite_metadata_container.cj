@@ -10,12 +10,19 @@ public class CompositeMetadataContainer <: MetadataContainer {
         MapBackedMetadataContainer<String>.byRegionCode()
 
     func getMetadataBy(regionCode: String): PhonemetadataPhoneMetadata {
-        return PhonemetadataPhoneMetadata()
+        return metadataByRegionCode.getMetadataBy(regionCode).getOrThrow()
     }
 
     func getMetadataBy(countryCallingCode: Int32): PhonemetadataPhoneMetadata {
-        return PhonemetadataPhoneMetadata()
+        return metadataByCountryCode.getMetadataBy(countryCallingCode).getOrThrow()
     }
 
-    public func accept(phoneMetadata: PhonemetadataPhoneMetadata): Unit {}
+    public func accept(phoneMetadata: PhonemetadataPhoneMetadata): Unit {
+        var regionCode: String = metadataByRegionCode.getKeyProvider().getKeyOf(phoneMetadata)
+        if (GeoEntityUtility.isGeoEntity(regionCode)) {
+            metadataByRegionCode.accept(phoneMetadata)
+        } else {
+            metadataByRegionCode.accept(phoneMetadata)
+        }
+    }
 }
