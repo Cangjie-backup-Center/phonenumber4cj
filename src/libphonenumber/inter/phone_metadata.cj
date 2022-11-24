@@ -7,10 +7,6 @@ from std import convert.*
 public open class PhonemetadataNumberFormat <: Equatable<PhonemetadataNumberFormat> {
     public init() {}
 
-    public static func newBuilder(): NumberFormatBuilder {
-        return NumberFormatBuilder()
-    }
-
     private var hasPattern: Bool = false
     private var pattern_: String = ""
     public func hasPatternFunc(): Bool {
@@ -107,8 +103,6 @@ public open class PhonemetadataNumberFormat <: Equatable<PhonemetadataNumberForm
         return this
     }
 
-    public func writeExternal(): Unit {}
-
     public func readExternal(objectInput: Iterator<String>): Unit {
         setPattern(objectInput.next().getOrThrow())
         setFormat(objectInput.next().getOrThrow())
@@ -138,41 +132,6 @@ public open class PhonemetadataNumberFormat <: Equatable<PhonemetadataNumberForm
         }
     }
 }
-
-public class NumberFormatBuilder <: PhonemetadataNumberFormat {
-    var class_out: PhonemetadataNumberFormat
-    public init(out: PhonemetadataNumberFormat) {
-        class_out = out
-    }
-    public init() {
-        class_out = PhonemetadataNumberFormat()
-    }
-    public func build(): PhonemetadataNumberFormat {
-        return this
-    }
-    public func mergeFrom(other: PhonemetadataNumberFormat): NumberFormatBuilder {
-        if (other.hasPatternFunc()) {
-            setPattern(other.getPattern())
-        }
-        if (other.hasFormatFunc()) {
-            setFormat(other.getFormat())
-        }
-        for (i in 0..other.leadingDigitsPatternSize()) {
-            addLeadingDigitsPattern(other.getLeadingDigitsPattern(i))
-        }
-        if (other.hasNationalPrefixFormattingRuleFunc()) {
-            setNationalPrefixFormattingRule(other.getNationalPrefixFormattingRule());
-        }
-        if (other.hasDomesticCarrierCodeFormattingRuleFunc()) {
-            setDomesticCarrierCodeFormattingRule(other.getDomesticCarrierCodeFormattingRule());
-        }
-        if (other.hasNationalPrefixOptionalWhenFormattingFunc()) {
-            setNationalPrefixOptionalWhenFormatting(other.getNationalPrefixOptionalWhenFormatting());
-        }
-        return this
-    }
-}
-
 public open class PhonemetadataPhoneNumberDesc <: Equatable<PhonemetadataPhoneNumberDesc> {
     public init() {}
     public static func newBuilder(): PhoneNumberDescBuilder {
@@ -259,7 +218,6 @@ public open class PhonemetadataPhoneNumberDesc <: Equatable<PhonemetadataPhoneNu
         return nationalNumberPattern_ == (other.nationalNumberPattern_) && possibleLength_ == (other.possibleLength_) &&
             possibleLengthLocalOnly_ == (other.possibleLengthLocalOnly_) && exampleNumber_ == (other.exampleNumber_)
     }
-    public func writeExternal(): Unit {}
 
     public func readExternal(objectInput: Iterator<String>): Unit {
         if (Bool.parse(objectInput.next().getOrThrow())) {
@@ -907,8 +865,6 @@ public open class PhonemetadataPhoneMetadata <: Equatable<PhonemetadataPhoneMeta
         return this
     }
 
-    public func writeExternal(): Unit {}
-
     public func readExternal(objectInput: Iterator<String>): Unit {
         var hasDesc: Bool = Bool.parse(objectInput.next().getOrThrow())
         if (hasDesc) {
@@ -1117,8 +1073,6 @@ public open class PhonemetadataPhoneMetadataCollection {
         metadata_.append(value.getOrThrow())
         return this
     }
-
-    public func writeExternal(): Unit {}
 
     public func readExternal(objectInput: ArrayList<String>): Unit {
         var data: Iterator<String> = objectInput.iterator()

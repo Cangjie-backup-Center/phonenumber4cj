@@ -6,10 +6,13 @@ from phonenumber import libphonenumber.data.*
 from phonenumber import libphonenumber.*
 
 main() {
-   var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
-   var phoneNumber: PhoneNumber = phoneNumberUtil.parse("044 66 77 88", "CN")
+    var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var phoneNumber: PhoneNumber = phoneNumberUtil.parse("044 66 77 88", "CN")
     showPhoneNumber(phoneNumber)
-   return 0
+    if (phoneNumber.hasCountryCodes()) {
+        return 0
+    }
+    return 1
 }
 
 func showPhoneNumber(phoneNumber: PhoneNumber) {

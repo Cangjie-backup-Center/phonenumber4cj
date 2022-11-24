@@ -1,0 +1,22 @@
+// EXEC: cjc %import-path %L %l %f
+// EXEC: ./main
+from std import collection.*
+from phonenumber import libphonenumber.internal.*
+from phonenumber import libphonenumber.metadata.*
+from phonenumber import libphonenumber.inter.*
+
+main() {
+    var b: Bool = GeoEntityUtility.isGeoEntity(27)
+    var dmd: DefaultMetadataDependenciesProvider = DefaultMetadataDependenciesProvider.getInstance()
+    dmd.getAlternateFormatsMetadataFileNameProvider()
+    dmd.getPhoneNumberMetadataSource()
+    dmd.getShortNumberMetadataFileNameProvider()
+    dmd.getAlternateFormatsMetadataSource()
+    dmd.getShortNumberMetadataSource()
+    dmd.getCarrierDataDirectory()
+    dmd.getGeocodingDataDirectory()
+    if (b) {
+        return 0
+    }
+    return 1
+}
