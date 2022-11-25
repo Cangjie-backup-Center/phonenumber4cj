@@ -335,20 +335,12 @@ public open class PhoneNumberUtil {
         return HashSet<Int32>()
     }
 
-    public open func getSupportedCallingCodes(): HashSet<Int32> {
-        return HashSet<Int32>()
-    }
-
     private static func descHasPossibleNumberData(desc: PhonemetadataPhoneNumberDesc): Bool {
         return desc.getPossibleLengthCount() != 1 || desc.getPossibleLength(0) != -1
     }
 
-    private static func descHasData(desc: PhonemetadataPhoneNumberDesc): Bool {
-        return true
-    }
-
-    private func getSupportedTypesForMetadata(metadata: PhonemetadataPhoneMetadata): HashSet<PhoneNumberType> {
-        return HashSet<PhoneNumberType>()
+    public open func getSupportedCallingCodes(): HashSet<Int32> {
+        return HashSet<Int32>()
     }
 
     public open func getSupportedTypesForRegion(regionCode: String): HashSet<PhoneNumberType> {
@@ -383,39 +375,12 @@ public open class PhoneNumberUtil {
         return PhoneNumberUtil(metadataSource, CountryCodeToRegionCodeMap.getCountryCodeToRegionCodeMap())
     }
 
-    static func formattingRuleHasFirstGroupOnly(nationalPrefixFormattingRule: String): Bool {
-        return true
-    }
-
-    public open func isNumberGeographical(phoneNumber: PhoneNumber): Bool {
-        return true
-    }
-
-    public open func isNumberGeographical(phoneNumberType: PhoneNumberType, countryCallingCode: Int32): Bool {
-        return true
-    }
-
     private func isValidRegionCode(regionCode: String): Bool {
         return !regionCode.isEmpty() && supportedRegions.contains(regionCode)
     }
 
     private func hasValidCountryCallingCode(countryCallingCode: Int32): Bool {
         return true
-    }
-
-    public open func format(number: PhoneNumber, numberFormat: PhoneNumberFormat): String {
-        return ""
-    }
-
-    public open func format(number: PhoneNumber, numberFormat: PhoneNumberFormat, formattedNumber: StringBuilder): Unit {}
-
-    public open func formatByPattern(number: PhoneNumber, numberFormat: PhoneNumberFormat, 
-        userDefinedFormats: ArrayList<PhonemetadataNumberFormat>): String {
-        return ""
-    }
-
-    public open func formatNationalNumberWithCarrierCode(number: PhoneNumber, carrierCode: String): String {
-        return ""
     }
 
     private func getMetadataForRegionOrCallingCode(countryCallingCode: Int32, regionCode: String): PhonemetadataPhoneMetadata {
@@ -425,84 +390,8 @@ public open class PhoneNumberUtil {
         return getMetadataForRegion(regionCode)
     }
 
-    public open func formatNationalNumberWithPreferredCarrierCode(number: PhoneNumber, fallbackCarrierCode: String): String {
-        return ""
-    }
-
-    public open func formatNumberForMobileDialing(number: PhoneNumber, regionCallingFrom: String, withFormatting: Bool): String {
-        return ""
-    }
-
-    public open func formatOutOfCountryCallingNumber(number: PhoneNumber, regionCallingFrom: String): String {
-        return ""
-    }
-
-    public open func formatInOriginalFormat(number: PhoneNumber, regionCallingFrom: String): String {
-        return ""
-    }
-
-    private func rawInputContainsNationalPrefix(rawInput: String, nationalPrefix: String, regionCode: String): Bool {
-        return true
-    }
-
-    private func hasFormattingPatternForNumber(number: PhoneNumber): Bool {
-        return true
-    }
-
-    public open func formatOutOfCountryKeepingAlphaChars(number: PhoneNumber, regionCallingFrom: String): String {
-        return ""
-    }
-
-    public open func getNationalSignificantNumber(number: PhoneNumber): String {
-        return ""
-    }
-
     private func prefixNumberWithCountryCallingCode(countryCallingCode: Int32, numberFormat: PhoneNumberFormat, 
         formattedNumber: StringBuilder): Unit {}
-
-    private func formatNsn(number: String, metadata: PhonemetadataPhoneMetadata, numberFormat: PhoneNumberFormat): String {
-        return ""
-    }
-
-    private func formatNsn(number: String, metadata: PhonemetadataPhoneMetadata, numberFormat: PhoneNumberFormat, 
-        carrierCode: String): String {
-        return ""
-    }
-
-    open func chooseFormattingPatternForNumber(availableFormats: ArrayList<PhonemetadataNumberFormat>, 
-        nationalNumber: String): PhonemetadataNumberFormat {
-        return PhonemetadataNumberFormat()
-    }
-
-    open func formatNsnUsingPattern(nationalNumber: String, formattingPattern: PhonemetadataNumberFormat, 
-        numberFormat: PhoneNumberFormat): String {
-        return ""
-    }
-
-    private func formatNsnUsingPattern(nationalNumber: String, formattingPattern: PhonemetadataNumberFormat, 
-        numberFormat: PhoneNumberFormat, carrierCode: String): String {
-        return ""
-    }
-
-    public open func getExampleNumber(regionCode: String): PhoneNumber {
-        return PhoneNumber()
-    }
-
-    public open func getInvalidExampleNumber(regionCode: String): PhoneNumber {
-        return PhoneNumber()
-    }
-
-    public open func getExampleNumberForType(regionCode: String, `type`: PhoneNumberType): PhoneNumber {
-        return PhoneNumber()
-    }
-
-    public open func getExampleNumberForType(types: PhoneNumberType): PhoneNumber {
-        return PhoneNumber()
-    }
-
-    public open func getExampleNumberForNonGeoEntity(countryCallingCode: Int32): PhoneNumber {
-        return PhoneNumber()
-    }
 
     private func maybeAppendFormattedExtension(number: PhoneNumber, metadata: PhonemetadataPhoneMetadata, 
         numberFormat: PhoneNumberFormat, formattedNumber: StringBuilder): Unit {
@@ -568,26 +457,6 @@ public open class PhoneNumberUtil {
         }
     }
 
-    open func isNumberMatchingDesc(nationalNumber: String, numberDesc: PhonemetadataPhoneNumberDesc): Bool {
-        return true
-    }
-
-    public open func isValidNumber(number: PhoneNumber): Bool {
-        return true
-    }
-
-    public open func isValidNumberForRegion(number: PhoneNumber, regionCode: String): Bool {
-        return true
-    }
-
-    public open func getRegionCodeForNumber(number: PhoneNumber): String {
-        return ""
-    }
-
-    private func getRegionCodeForNumberFromRegionList(number: PhoneNumber, regionCodes: ArrayList<String>): String {
-        return ""
-    }
-
     public open func getRegionCodeForCountryCode(countryCallingCode: Int32): String {
         var regionCodes: ?ArrayList<String> = countryCallingCodeToRegionCodeMap.get(countryCallingCode)
         match (regionCodes) {
@@ -603,30 +472,6 @@ public open class PhoneNumberUtil {
 
     public open func getRegionCodesForCountryCode(countryCallingCode: Int32): ArrayList<String> {
         return ArrayList<String>()
-    }
-
-    public open func getCountryCodeForRegion(regionCode: String): Int32 {
-        return 0
-    }
-
-    private func getCountryCodeForValidRegion(regionCode: String): Int32 {
-        return 0
-    }
-
-    public open func getNddPrefixForRegion(regionCode: String, stripNonDigits: Bool): String {
-        return ""
-    }
-
-    public open func isNANPACountry(regionCode: String): Bool {
-        return true
-    }
-
-    public open func isAlphaNumber(number: String): Bool {
-        return true
-    }
-
-    public open func isPossibleNumber(number: PhoneNumber): Bool {
-        return true
     }
 
     public open func isPossibleNumberForType(number: PhoneNumber, types: PhoneNumberType): Bool {
@@ -721,10 +566,6 @@ public open class PhoneNumberUtil {
     }
 
     public open func isPossibleNumber(number: String, regionDialingFrom: String): Bool {
-        return true
-    }
-
-    public open func truncateTooLongNumber(number: PhoneNumber): Bool {
         return true
     }
 
@@ -840,12 +681,6 @@ public open class PhoneNumberUtil {
         }
     }
 
-    private func lookingAt(matchData: Option<MatchData>): Bool {
-        return match (matchData) {
-            case Some(x) => true
-            case None => false
-        }
-    }
     open func maybeStripNationalPrefixAndCarrierCode(number: StringBuilder, metadata: PhonemetadataPhoneMetadata, 
         carrierCode: StringBuilder): Bool {
         let numberLength: Int32 = Int32(number.size)
@@ -1106,16 +941,8 @@ public open class PhoneNumberUtil {
         }
     }
 
-    private static func copyCoreFieldsOnly(phoneNumberIn: PhoneNumber): PhoneNumber {
-        return PhoneNumber()
-    }
-
     public open func isNumberMatch(firstNumberIn: PhoneNumber, secondNumberIn: PhoneNumber): MatchType {
         return MatchType.NOT_A_NUMBER
-    }
-
-    private func isNationalNumberSuffixOfTheOther(firstNumber: PhoneNumber, secondNumber: PhoneNumber): Bool {
-        return true
     }
 
     public open func isNumberMatch(firstNumber: String, secondNumber: String): MatchType {

@@ -1,0 +1,16 @@
+// EXEC: cjc %import-path %L %l %f
+// EXEC: ./main
+from std import collection.*
+from std import io.*
+from phonenumber import libphonenumber.metadata.*
+from phonenumber import libphonenumber.inter.*
+
+main() {
+    var mp: MetadataParser = MetadataParser.newStrictParser()
+    try {
+        let arrayList = mp.parse(ArrayList<String>())
+    } catch(e: IllegalArgumentException) {
+        e.toString()
+    }
+    return 0
+}

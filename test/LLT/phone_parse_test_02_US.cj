@@ -11,7 +11,10 @@ main() {
    var phoneNumber2: PhoneNumber = phoneNumberUtil.parse("tel:2-5*6-7-000;isub=12345;phone-context=1234.com", "US")
    showPhoneNumber(phoneNumber)
    showPhoneNumber(phoneNumber2)
-   return 0
+    if (phoneNumber.hasCountryCodes()) {
+        return 0
+    }
+    return 1
 }
 
 func showPhoneNumber(phoneNumber: PhoneNumber) {

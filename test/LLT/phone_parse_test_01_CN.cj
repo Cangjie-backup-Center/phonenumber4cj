@@ -7,10 +7,13 @@ from phonenumber import libphonenumber.*
 from std import regex.*
 
 main() {
-   var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
-   var phoneNumber: PhoneNumber = phoneNumberUtil.parse("19991822826", "CN")
-   showPhoneNumber(phoneNumber)
-   0
+    var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var phoneNumber: PhoneNumber = phoneNumberUtil.parse("19991822826", "CN")
+    showPhoneNumber(phoneNumber)
+    if (phoneNumber.hasCountryCodes()) {
+        return 0
+    }
+    return 1
 }
 
 func showPhoneNumber(phoneNumber: PhoneNumber) {
