@@ -757,12 +757,6 @@ public func toString(): String
 #### class PhoneNumberUtil
 
 ```cangjie
-
-```
-
-#### class PhoneNumberUtil
-
-```cangjie
 public static func normalizeDigitsOnly(number: String): String
 1124转测 public static func getInstance(): Option<PhoneNumberUtil>
 1124转测 public open func parse(numberToParse: String, defaultRegion: String): PhoneNumber
