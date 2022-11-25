@@ -546,3 +546,285 @@ public class PhoneNumberDescBuilder {
     public func mergeFrom(other: PhonemetadataPhoneNumberDesc): PhoneNumberDescBuilder
 }
 ```
+
+#### class PhonemetadataPhoneMetadata
+
+```
+public func hasGeneralDescFunc()
+public func getGeneralDesc(): Option<PhonemetadataPhoneNumberDesc>
+public func getGeneralDescBuilder(): PhonemetadataPhoneNumberDesc
+public func setGeneralDesc(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasFixedLineFunc(): Bool
+public func getFixedLine(): Option<PhonemetadataPhoneNumberDesc>
+public func setFixedLine(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasMobileFunc(): Bool
+public func getMobile(): Option<PhonemetadataPhoneNumberDesc>
+public func setMobile(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasTollFreeFunc(): Bool
+public func getTollFree(): Option<PhonemetadataPhoneNumberDesc>
+public func setTollFree(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasPremiumRateFunc(): Bool
+public func getPremiumRate(): Option<PhonemetadataPhoneNumberDesc>
+public func setPremiumRate(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasSharedCostFunc(): Bool
+public func getSharedCost(): Option<PhonemetadataPhoneNumberDesc>
+public func setSharedCost(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasPersonalNumberFunc(): Bool
+public func getPersonalNumber(): Option<PhonemetadataPhoneNumberDesc>
+public func setPersonalNumber(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasVoipFunc(): Bool
+public func getVoip(): Option<PhonemetadataPhoneNumberDesc>
+public func setVoip(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasPagerFunc(): Bool
+public func getPager(): Option<PhonemetadataPhoneNumberDesc>
+public func setPager(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasUanFunc(): Bool
+public func getUan(): Option<PhonemetadataPhoneNumberDesc>
+public func setUan(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasEmergencyFunc(): Bool
+public func getEmergency(): Option<PhonemetadataPhoneNumberDesc>
+public func setEmergency(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasVoicemailFunc(): Bool
+public func getVoicemail(): Option<PhonemetadataPhoneNumberDesc>
+public func setVoicemail(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasShortCodeFunc(): Bool
+public func getShortCode(): Option<PhonemetadataPhoneNumberDesc>
+public func setShortCode(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasStandardRateFunc(): Bool
+public func getStandardRate(): Option<PhonemetadataPhoneNumberDesc>
+public func setStandardRate(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasCarrierSpecificFunc(): Bool
+public func getCarrierSpecific(): Option<PhonemetadataPhoneNumberDesc>
+public func setCarrierSpecific(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasSmsServicesFunc(): Bool
+public func getSmsServices(): Option<PhonemetadataPhoneNumberDesc>
+public func setSmsServices(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasNoInternationalDiallingFunc(): Bool
+public func getNoInternationalDialling(): Option<PhonemetadataPhoneNumberDesc>
+public func setNoInternationalDialling(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+public func hasIdFunc(): Bool
+public func getId(): String
+public func hasCountryCodeFunc(): Bool
+public func getCountryCode(): Int32
+public func setCountryCode(value: Int32): PhonemetadataPhoneMetadata
+public func hasInternationalPrefixFunc(): Bool
+public func getInternationalPrefix()
+public open func setInternationalPrefix(value: String): PhonemetadataPhoneMetadata
+public func hasPreferredInternationalPrefixFunc(): Bool
+public func getPreferredInternationalPrefix(): String
+public func setPreferredInternationalPrefix(value: String): PhonemetadataPhoneMetadata
+public func clearPreferredInternationalPrefix(): PhonemetadataPhoneMetadata
+public func hasNationalPrefixFunc(): Bool
+public func getNationalPrefix(): String
+public func setNationalPrefix(value: String): PhonemetadataPhoneMetadata
+public func clearNationalPrefix(): PhonemetadataPhoneMetadata
+public func hasPreferredExtnPrefixFunc(): Bool
+public func getPreferredExtnPrefix(): String
+public func setPreferredExtnPrefix(value: String): PhonemetadataPhoneMetadata
+public func clearPreferredExtnPrefix(): PhonemetadataPhoneMetadata
+public func hasNationalPrefixForParsingFunc(): Bool
+public func getNationalPrefixForParsing(): String
+public func setNationalPrefixForParsing(value: String): PhonemetadataPhoneMetadata
+public func hasNationalPrefixTransformRuleFunc(): Bool
+public func getNationalPrefixTransformRule(): String
+public func setNationalPrefixTransformRule(value: String): PhonemetadataPhoneMetadata
+public func clearNationalPrefixTransformRule(): PhonemetadataPhoneMetadata
+public func hasSameMobileAndFixedLinePatternFunc(): Bool
+public func getSameMobileAndFixedLinePattern(): Bool
+public func setSameMobileAndFixedLinePattern(value: Bool): PhonemetadataPhoneMetadata
+public func clearSameMobileAndFixedLinePattern(): PhonemetadataPhoneMetadata
+public func numberFormats(): ArrayList<PhonemetadataNumberFormat>
+public func getNumberFormatList(): ArrayList<PhonemetadataNumberFormat>
+public func numberFormatSize(): Int32
+public func getNumberFormatCount(): Int32
+public func getNumberFormat(index: Int32): Option<PhonemetadataNumberFormat>
+public func addNumberFormat(value: Option<PhonemetadataNumberFormat>): PhonemetadataPhoneMetadata
+public func intlNumberFormats(): ArrayList<PhonemetadataNumberFormat>
+public func getIntlNumberFormatList(): ArrayList<PhonemetadataNumberFormat>
+public func intlNumberFormatSize(): Int32
+public func getIntlNumberFormatCount(): Int32
+public func getIntlNumberFormat(index: Int32): Option<PhonemetadataNumberFormat>
+public func addIntlNumberFormat(value: Option<PhonemetadataNumberFormat>): PhonemetadataPhoneMetadata
+public func clearIntlNumberFormat(): PhonemetadataPhoneMetadata
+public func hasMainCountryForCodeFunc(): Bool
+public func isMainCountryForCode(): Bool
+public func getMainCountryForCode(): Bool
+public func setMainCountryForCode(value: Bool): PhonemetadataPhoneMetadata
+public func clearMainCountryForCode(): PhonemetadataPhoneMetadata
+public func hasLeadingDigitsFunc(): Bool
+public func getLeadingDigits(): String
+public func setLeadingDigits(value: String): PhonemetadataPhoneMetadata
+public func hasLeadingZeroPossibleFunc(): Bool
+public func isLeadingZeroPossible(): Bool
+public func setLeadingZeroPossible(value: Bool): PhonemetadataPhoneMetadata
+public func clearLeadingZeroPossible(): PhonemetadataPhoneMetadata
+public func hasMobileNumberPortableRegionFunc(): Bool
+public func isMobileNumberPortableRegion(): Bool
+public func getMobileNumberPortableRegion(): Bool
+public func setMobileNumberPortableRegion(value: Bool): PhonemetadataPhoneMetadata
+public func clearMobileNumberPortableRegion(): PhonemetadataPhoneMetadata
+public func readExternal(objectInput: Iterator<String>): Unit
+```
+
+#### class PhoneMetadataBuilder
+
+```cangjie
+public func build(): PhonemetadataPhoneMetadata
+public func setId(value: String): PhoneMetadataBuilder
+public func setInternationalPrefix(value: String): PhoneMetadataBuilder
+```
+
+#### class PhonemetadataPhoneMetadataCollection
+
+```cangjie
+public func getMetadataList(): ArrayList<PhonemetadataPhoneMetadata>
+public func getMetadataCount(): Int32
+public func addMetadata(value: Option<PhonemetadataPhoneMetadata>): PhonemetadataPhoneMetadataCollection
+public func readExternal(objectInput: ArrayList<String>): Unit
+public func clear(): PhonemetadataPhoneMetadataCollection
+```
+
+#### class PhoneMetadataCollectionBuilder
+
+```cangjie
+public func build(): PhonemetadataPhoneMetadataCollection
+```
+
+#### class PhoneNumber
+
+```cangjie
+1124转测 public init()
+1124转测 public func hasCountryCodes(): Bool
+1124转测 public func getCountryCodes(): Int64
+1124转测 public func setCountryCodes(value: Int64): PhoneNumber
+1124转测 public func clearCountryCodes(): PhoneNumber
+1124转测 public func hasNationalNumbers(): Bool
+1124转测 public func getNationalNumbers(): Int64
+1124转测 public func setNationalNumbers(value: Int64): PhoneNumber
+1124转测 public func clearNationalNumbers(): PhoneNumber
+1124转测 public func hasExtensions(): Bool
+1124转测 public func getExtensions(): String
+1124转测 public func setExtensions(value: String): PhoneNumber
+1124转测 public func clearExtensions(): PhoneNumber
+1124转测 public func hasItalianLeadingZeros(): Bool
+1124转测 public func isItalianLeadingZeros(): Bool
+1124转测 public func setItalianLeadingZeros(value: Bool): PhoneNumber
+1124转测 public func clearItalianLeadingZeros(): PhoneNumber
+1124转测 public func hasNumbersOfLeadingZeros(): Bool
+1124转测 public func getNumbersOfLeadingZeros(): Int64
+1124转测 public func setNumberOfLeadingZeros(value: Int64): PhoneNumber
+1124转测 public func clearNumberOfLeadingZeros(): PhoneNumber
+1124转测 public func hasRawInputs(): Bool
+1124转测 public func getRawInputs(): String
+1124转测 public func setRawInputs(value: String): PhoneNumber
+1124转测 public func clearRawInputs(): PhoneNumber
+1124转测 public func hasCountryCodeSources(): Bool
+1124转测 public func getCountryCodeSources(): CountryCodeSource
+1124转测 public func setCountryCodeSources(value: CountryCodeSource): PhoneNumber
+1124转测 public func clearCountryCodeSources(): PhoneNumber
+1124转测 public func hasPreferredDomesticCarrierCodes(): Bool
+1124转测 public func getPreferredDomesticCarrierCodes(): String
+1124转测 public func setPreferredDomesticCarrierCodes(value: String): PhoneNumber
+1124转测 public func clearPreferredDomesticCarrierCodes(): PhoneNumber
+1124转测 public func clear(): PhoneNumber
+1124转测 public func mergeFrom(other: PhoneNumber): PhoneNumber
+1124转测 public func exactlySameAs(other: PhoneNumber): Bool
+1124转测 public func toString(): String
+```
+
+#### enum CountryCodeSource
+
+```cangjie
+| FROM_NUMBER_WITH_PLUS_SIGN
+| FROM_NUMBER_WITH_IDD
+| FROM_NUMBER_WITHOUT_PLUS_SIGN
+| FROM_DEFAULT_COUNTRY
+| UNSPECIFIED
+1124转测 public func toString()
+```
+
+#### class PhoneNumberMatch
+
+```cangjie
+public init(start: Int64, rawString: String, number: PhoneNumber)
+public func getNumber(): PhoneNumber
+public func getStart(): Int64
+public func getEnd(): Int64
+public func getRawString(): String
+public func toString(): String
+```
+
+#### class PhoneNumberUtil
+
+```cangjie
+
+```
+
+#### class PhoneNumberUtil
+
+```cangjie
+public static func normalizeDigitsOnly(number: String): String
+1124转测 public static func getInstance(): Option<PhoneNumberUtil>
+1124转测 public open func parse(numberToParse: String, defaultRegion: String): PhoneNumber
+1124转测 public open func parse(numberToParse: String, defaultRegion: String, phoneNumber: PhoneNumber): Unit
+public static func createInstance(metadataLoader: MetadataLoader): Option<PhoneNumberUtil>
+public static func createInstance(metadataSource: MetadataSource): Option<PhoneNumberUtil>
+public open func getRegionCodeForCountryCode(countryCallingCode: Int32): String
+public func buildNationalNumberForParsing(numberToParse: String, nationalNumber: StringBuilder): Unit
+public static func matchCountryCodeSource(countryCodeSource: CountryCodeSource): String
+```
+
+#### enum PhoneNumberFormat
+
+```cangjie
+| E164
+| INTERNATIONAL
+| NATIONAL
+| RFC3966
+public operator func == (that: PhoneNumberFormat): Bool
+public operator func != (that: PhoneNumberFormat): Bool
+public func toString(): String    
+```
+
+#### enum PhoneNumberType
+
+```cangjie
+| FIXED_LINE
+| MOBILE
+| FIXED_LINE_OR_MOBILE
+| TOLL_FREE
+| PREMIUM_RATE
+| SHARED_COST
+| VOIP
+| PERSONAL_NUMBER
+| PAGER
+| UAN
+| VOICEMAIL
+| UNKNOWN
+public operator func ==(that: PhoneNumberType): Bool
+public operator func !=(that: PhoneNumberType): Bool
+```
+
+#### class MatchType
+
+```cangjie
+| NOT_A_NUMBER
+| NO_MATCH
+| SHORT_NSN_MATCH
+| NSN_MATCH
+| EXACT_MATCH
+```
+
+#### class ValidationResult
+
+```cangjie
+| IS_POSSIBLE
+| IS_POSSIBLE_LOCAL_ONLY
+| INVALID_COUNTRY_CODE
+| TOO_SHORT
+| INVALID_LENGTH
+| TOO_LONG
+public operator func == (that: ValidationResult): Bool
+public operator func != (that: ValidationResult): Bool
+public func toString(): String
+```
