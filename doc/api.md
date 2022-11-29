@@ -549,121 +549,517 @@ public class PhoneNumberDescBuilder {
 
 #### class PhonemetadataPhoneMetadata
 
-```
-public func hasGeneralDescFunc()
-public func getGeneralDesc(): Option<PhonemetadataPhoneNumberDesc>
-public func getGeneralDescBuilder(): PhonemetadataPhoneNumberDesc
-public func setGeneralDesc(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasFixedLineFunc(): Bool
-public func getFixedLine(): Option<PhonemetadataPhoneNumberDesc>
-public func setFixedLine(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasMobileFunc(): Bool
-public func getMobile(): Option<PhonemetadataPhoneNumberDesc>
-public func setMobile(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasTollFreeFunc(): Bool
-public func getTollFree(): Option<PhonemetadataPhoneNumberDesc>
-public func setTollFree(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasPremiumRateFunc(): Bool
-public func getPremiumRate(): Option<PhonemetadataPhoneNumberDesc>
-public func setPremiumRate(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasSharedCostFunc(): Bool
-public func getSharedCost(): Option<PhonemetadataPhoneNumberDesc>
-public func setSharedCost(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasPersonalNumberFunc(): Bool
-public func getPersonalNumber(): Option<PhonemetadataPhoneNumberDesc>
-public func setPersonalNumber(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasVoipFunc(): Bool
-public func getVoip(): Option<PhonemetadataPhoneNumberDesc>
-public func setVoip(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasPagerFunc(): Bool
-public func getPager(): Option<PhonemetadataPhoneNumberDesc>
-public func setPager(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasUanFunc(): Bool
-public func getUan(): Option<PhonemetadataPhoneNumberDesc>
-public func setUan(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasEmergencyFunc(): Bool
-public func getEmergency(): Option<PhonemetadataPhoneNumberDesc>
-public func setEmergency(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasVoicemailFunc(): Bool
-public func getVoicemail(): Option<PhonemetadataPhoneNumberDesc>
-public func setVoicemail(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasShortCodeFunc(): Bool
-public func getShortCode(): Option<PhonemetadataPhoneNumberDesc>
-public func setShortCode(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasStandardRateFunc(): Bool
-public func getStandardRate(): Option<PhonemetadataPhoneNumberDesc>
-public func setStandardRate(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasCarrierSpecificFunc(): Bool
-public func getCarrierSpecific(): Option<PhonemetadataPhoneNumberDesc>
-public func setCarrierSpecific(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasSmsServicesFunc(): Bool
-public func getSmsServices(): Option<PhonemetadataPhoneNumberDesc>
-public func setSmsServices(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasNoInternationalDiallingFunc(): Bool
-public func getNoInternationalDialling(): Option<PhonemetadataPhoneNumberDesc>
-public func setNoInternationalDialling(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
-public func hasIdFunc(): Bool
-public func getId(): String
-public func hasCountryCodeFunc(): Bool
-public func getCountryCode(): Int32
-public func setCountryCode(value: Int32): PhonemetadataPhoneMetadata
-public func hasInternationalPrefixFunc(): Bool
-public func getInternationalPrefix()
-public open func setInternationalPrefix(value: String): PhonemetadataPhoneMetadata
-public func hasPreferredInternationalPrefixFunc(): Bool
-public func getPreferredInternationalPrefix(): String
-public func setPreferredInternationalPrefix(value: String): PhonemetadataPhoneMetadata
-public func clearPreferredInternationalPrefix(): PhonemetadataPhoneMetadata
-public func hasNationalPrefixFunc(): Bool
-public func getNationalPrefix(): String
-public func setNationalPrefix(value: String): PhonemetadataPhoneMetadata
-public func clearNationalPrefix(): PhonemetadataPhoneMetadata
-public func hasPreferredExtnPrefixFunc(): Bool
-public func getPreferredExtnPrefix(): String
-public func setPreferredExtnPrefix(value: String): PhonemetadataPhoneMetadata
-public func clearPreferredExtnPrefix(): PhonemetadataPhoneMetadata
-public func hasNationalPrefixForParsingFunc(): Bool
-public func getNationalPrefixForParsing(): String
-public func setNationalPrefixForParsing(value: String): PhonemetadataPhoneMetadata
-public func hasNationalPrefixTransformRuleFunc(): Bool
-public func getNationalPrefixTransformRule(): String
-public func setNationalPrefixTransformRule(value: String): PhonemetadataPhoneMetadata
-public func clearNationalPrefixTransformRule(): PhonemetadataPhoneMetadata
-public func hasSameMobileAndFixedLinePatternFunc(): Bool
-public func getSameMobileAndFixedLinePattern(): Bool
-public func setSameMobileAndFixedLinePattern(value: Bool): PhonemetadataPhoneMetadata
-public func clearSameMobileAndFixedLinePattern(): PhonemetadataPhoneMetadata
-public func numberFormats(): ArrayList<PhonemetadataNumberFormat>
-public func getNumberFormatList(): ArrayList<PhonemetadataNumberFormat>
-public func numberFormatSize(): Int32
-public func getNumberFormatCount(): Int32
-public func getNumberFormat(index: Int32): Option<PhonemetadataNumberFormat>
-public func addNumberFormat(value: Option<PhonemetadataNumberFormat>): PhonemetadataPhoneMetadata
-public func intlNumberFormats(): ArrayList<PhonemetadataNumberFormat>
-public func getIntlNumberFormatList(): ArrayList<PhonemetadataNumberFormat>
-public func intlNumberFormatSize(): Int32
-public func getIntlNumberFormatCount(): Int32
-public func getIntlNumberFormat(index: Int32): Option<PhonemetadataNumberFormat>
-public func addIntlNumberFormat(value: Option<PhonemetadataNumberFormat>): PhonemetadataPhoneMetadata
-public func clearIntlNumberFormat(): PhonemetadataPhoneMetadata
-public func hasMainCountryForCodeFunc(): Bool
-public func isMainCountryForCode(): Bool
-public func getMainCountryForCode(): Bool
-public func setMainCountryForCode(value: Bool): PhonemetadataPhoneMetadata
-public func clearMainCountryForCode(): PhonemetadataPhoneMetadata
-public func hasLeadingDigitsFunc(): Bool
-public func getLeadingDigits(): String
-public func setLeadingDigits(value: String): PhonemetadataPhoneMetadata
-public func hasLeadingZeroPossibleFunc(): Bool
-public func isLeadingZeroPossible(): Bool
-public func setLeadingZeroPossible(value: Bool): PhonemetadataPhoneMetadata
-public func clearLeadingZeroPossible(): PhonemetadataPhoneMetadata
-public func hasMobileNumberPortableRegionFunc(): Bool
-public func isMobileNumberPortableRegion(): Bool
-public func getMobileNumberPortableRegion(): Bool
-public func setMobileNumberPortableRegion(value: Bool): PhonemetadataPhoneMetadata
-public func clearMobileNumberPortableRegion(): PhonemetadataPhoneMetadata
-public func readExternal(objectInput: Iterator<String>): Unit
+此类是电话元数据装配类
+
+```cangjie
+
+public class PhonemetadataPhoneMetadata {
+
+    /*
+     * PhonemetadataPhoneMetadata 的无参构造器
+     *
+     */
+    public init()
+
+    /*
+     * PhonemetadataPhoneMetadata 的静态构造器
+     *
+     * 返回值是构造出来的 PhoneMetadataBuilder 对象
+     */
+    public static func newBuilder(): PhoneMetadataBuilder
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值 Bool 类型
+     */
+    public func hasGeneralDescFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 PhonemetadataPhoneNumberDesc 类型
+     */
+    public func getGeneralDesc(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 获取 phonemetadataPhoneNumberDesc 构造类对象
+     *
+     * 返回值是 PhonemetadataPhoneNumberDesc 类型
+     */
+    public func getGeneralDescBuilder(): PhonemetadataPhoneNumberDesc
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setGeneralDesc(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasFixedLineFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getFixedLine(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setFixedLine(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasMobileFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getMobile(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setMobile(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasTollFreeFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getTollFree(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setTollFree(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasPremiumRateFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getPremiumRate(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setPremiumRate(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasSharedCostFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getSharedCost(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setSharedCost(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasPersonalNumberFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getPersonalNumber(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setPersonalNumber(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasVoipFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getVoip(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setVoip(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+    
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasPagerFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getPager(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setPager(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasUanFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getUan(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setUan(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasEmergencyFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getEmergency(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setEmergency(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasVoicemailFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getVoicemail(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setVoicemail(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasShortCodeFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getShortCode(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setShortCode(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasStandardRateFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getStandardRate(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setStandardRate(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasCarrierSpecificFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getCarrierSpecific(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setCarrierSpecific(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasSmsServicesFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getSmsServices(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setSmsServices(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasNoInternationalDiallingFunc(): Bool
+
+    /*
+     * 获取装配函数后的类对象
+     *
+     * 返回值是 Option<PhonemetadataPhoneNumberDesc> 类型
+     */
+    public func getNoInternationalDialling(): Option<PhonemetadataPhoneNumberDesc>
+
+    /*
+     * 设置装配函数
+     *
+     * 参数 value - Option<PhonemetadataPhoneNumberDesc> 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 类型
+     */
+    public func setNoInternationalDialling(value: Option<PhonemetadataPhoneNumberDesc>): PhonemetadataPhoneMetadata
+
+    /*
+     * 判断是否含有装配 id 的函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasIdFunc(): Bool
+
+    /*
+     * 获取 id
+     *
+     * 返回值是 String 类型字符串
+     */
+    public func getId(): String
+
+
+    /*
+     * 判断是否含有国家代码的装配函数，若含有，则为 true；反之，为 false
+     *
+     * 返回值是 Bool 类型
+     */
+    public func hasCountryCodeFunc(): Bool
+
+    /*
+     * 获取国家代码
+     *
+     * 返回值是 Int32 类型的数据
+     */
+    public func getCountryCode(): Int32
+
+    /*
+     * 设置国家代码
+     *
+     * 参数 value - Int32 类型的数据
+     *
+     * 返回值是 PhonemetadataPhoneMetadata 对象
+     */
+    public func setCountryCode(value: Int32): PhonemetadataPhoneMetadata
+    public func hasInternationalPrefixFunc(): Bool
+    public func getInternationalPrefix()
+    public open func setInternationalPrefix(value: String): PhonemetadataPhoneMetadata
+    public func hasPreferredInternationalPrefixFunc(): Bool
+    public func getPreferredInternationalPrefix(): String
+    public func setPreferredInternationalPrefix(value: String): PhonemetadataPhoneMetadata
+    public func clearPreferredInternationalPrefix(): PhonemetadataPhoneMetadata
+    public func hasNationalPrefixFunc(): Bool
+    public func getNationalPrefix(): String
+    public func setNationalPrefix(value: String): PhonemetadataPhoneMetadata
+    public func clearNationalPrefix(): PhonemetadataPhoneMetadata
+    public func hasPreferredExtnPrefixFunc(): Bool
+    public func getPreferredExtnPrefix(): String
+    public func setPreferredExtnPrefix(value: String): PhonemetadataPhoneMetadata
+    public func clearPreferredExtnPrefix(): PhonemetadataPhoneMetadata
+    public func hasNationalPrefixForParsingFunc(): Bool
+    public func getNationalPrefixForParsing(): String
+    public func setNationalPrefixForParsing(value: String): PhonemetadataPhoneMetadata
+    public func hasNationalPrefixTransformRuleFunc(): Bool
+    public func getNationalPrefixTransformRule(): String
+    public func setNationalPrefixTransformRule(value: String): PhonemetadataPhoneMetadata
+    public func clearNationalPrefixTransformRule(): PhonemetadataPhoneMetadata
+    public func hasSameMobileAndFixedLinePatternFunc(): Bool
+    public func getSameMobileAndFixedLinePattern(): Bool
+    public func setSameMobileAndFixedLinePattern(value: Bool): PhonemetadataPhoneMetadata
+    public func clearSameMobileAndFixedLinePattern(): PhonemetadataPhoneMetadata
+    public func numberFormats(): ArrayList<PhonemetadataNumberFormat>
+    public func getNumberFormatList(): ArrayList<PhonemetadataNumberFormat>
+    public func numberFormatSize(): Int32
+    public func getNumberFormatCount(): Int32
+    public func getNumberFormat(index: Int32): Option<PhonemetadataNumberFormat>
+    public func addNumberFormat(value: Option<PhonemetadataNumberFormat>): PhonemetadataPhoneMetadata
+    public func intlNumberFormats(): ArrayList<PhonemetadataNumberFormat>
+    public func getIntlNumberFormatList(): ArrayList<PhonemetadataNumberFormat>
+    public func intlNumberFormatSize(): Int32
+    public func getIntlNumberFormatCount(): Int32
+    public func getIntlNumberFormat(index: Int32): Option<PhonemetadataNumberFormat>
+    public func addIntlNumberFormat(value: Option<PhonemetadataNumberFormat>): PhonemetadataPhoneMetadata
+    public func clearIntlNumberFormat(): PhonemetadataPhoneMetadata
+    public func hasMainCountryForCodeFunc(): Bool
+    public func isMainCountryForCode(): Bool
+    public func getMainCountryForCode(): Bool
+    public func setMainCountryForCode(value: Bool): PhonemetadataPhoneMetadata
+    public func clearMainCountryForCode(): PhonemetadataPhoneMetadata
+    public func hasLeadingDigitsFunc(): Bool
+    public func getLeadingDigits(): String
+    public func setLeadingDigits(value: String): PhonemetadataPhoneMetadata
+    public func hasLeadingZeroPossibleFunc(): Bool
+    public func isLeadingZeroPossible(): Bool
+    public func setLeadingZeroPossible(value: Bool): PhonemetadataPhoneMetadata
+    public func clearLeadingZeroPossible(): PhonemetadataPhoneMetadata
+    public func hasMobileNumberPortableRegionFunc(): Bool
+    public func isMobileNumberPortableRegion(): Bool
+    public func getMobileNumberPortableRegion(): Bool
+    public func setMobileNumberPortableRegion(value: Bool): PhonemetadataPhoneMetadata
+    public func clearMobileNumberPortableRegion(): PhonemetadataPhoneMetadata
+    public func readExternal(objectInput: Iterator<String>): Unit
 ```
 
 #### class PhoneMetadataBuilder

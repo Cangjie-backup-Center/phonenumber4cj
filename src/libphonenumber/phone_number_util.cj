@@ -570,19 +570,23 @@ public open class PhoneNumberUtil {
     }
 
     open func extractCountryCode(fullNumber: StringBuilder, nationalNumber: StringBuilder): Int32 {
-        if ((fullNumber.size == 0) || (fullNumber.toString().charAt(0) == '0')) {
+        let str: String = fullNumber.toString()
+        if ((fullNumber.size != 0) || (str.charAt(0) != '0')) {
+            var potentialCountryCode: Int32 = 0
+            let numberLength: Int32 = Int32(fullNumber.size)
+            for (i in 1..numberLength) {
+                if (i <= 3) {
+                    potentialCountryCode = Int32.parse(str.substring(0, Int64(i)))
+                    if (countryCallingCodeToRegionCodeMap.contains(potentialCountryCode)) {
+                        nationalNumber.append(str.substring(Int64(i)))
+                        return potentialCountryCode
+                    }
+                }
+            }
+            return 0
+        } else {
             return 0
         }
-        var potentialCountryCode: Int32 = 0
-        let numberLength: Int32 = Int32(fullNumber.size)
-        for (i in 1..numberLength) {
-            potentialCountryCode = Int32.parse(fullNumber.toString().substring(0, Int64(i)))
-            if (countryCallingCodeToRegionCodeMap.contains(potentialCountryCode)) {
-                nationalNumber.append(fullNumber.toString().substring(Int64(i)))
-                return potentialCountryCode
-            }
-        }
-        return 0
     }
 
     open func maybeExtractCountryCode(number: String, defaultRegionMetadata: ?PhonemetadataPhoneMetadata, 
@@ -672,7 +676,7 @@ public open class PhoneNumberUtil {
                 case None =>
                     var iddPattern: Regex = regexCache.getPatternForRegex(possibleIddPrefix)
                     strBuild = normalize(number)
-                    if (parsePrefixAsIdd(iddPattern, number)) {
+                    if (parsePrefixAsIdd(iddPattern, strBuild)) {
                         return (CountryCodeSource.FROM_NUMBER_WITH_IDD, strBuild)
                     } else {
                         return (CountryCodeSource.FROM_DEFAULT_COUNTRY, strBuild)
