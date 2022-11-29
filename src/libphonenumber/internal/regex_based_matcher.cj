@@ -21,18 +21,27 @@ public class RegexBasedMatcher <: MatcherApi {
     }
 
     private static func matchFunc(number: String, pattern: Regex, allowPrefixMatch: Bool): Bool {
-        var mc: Matcher = pattern.matcher(number)
-        if (findResult(mc.find())) {
-            if (findResult(mc.fullMatch())) {
+        var matcher: Matcher = pattern.matcher(number)
+        if (!(lookingAt(matcher.matchStart()))){
+            return false
+        } else {
+            if (findAllResult(matcher.findAll())) {
                 return true
+            } else {
+                return allowPrefixMatch
             }
-            return allowPrefixMatch
         }
-        return false
     }
 
-    static func findResult(find: Option<MatchData>): Bool{
-        return match (find) {
+    static func lookingAt(matchData: Option<MatchData>): Bool {
+        return match (matchData) {
+            case Some(x) => true
+            case None => false
+        }
+    }
+
+    static func findAllResult(matchData: Option<Array<MatchData>>): Bool {
+        return match (matchData) {
             case Some(x) => true
             case None => false
         }
