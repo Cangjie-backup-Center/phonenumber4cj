@@ -996,52 +996,57 @@ public open class PhoneNumberUtil {
         nationalNumber: StringBuilder, keepRawInput: Bool, phoneNumber: PhoneNumber): Int32 {
         if (number.size == 0) {
             return 0
-        }
-        var fullNumber: StringBuilder = StringBuilder(number)
-        var possibleCountryIddPrefix: String = "NonMatch"
-        if (let Some(i) = defaultRegionMetadata) {
-            possibleCountryIddPrefix = defaultRegionMetadata.getOrThrow().getInternationalPrefix()
-        }
-        var countryCodeSource: (CountryCodeSource, StringBuilder) = maybeStripInternationalPrefixAndNormalize(fullNumber, possibleCountryIddPrefix)
-        if (keepRawInput) {
-            phoneNumber.setCountryCodeSources(countryCodeSource[0])
-        }
-        fullNumber = countryCodeSource[1]
-        if (countryCodeSource[0] != CountryCodeSource.FROM_DEFAULT_COUNTRY) {
-            if (fullNumber.size <= MIN_LENGTH_FOR_NSN) {
-                throw NumberParseException(ErrorType.TOO_SHORT_AFTER_IDD,
-                                       "Phone number had an IDD, but after this was not "
-                                       + "long enough to be a viable phone number.")
+        } else {
+            var fullNumber: StringBuilder = StringBuilder(number)
+            var possibleCountryIddPrefix: String = "NonMatch"
+            if (let Some(i) = defaultRegionMetadata) {
+                possibleCountryIddPrefix = defaultRegionMetadata.getOrThrow().getInternationalPrefix()
             }
-            var potentialCountryCode: Int32 = extractCountryCode(fullNumber, nationalNumber)
-            if (potentialCountryCode != 0) {
-                phoneNumber.setCountryCodes(Int64(potentialCountryCode))
-                return potentialCountryCode
+            var countryCodeSource: (CountryCodeSource, StringBuilder) = maybeStripInternationalPrefixAndNormalize(fullNumber, possibleCountryIddPrefix)
+            if (keepRawInput) {
+                phoneNumber.setCountryCodeSources(countryCodeSource[0])
             }
-            throw NumberParseException(ErrorType.INVALID_COUNTRY_CODE,
-                                     "Country calling code supplied was not recognised.")
-        } else if (let Some(i) = defaultRegionMetadata) {
-            let defaultCountryCode: Int32 = defaultRegionMetadata.getOrThrow().getCountryCode()
-            let defaultCountryCodeString: String = "${defaultCountryCode}"
-            var normalizedNumber: String = fullNumber.toString()
-            if (normalizedNumber.startsWith(defaultCountryCodeString)) {
-                var potentialNationalNumber: StringBuilder = StringBuilder(normalizedNumber.substring(defaultCountryCodeString.size))
-                var generalDesc: PhonemetadataPhoneNumberDesc = defaultRegionMetadata.getOrThrow().getGeneralDesc().getOrThrow()
-                maybeStripNationalPrefixAndCarrierCode(potentialNationalNumber, defaultRegionMetadata.getOrThrow(), StringBuilder())
-                if ((!matcherApi.matchNationalNumber(normalizedNumber, generalDesc, false) 
-                    && matcherApi.matchNationalNumber(potentialNationalNumber.toString(), generalDesc, false))
-                    || testNumberLength(normalizedNumber, defaultRegionMetadata.getOrThrow()) == ValidationResult.TOO_LONG) {
-                    nationalNumber.append(potentialNationalNumber)
-                    if (keepRawInput) {
-                        phoneNumber.setCountryCodeSources(CountryCodeSource.FROM_NUMBER_WITHOUT_PLUS_SIGN)
-                    }
-                    phoneNumber.setCountryCodes(Int64(defaultCountryCode))
-                    return defaultCountryCode
+            fullNumber = countryCodeSource[1]
+            if (countryCodeSource[0] != CountryCodeSource.FROM_DEFAULT_COUNTRY) {
+                if (fullNumber.size <= MIN_LENGTH_FOR_NSN) {
+                    throw NumberParseException(ErrorType.TOO_SHORT_AFTER_IDD,
+                                        "Phone number had an IDD, but after this was not "
+                                        + "long enough to be a viable phone number.")
                 }
+                var potentialCountryCode: Int32 = extractCountryCode(fullNumber, nationalNumber)
+                if (potentialCountryCode != 0) {
+                    phoneNumber.setCountryCodes(Int64(potentialCountryCode))
+                    return potentialCountryCode
+                }
+                throw NumberParseException(ErrorType.INVALID_COUNTRY_CODE,
+                                        "Country calling code supplied was not recognised.")
+            } else {
+
+                if (let Some(i) = defaultRegionMetadata) {
+                    let defaultCountryCode: Int32 = defaultRegionMetadata.getOrThrow().getCountryCode()
+                    let defaultCountryCodeString: String = "${defaultCountryCode}"
+                    var normalizedNumber: String = fullNumber.toString()
+                    if (normalizedNumber.startsWith(defaultCountryCodeString)) {
+                        var potentialNationalNumber: StringBuilder = StringBuilder(normalizedNumber.substring(defaultCountryCodeString.size))
+                        var generalDesc: PhonemetadataPhoneNumberDesc = defaultRegionMetadata.getOrThrow().getGeneralDesc().getOrThrow()
+                        maybeStripNationalPrefixAndCarrierCode(potentialNationalNumber, defaultRegionMetadata.getOrThrow(), StringBuilder())
+                        if ((!matcherApi.matchNationalNumber(normalizedNumber, generalDesc, false) 
+                            && matcherApi.matchNationalNumber(potentialNationalNumber.toString(), generalDesc, false))
+                            || testNumberLength(normalizedNumber, defaultRegionMetadata.getOrThrow()) == ValidationResult.TOO_LONG) {
+                            nationalNumber.append(potentialNationalNumber)
+                            if (keepRawInput) {
+                                phoneNumber.setCountryCodeSources(CountryCodeSource.FROM_NUMBER_WITHOUT_PLUS_SIGN)
+                            }
+                            phoneNumber.setCountryCodes(Int64(defaultCountryCode))
+                            return defaultCountryCode
+                        }
+                    }
+                }
+
+                phoneNumber.setCountryCodes(0)
+                return 0
             }
         }
-        phoneNumber.setCountryCodes(0)
-        return 0
     }
 
     private func parsePrefixAsIdd(iddPattern: Regex, number: StringBuilder): Bool {
@@ -1111,21 +1116,14 @@ public open class PhoneNumberUtil {
                 var numOfGroups: Int32 = Int32(prefixMatcher.allCount())
                 var transformRule: String = metadata.getNationalPrefixTransformRule()
                 if (transformRule.isEmpty() || transformRule.size == 0 || v.matchStr(Int64(numOfGroups)).isEmpty()) {
-                    if (isViableOriginalNumber) {
-                        let opt: Option<MatchData> = prefixMatcher.find((prefixMatcher.getString().size -1))
-                            match (opt) {
-                                case Some(w) =>
-                                    if (!matcherApi.matchNationalNumber(numberStr.substring(w.matchPosition().end), generalDesc, false)) {
-                                        return false
-                                    }
-                                case None => ()
-                            }
+                    if (isViableOriginalNumber && !matcherApi.matchNationalNumber(numberStr.substring(prefixMatcher.getString().size), generalDesc, false)) {
+                        return false
                     }
-                if (!carrierCode.isEmpty() && numOfGroups > 0 && !(v.matchStr(Int64(numOfGroups))).isEmpty()) {
+                    if (!carrierCode.isEmpty() && numOfGroups > 0 && !(v.matchStr(Int64(numOfGroups))).isEmpty()) {
                     carrierCode.append(v.matchStr(1))
-                }
-                number.remove(0)
-                return true
+                    }
+                    number.remove(0)
+                    return true
                 } else {
                     var transformedNumber: StringBuilder = StringBuilder(numberStr)
                     var transformedNumberStr: String = transformedNumber.toString()
