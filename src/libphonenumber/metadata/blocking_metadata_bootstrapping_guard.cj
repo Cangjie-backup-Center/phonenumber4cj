@@ -5,7 +5,7 @@ from encoding import json.*
 from std import io.*
 from std import collection.*
 
-class BlockingMetadataBootstrappingGuard<T> <: MetadataBootstrappingGuard<T> where T <: MetadataContainer {
+public class BlockingMetadataBootstrappingGuard<T> <: MetadataBootstrappingGuard<T> where T <: MetadataContainer {
 
     private static let lock = ReentrantMutex()
     private let metadataLoader: MetadataLoader
@@ -13,7 +13,7 @@ class BlockingMetadataBootstrappingGuard<T> <: MetadataBootstrappingGuard<T> whe
     private let metadataContainer: T
     private let loadedFiles: HashMap<String, String>
 
-    init(metadataLoader: MetadataLoader, metadataParser: MetadataParser, metadataContainer: T) {
+    public init(metadataLoader: MetadataLoader, metadataParser: MetadataParser, metadataContainer: T) {
         this.metadataLoader = metadataLoader
         this.metadataParser = metadataParser
         this.metadataContainer = metadataContainer
@@ -31,9 +31,6 @@ class BlockingMetadataBootstrappingGuard<T> <: MetadataBootstrappingGuard<T> whe
     private func bootstrapMetadata(phoneMetadataFile: ArrayList<String>): Unit {
         synchronized(lock) {
             var hash: Int64 = phoneMetadataFile.toString().hashCode()
-            if (loadedFiles.contains(hash.toString())) {
-                return
-            }
             var phoneMetadata: Collection<PhonemetadataPhoneMetadata> = read(phoneMetadataFile)
             for (metadata in phoneMetadata) {
                 metadataContainer.accept(metadata)

@@ -16,8 +16,4 @@ public open class RegexCache {
         }
         return reg.getOrThrow()
     }
-
-    open func containsRegex(regex: String): Bool {
-        return cache.contains(regex)
-    }
 }

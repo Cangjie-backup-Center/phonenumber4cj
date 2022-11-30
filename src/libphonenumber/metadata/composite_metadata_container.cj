@@ -22,7 +22,7 @@ public class CompositeMetadataContainer <: MetadataContainer {
         if (GeoEntityUtility.isGeoEntity(regionCode)) {
             metadataByRegionCode.accept(phoneMetadata)
         } else {
-            metadataByRegionCode.accept(phoneMetadata)
+            metadataByCountryCode.accept(phoneMetadata)
         }
     }
 }

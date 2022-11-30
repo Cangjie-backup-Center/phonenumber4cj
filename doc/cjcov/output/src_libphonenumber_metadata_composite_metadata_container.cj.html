@@ -284,12 +284,12 @@ pre
           </tr>
           <tr>
             <td class="headerName">Date:</td>
-            <td class="headerValue">2022-11-24 18:04:58</td>
+            <td class="headerValue">2022-11-30 15:50:44</td>
             <td></td>
             <td class="headerName">Lines:</td>
-            <td class="headerTableEntry">10</td>
             <td class="headerTableEntry">13</td>
-            <td class="headerTableEntry" style="background-color:Yellow">76.9 %</td>
+            <td class="headerTableEntry">13</td>
+            <td class="headerTableEntry" style="background-color:LightGreen">100.0 %</td>
           </tr>
           <tr>
             <td class="headerName">Legend:</td>
@@ -300,9 +300,9 @@ pre
             </td>
             <td></td>
             <td class="headerName">Branches:</td>
-            <td class="headerTableEntry">1</td>
-            <td class="headerTableEntry">2</td>
-            <td class="headerTableEntry" style="background-color:LightPink">50.0 %</td>
+            <td class="headerTableEntry">-</td>
+            <td class="headerTableEntry">-</td>
+            <td class="headerTableEntry" style="background-color:LightGreen">-</td>
           </tr>
         </table>
       </td>
@@ -413,14 +413,14 @@ pre
 <tr>
 <td align="right" class="lineno"><pre>16</pre></td>
 <td align="right" class="linebranch"></td>
-<td align="center" class="linecount uncoveredLine"><pre>N</pre></td>
-<td align="left" class="src uncoveredLine"><pre>    func getMetadataBy(countryCallingCode: Int32): PhonemetadataPhoneMetadata {</pre></td>
+<td align="center" class="linecount coveredLine"><pre>Y</pre></td>
+<td align="left" class="src coveredLine"><pre>    func getMetadataBy(countryCallingCode: Int32): PhonemetadataPhoneMetadata {</pre></td>
 </tr>
 <tr>
 <td align="right" class="lineno"><pre>17</pre></td>
 <td align="right" class="linebranch"></td>
-<td align="center" class="linecount uncoveredLine"><pre>N</pre></td>
-<td align="left" class="src uncoveredLine"><pre>        return metadataByCountryCode.getMetadataBy(countryCallingCode).getOrThrow()</pre></td>
+<td align="center" class="linecount coveredLine"><pre>Y</pre></td>
+<td align="left" class="src coveredLine"><pre>        return metadataByCountryCode.getMetadataBy(countryCallingCode).getOrThrow()</pre></td>
 </tr>
 <tr>
 <td align="right" class="lineno"><pre>18</pre></td>
@@ -448,13 +448,7 @@ pre
 </tr>
 <tr>
 <td align="right" class="lineno"><pre>22</pre></td>
-<td align="right" class="linebranch"><details class="linebranchDetails">
-<summary class="linebranchSummary">1/2</summary>
-<div class="linebranchContents">
-<div class="takenBranch">&check; Branch 0 taken 24 times.</div><div class="notTakenBranch">&cross; Branch 1 not taken.</div>
-</div>
-</details>
-</td>
+<td align="right" class="linebranch"></td>
 <td align="center" class="linecount coveredLine"><pre>Y</pre></td>
 <td align="left" class="src coveredLine"><pre>        if (GeoEntityUtility.isGeoEntity(regionCode)) {</pre></td>
 </tr>
@@ -473,8 +467,8 @@ pre
 <tr>
 <td align="right" class="lineno"><pre>25</pre></td>
 <td align="right" class="linebranch"></td>
-<td align="center" class="linecount uncoveredLine"><pre>N</pre></td>
-<td align="left" class="src uncoveredLine"><pre>            metadataByRegionCode.accept(phoneMetadata)</pre></td>
+<td align="center" class="linecount coveredLine"><pre>Y</pre></td>
+<td align="left" class="src coveredLine"><pre>            metadataByCountryCode.accept(phoneMetadata)</pre></td>
 </tr>
 <tr>
 <td align="right" class="lineno"><pre>26</pre></td>

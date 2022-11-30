@@ -73,6 +73,9 @@ public let PHONE_NUMBER_METADATA_US: ArrayList<String> = ArrayList(
     "(\\d{3})(\\d{3})(\\d{4})", "($1) $2-$3", "1", "[2-9]", "false", "false", "true", "1", "(\\d{3})(\\d{3})(\\d{4})",
     "$1-$2-$3", "1", "[2-9]", "false", "false", "false", "true", "false", "false", "true"])
 
+public let PHONE_NUMBER_METADATA_881: ArrayList<String> = ArrayList(
+    ["1", "true", "true", "[0-36-9]\\d{8}", "1", "9", "0", "false", "true", "false", "1", "-1", "0", "false", "true", "true", "[0-36-9]\\d{8}", "0", "0", "true", "612345678", "true", "false", "1", "-1", "0", "false", "true", "false", "1", "-1", "0", "false", "true", "false", "1", "-1", "0", "false", "true", "false", "1", "-1", "0", "false", "true", "false", "1", "-1", "0", "false", "true", "false", "1", "-1", "0", "false", "true", "false", "1", "-1", "0", "false", "false", "true", "false", "1", "-1", "0", "false", "false", "false", "false", "false", "true", "false", "1", "-1", "0", "false", "001", "881", "", "false", "false", "false", "false", "false", "false", "1", "(\\d)(\\d{3})(\\d{5})", "$1 $2 $3", "1", "[0-36-9]", "false", "false", "false", "0", "false", "false", "false", "false"])
+
 public let PHONE_NUMBER_ALTERNATE_FORMATS_7: ArrayList<String> = ArrayList(
     ["1", "false", "false", "false", "false", "false", "false", "false", "false", "false", "false", "false", "false",
     "false", "false", "false", "false", "false", "", "7", "", "false", "false", "false", "false", "false", "false", "6",
@@ -96,7 +99,7 @@ public let SHORT_NUMBER_METADATA_CN: ArrayList<String> = ArrayList(
     "CN", "0", "", "false", "false", "false", "false", "false", "false", "0", "0", "false", "false", "false", "false"])
 
 public let PHONE_NUMBER_METADATA_MAP: HashMap<String, ArrayList<String>> = HashMap<String, ArrayList<String>>(
-    [("CN", PHONE_NUMBER_METADATA_CN), ("US", PHONE_NUMBER_METADATA_US)])
+    [("CN", PHONE_NUMBER_METADATA_CN), ("US", PHONE_NUMBER_METADATA_US), ("881", PHONE_NUMBER_METADATA_881)])
 
 public let PHONE_NUMBER_ALTERNATE_FORMATS_MAP: HashMap<String, ArrayList<String>> = HashMap<String, ArrayList<String>>(
     [("7", PHONE_NUMBER_ALTERNATE_FORMATS_7)])
