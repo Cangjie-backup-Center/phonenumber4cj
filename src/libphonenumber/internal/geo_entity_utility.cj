@@ -13,6 +13,4 @@ public class GeoEntityUtility {
         var regionCodesForCountryCallingCode = CountryCodeToRegionCodeMap.getCountryCodeToRegionCodeMap().get(countryCallingCode).getOrThrow()
         return !regionCodesForCountryCallingCode.isEmpty() && !regionCodesForCountryCallingCode.contains(REGION_CODE_FOR_NON_GEO_ENTITIES)
     }
-
-    private init() {}
 }

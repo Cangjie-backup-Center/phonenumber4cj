@@ -36,5 +36,16 @@ main() {
     if (format11 != "0012132823146") {
         return 1
     }
+
+    //"+881 7 311 10007", "001"
+    var phoneNumber6: PhoneNumber = PhoneNumber()
+    phoneNumber6.setCountryCodes(881)
+    phoneNumber6.setNationalNumbers(731110007)
+    var format12: String = phoneNumberUtil.formatNationalNumberWithCarrierCode(phoneNumber6, "001")
+    println("format12 ==> " + format12)
+    if (format12 != "7 311 10007") {
+        return 1
+    }
+
     return 0
 }

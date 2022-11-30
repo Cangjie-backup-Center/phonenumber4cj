@@ -124,16 +124,10 @@ public open class PhonemetadataNumberFormat <: Equatable<PhonemetadataNumberForm
     }
 
     public operator func ==(rhs: PhonemetadataNumberFormat): Bool {
-        return match (rhs as PhonemetadataNumberFormat) {
-            case Some(x) => refEq(this, x)
-            case None => false
-        }
+        return refEq(this, rhs)
     }
     public operator func !=(rhs: PhonemetadataNumberFormat): Bool {
-        return match (rhs as PhonemetadataNumberFormat) {
-            case Some(x) => !refEq(this, x)
-            case None => false
-        }
+        return !refEq(this, rhs)
     }
 }
 
@@ -276,17 +270,11 @@ public open class PhonemetadataPhoneNumberDesc <: Equatable<PhonemetadataPhoneNu
     }
 
     public operator func ==(rhs: PhonemetadataPhoneNumberDesc): Bool {
-        return match (rhs as PhonemetadataPhoneNumberDesc) {
-            case Some(x) => refEq(this, x)
-            case None => false
-        }
+        return refEq(this, rhs)
     }
 
     public operator func !=(rhs: PhonemetadataPhoneNumberDesc): Bool {
-        return match (rhs as PhonemetadataPhoneNumberDesc) {
-            case Some(x) => !refEq(this, x)
-            case None => false
-        }
+        return !refEq(this, rhs)
     }
 }
 
@@ -1057,16 +1045,10 @@ public open class PhonemetadataPhoneMetadata <: Equatable<PhonemetadataPhoneMeta
     }
 
     public operator func ==(rhs: PhonemetadataPhoneMetadata): Bool {
-        return match (rhs as PhonemetadataPhoneMetadata) {
-            case Some(x) => refEq(this, x)
-            case None => false
-        }
+        return refEq(this, rhs)
     }
     public operator func !=(rhs: PhonemetadataPhoneMetadata): Bool {
-        return match (rhs as PhonemetadataPhoneMetadata) {
-            case Some(x) => !refEq(this, x)
-            case None => false
-        }
+        return !refEq(this, rhs)
     }
 }
 
@@ -1138,6 +1120,6 @@ public class PhoneMetadataCollectionBuilder <: PhonemetadataPhoneMetadataCollect
         class_out = PhonemetadataPhoneMetadataCollection()
     }
     public func build(): PhonemetadataPhoneMetadataCollection {
-        return this
+        return class_out
     }
 }
