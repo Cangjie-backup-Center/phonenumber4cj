@@ -112,9 +112,6 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
     }
 
     public func setExtensions(value: String): PhoneNumber {
-        if (value.isEmpty()) {
-            throw Exception("Null Pointer")
-        }
         hasExtension = true
         extension_ = value
         return this
@@ -175,9 +172,6 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
     }
 
     public func setRawInputs(value: String): PhoneNumber {
-        if (value.isEmpty()) {
-            throw Exception("Null Pointer")
-        }
         hasRawInput = true
         rawInput_ = value
         return this
@@ -218,9 +212,6 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
     }
 
     public func setPreferredDomesticCarrierCodes(value: String): PhoneNumber {
-        if (value.isEmpty()) {
-            throw Exception("Null Pointer")
-        }
         hasPreferredDomesticCarrierCode = true
         preferredDomesticCarrierCode_ = value
         return this
