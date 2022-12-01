@@ -359,7 +359,6 @@ public open class PhoneNumberUtil {
           }
         }
         var formattedNumber: StringBuilder = StringBuilder()
-        //showPhoneNumber(number)
         format(number, numberFormat, formattedNumber)
         return formattedNumber.toString()
     }
@@ -716,7 +715,7 @@ public open class PhoneNumberUtil {
                     res = numberFormatRuleTmp.replace("$${i}", x.matchStr(i))
                     numberFormatRuleTmp = res
                 }
-            case None => ()
+            case None => res = m.getString()
         }
         return res
     }

@@ -133,21 +133,21 @@ public open class PhonemetadataNumberFormat {
      * PhonemetadataNumberFormat 的无参构造器
      *
      */
-    public init()
+    1201转测 public init()
 
     /*
      * 判断是否含有模式匹配函数
      *
      * 返回是否含有模式匹配函数，若含有，返回 ture；否则，返回 false
      */
-    public func hasPatternFunc(): Bool
+    1201转测 public func hasPatternFunc(): Bool
 
     /*
      * 从对象中获取模式匹配
      *
      * 返回 String 类型的字符串
      */
-    public func getPattern(): String
+    1201转测 public func getPattern(): String
 
     /*
      * 设置模式匹配函数
@@ -156,21 +156,21 @@ public open class PhonemetadataNumberFormat {
      *
      * 返回含有匹配模式的 PhonemetadataNumberFormat 装配类对象
      */
-    public func setPattern(value: String): PhonemetadataNumberFormat
+    1201转测 public func setPattern(value: String): PhonemetadataNumberFormat
 
     /*
      * 判断是否含有格式化函数
      *
      * 返回是否含有格式化函数，若含有，返回 ture；否则，返回 false
      */
-    public func hasFormatFunc(): Bool
+    1201转测 public func hasFormatFunc(): Bool
 
     /*
      * 从对象中获取格式化函数
      *
      * 返回 String 类型的字符串
      */
-    public func getFormat(): String
+    1201转测 public func getFormat(): String
 
     /*
      * 设置格式化函数
@@ -179,28 +179,28 @@ public open class PhonemetadataNumberFormat {
      *
      * 返回含有格式化函数的 PhonemetadataNumberFormat 装配类对象
      */
-    public func setFormat(value: String): PhonemetadataNumberFormat
+    1201转测 public func setFormat(value: String): PhonemetadataNumberFormat
 
     /*
      * 获取数字主导匹配模式集合
      *
      * 返回数字主导匹配模式集合
      */
-    public func leadingDigitPatterns(): ArrayList<String>
+    1201转测 public func leadingDigitPatterns(): ArrayList<String>
 
     /*
      * 数字主导匹配模式集合大小
      *
      * 返回 Int32 类型数据
      */
-    public func leadingDigitsPatternSize(): Int32
+    1201转测 public func leadingDigitsPatternSize(): Int32
 
     /*
      * 获取数字主导匹配模式集合大小
      *
      * 返回 Int32 类型数据
      */
-    public func getLeadingDigitsPatternCount(): Int32
+    1201转测 public func getLeadingDigitsPatternCount(): Int32
 
     /*
      * 获取数字主导匹配模式集合中的值
@@ -209,7 +209,7 @@ public open class PhonemetadataNumberFormat {
      *
      * 返回 option 类型，表示集合中的值
      */
-    public func getLeadingDigitsPatternCount(index: Int32): Option<String>
+    1201转测 public func getLeadingDigitsPatternCount(index: Int32): Option<String>
 
     /*
      * 获取数字主导匹配模式集合中的值
@@ -218,7 +218,7 @@ public open class PhonemetadataNumberFormat {
      *
      * 返回 option<String> 类型，表示集合中的值
      */
-    public func getLeadingDigitsPatternCount(index: Int32): Option<String>
+    1201转测 public func getLeadingDigitsPatternCount(index: Int32): Option<String>
 
     /*
      * 判断是否含有格式化规则的国家前缀函数
@@ -226,14 +226,14 @@ public open class PhonemetadataNumberFormat {
      *
      * 返回是否含有格式化规则的国家前缀函数，若含有，则为 true；反之，为 false
      */
-    public func hasNationalPrefixFormattingRuleFunc(): Bool
+    1201转测 public func hasNationalPrefixFormattingRuleFunc(): Bool
 
     /*
      * 获取格式化规则的国家前缀函数
      *
      * 返回 String 类型的字符串
      */
-    public func getNationalPrefixFormattingRule(): String
+    1201转测 public func getNationalPrefixFormattingRule(): String
 
     /*
      * 设置格式化规则的国家前缀函数
@@ -242,28 +242,28 @@ public open class PhonemetadataNumberFormat {
      *
      * 返回含有格式化规则的国家前缀函数的 PhonemetadataNumberFormat 装配类对象
      */
-    public func setNationalPrefixFormattingRule(value: String): PhonemetadataNumberFormat
+    1201转测 public func setNationalPrefixFormattingRule(value: String): PhonemetadataNumberFormat
 
     /*
      * 清除格式化规则的国家前缀函数
      *
      * 返回清除格式化规则的国家前缀函数后的 PhonemetadataNumberFormat 装配类对象
      */
-    public func clearNationalPrefixFormattingRule(): PhonemetadataNumberFormat
+    1201转测 public func clearNationalPrefixFormattingRule(): PhonemetadataNumberFormat
 
     /*
      * 判断当格式化时是否含有国家前缀可选项函数
      *
      * 返回格式化时是否含有国家前缀可选项函数，若含有，则为 true；反之，为 false
      */
-    public func hasNationalPrefixOptionalWhenFormattingFunc(): Bool
+    1201转测 public func hasNationalPrefixOptionalWhenFormattingFunc(): Bool
 
     /*
      * 获取格式化国家前缀可选项函数
      *
      * 返回格式化时是否含有国家前缀可选项函数，若含有，则为 true；反之，为 false
      */
-    public func getNationalPrefixOptionalWhenFormatting(): Bool
+    1201转测 public func getNationalPrefixOptionalWhenFormatting(): Bool
 
     /*
      * 设置格式化时国家前缀可选项函数
@@ -272,21 +272,21 @@ public open class PhonemetadataNumberFormat {
      *
      * 返回含有格式化时国家前缀可选项函数的 PhonemetadataNumberFormat 装配类对象
      */
-    public func setNationalPrefixOptionalWhenFormatting(value: Bool): PhonemetadataNumberFormat
+    1201转测 public func setNationalPrefixOptionalWhenFormatting(value: Bool): PhonemetadataNumberFormat
 
     /*
      * 判断是否含有与运营商相关的格式化规则函数
      *
      * 返回是否含有与运营商相关的格式化规则函数，若含有，则为 true；反之，为 false
      */
-    public func hasDomesticCarrierCodeFormattingRuleFunc(): Bool
+    1201转测 public func hasDomesticCarrierCodeFormattingRuleFunc(): Bool
 
     /*
      * 获取与运营商相关的格式化规则函数
      *
      * 返回 String 类型的字符串
      */
-    public func getDomesticCarrierCodeFormattingRule(): String
+    1201转测 public func getDomesticCarrierCodeFormattingRule(): String
 
     /*
      * 设置与运营商相关的格式化规则函数
@@ -295,7 +295,7 @@ public open class PhonemetadataNumberFormat {
      *
      * 返回含有与运营商相关的格式化规则函数的 PhonemetadataNumberFormat 装配类对象
      */
-    public func setDomesticCarrierCodeFormattingRule(value: String): PhonemetadataNumberFormat
+    1201转测 public func setDomesticCarrierCodeFormattingRule(value: String): PhonemetadataNumberFormat
 
     /*
      * 读取数据
@@ -311,7 +311,7 @@ public open class PhonemetadataNumberFormat {
      *
      * 返回两个对象是否相等，若相等，则为 true;反之，为 false
      */
-    public operator func ==(rhs: PhonemetadataNumberFormat): Bool
+    1201转测 public operator func ==(rhs: PhonemetadataNumberFormat): Bool
 
     /*
      * 判断两个对象是否不相等
@@ -320,7 +320,7 @@ public open class PhonemetadataNumberFormat {
      *
      * 返回两个对象是否相等，若相等，则为 true;反之，为 false
      */
-    public operator func !=(rhs: PhonemetadataNumberFormat): Bool
+    1201转测 public operator func !=(rhs: PhonemetadataNumberFormat): Bool
 }
 ```
 
@@ -1162,6 +1162,74 @@ public static func createInstance(metadataSource: MetadataSource): Option<PhoneN
 public open func getRegionCodeForCountryCode(countryCallingCode: Int32): String
 public func buildNationalNumberForParsing(numberToParse: String, nationalNumber: StringBuilder): Unit
 public static func matchCountryCodeSource(countryCodeSource: CountryCodeSource): String
+/**
+ * 通过枚举类型格式化电话号码，并返回.
+ *
+ * @param number of PhoneNumber, 电话号类型，可以通过解析得到或构造获得
+ * @param numberFormat of PhoneNumberFormat, 枚举类型，包含4种格式化的类型，E164, INTERNATIONAL, NATIONAL, RFC3966.
+ *
+ * @return Type of String 返回格式化后的电话号码.
+ */
+1201转测 public open func format(number: PhoneNumber, numberFormat: PhoneNumberFormat): String
+/**
+ * 通过枚举类型格式化电话号码，并返回.
+ *
+ * @param number of PhoneNumber, 电话号类型，可以通过解析得到或构造获得
+ * @param numberFormat of PhoneNumberFormat 枚举类型，包含4种格式化的类型，E164, INTERNATIONAL, NATIONAL, RFC3966.
+ * @param formattedNumber of StringBuilder 格式化的内容存放容器.
+ *
+ * @return Type of Unit
+ */
+1201转测 public open func format(number: PhoneNumber, numberFormat: PhoneNumberFormat, formattedNumber: StringBuilder): Unit
+/**
+ * 通过枚举类型和自定义的PhonemetadataNumberFormat格式化电话号码，并返回.
+ *
+ * @param number of PhoneNumber, 电话号类型，可以通过解析得到或构造获得. 
+ * @param numberFormat of PhoneNumberFormat, 枚举类型，包含4种格式化的类型，E164, INTERNATIONAL, NATIONAL, RFC3966.
+ * @param userDefinedFormats of ArrayList<PhonemetadataNumberFormat> PhonemetadataNumberFormat类型需要setPattern和setFormat, 以集合中第一个正常匹配的为准.
+ *
+ * @return Type of String, 返回格式化后的电话号码.
+ */
+1201转测 public open func formatByPattern(number: PhoneNumber, numberFormat: PhoneNumberFormat, userDefinedFormats: ArrayList<PhonemetadataNumberFormat>): String
+/**
+ * 当getNumberFormatList或getIntlNumberFormatList获得的NumberFormat对象中的满足一定条件后
+ * 会带数据如的运营商号码进行格式化
+ *
+ * @param number of PhoneNumber, 电话号类型，可以通过解析得到或构造获得.
+ * @param carrierCode of String, 运营商号码
+ *
+ * @return Type of String, 返回格式化后的电话号码.
+ */
+1201转测 public open func formatNationalNumberWithCarrierCode(number: PhoneNumber, carrierCode: String): String
+/**
+ * 和formatNationalNumberWithCarrierCode不同的是，此方法会优先考虑setPreferredDomesticCarrierCode成员的值，进行格式化.
+ *
+ * @param number of PhoneNumber, 电话号类型，可以通过解析得到或构造获得
+ * @param fallbackCarrierCode of String, 运营商号码
+ *
+ * @return Type of String, 返回格式化后的电话号码.
+ */
+1201转测 public open func formatNationalNumberWithPreferredCarrierCode(number: PhoneNumber, fallbackCarrierCode: String): String
+/**
+ * 根据呼叫来源格式化
+ *
+ * @param number of PhoneNumber, 电话号类型，可以通过解析得到或构造获得
+ * @param regionCallingFrom of String, 呼叫来源， 支持US, CN
+ * @param withFormatting of Bool
+ *
+ * @return Type of String
+ */
+1201转测 public open func formatNumberForMobileDialing(number: PhoneNumber, regionCallingFrom: String, withFormatting: Bool): String
+1201转测 public open func formatOutOfCountryCallingNumber(number: PhoneNumber, regionCallingFrom: String): String
+/**
+ * 根据根据呼叫来源和setRawInput格式化
+ *
+ * @param number of PhoneNumber, 电话号类型，可以通过解析得到或构造获得
+ * @param regionCallingFrom of String, 呼叫来源， 支持US, CN
+ *
+ * @return Type of String
+ */
+1201转测 public open func formatOutOfCountryKeepingAlphaChars(number: PhoneNumber, regionCallingFrom: String): String
 ```
 
 #### enum PhoneNumberFormat
@@ -1171,9 +1239,9 @@ public static func matchCountryCodeSource(countryCodeSource: CountryCodeSource):
 | INTERNATIONAL
 | NATIONAL
 | RFC3966
-public operator func == (that: PhoneNumberFormat): Bool
-public operator func != (that: PhoneNumberFormat): Bool
-public func toString(): String    
+1201转测 public operator func == (that: PhoneNumberFormat): Bool
+1201转测 public operator func != (that: PhoneNumberFormat): Bool
+1201转测 public func toString(): String    
 ```
 
 #### enum PhoneNumberType

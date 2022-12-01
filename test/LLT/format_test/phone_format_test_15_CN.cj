@@ -49,5 +49,17 @@ main() {
     if (format22 != "1 (213) 282-3146") {
         return 1
     }
+
+    phoneNumber.setRawInputs("abc")
+    var format23: String = phoneNumberUtil.formatOutOfCountryKeepingAlphaChars(phoneNumber, "CN")
+    var format24: String = phoneNumberUtil.formatOutOfCountryKeepingAlphaChars(phoneNumber, "US")
+    println("format23 ==> ${format23}")
+    if (format23 != "ABC") {
+        return 1
+    }
+    println("format24 ==> ${format24}")
+    if (format24 != "011 86 ABC") {
+        return 1
+    }
     return 0
 }
