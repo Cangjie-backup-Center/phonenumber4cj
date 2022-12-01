@@ -221,7 +221,7 @@ public open class PhoneNumberUtil {
         let res1: Option<MatchData> = m.find()
         match (res1) {
             case Some(v) => 
-                num = number.substring(v.matchPosition().start, number.size)
+                num = number[v.matchPosition().start..]
                 let trailingCharsMatcher: Matcher = UNWANTED_END_CHAR_PATTERN.matcher(number)
                 let res2: Option<MatchData> = trailingCharsMatcher.find()
                 match (res2) {
@@ -231,7 +231,7 @@ public open class PhoneNumberUtil {
                         match (matd) {
                             case Some(y) =>
                                 let s: String = y.matchStr()
-                                num = number.substring(0, y.matchPosition().start)
+                                num = number[..y.matchPosition().start]
                             case None => ()
                         }
                     case None => ()
@@ -240,7 +240,7 @@ public open class PhoneNumberUtil {
                 let res3: Option<MatchData> = secondNumber.find()
                 match (res3) {
                     case Some(w) =>
-                        num = number.substring(0, w.matchPosition().start)
+                        num = number[..w.matchPosition().start]
                     case None => ()
                 }
                 return num
@@ -1166,10 +1166,10 @@ public open class PhoneNumberUtil {
             let opt: Option<MatchData> = PLUS_CHARS_PATTERN.matcher(numberToParse).matchStart()
                 match (opt) {
                     case Some(v) =>
-                        if ((numberToParse.isEmpty()) || (numberToParse.size == 0) || !v.groupNumber() > 0) {
+                        if ((numberToParse.size == 0) || !v.groupNumber() > 0) {
                             return false
                         }
-                    case None => () 
+                    case None => return false
                 }
         }
         return true
@@ -1215,7 +1215,6 @@ public open class PhoneNumberUtil {
 
         var nationalNumber: StringBuilder = StringBuilder()
         buildNationalNumberForParsing(numberToParse, nationalNumber)
-
         if (!isViablePhoneNumber(nationalNumber.toString())) {
             throw NumberParseException(ErrorType.NOT_A_NUMBER,
                                      "The string supplied did not seem to be a phone number.")
