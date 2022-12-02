@@ -462,7 +462,7 @@ public open class PhoneNumberUtil {
         var formattedNumber: String = "";
         var numberNoExt: PhoneNumber = PhoneNumber().mergeFrom(number).clearExtensions()
         var regionCode: String = getRegionCodeForCountryCode(countryCallingCode)
-        var numberType: PhoneNumberType = getNumberType(numberNoExt) // 工作节点
+        var numberType: PhoneNumberType = getNumberType(numberNoExt)
         var isValidNumber: Bool = (numberType != PhoneNumberType.UNKNOWN)
         if (regionCallingFrom.equals(regionCode)) {
             var  isFixedLineOrMobile: Bool = (numberType == PhoneNumberType.FIXED_LINE) || (numberType == PhoneNumberType.MOBILE) || (numberType == PhoneNumberType.FIXED_LINE_OR_MOBILE)
@@ -886,6 +886,24 @@ public open class PhoneNumberUtil {
             throw IllegalArgumentException("Invalid region code: " + regionCode);
         }
         return metadata.getCountryCode()
+    }
+
+    public func getCountryCodeForRegion(regionCode: String): Int32 {
+        if (!isValidRegionCode(regionCode)) {
+            return 0
+        }
+      return getCountryCodeForValidRegion(regionCode)
+    }
+
+    static func formattingRuleHasFirstGroupOnly(nationalPrefixFormattingRule: String): Bool {
+      return (nationalPrefixFormattingRule.size == 0) || (findRes(FIRST_GROUP_ONLY_PREFIX_PATTERN.matcher(nationalPrefixFormattingRule).fullMatch()))
+    }
+
+    static func findRes(matchData: Option<MatchData>): Bool {
+        return match (matchData) {
+            case Some(x) => true
+            case None => false
+        }
     }
 
     public open func isNANPACountry(regionCode: String): Bool {
@@ -1371,6 +1389,10 @@ public open class PhoneNumberUtil {
                 case FROM_DEFAULT_COUNTRY => "FROM_DEFAULT_COUNTRY"
                 case UNSPECIFIED => "UNSPECIFIED"
             }
+    }
+
+    public func getAsYouTypeFormatter(regionCode: String): AsYouTypeFormatter {
+        return AsYouTypeFormatter(regionCode)
     }
 
 }
