@@ -77,6 +77,7 @@
 │           ├── phone_metadata_filename_provider.cj
 │           ├── region_metadata_source.cj
 │           ├── region_metadata_source_impl.cj
+│       ├── phone_number_matcher.cj
 │       ├── phone_number_util.cj
 │   └── prefixmapper
 └── test   
@@ -112,7 +113,7 @@ cjc -v;
 ### 运行
 
 ```cangjie
- cjc phone_parse_test_01_CN.cj
+ cjc phone_parse_test_01_US.cj
  ./main
  echo $?
 ```
@@ -123,7 +124,7 @@ cjc -v;
 
 ```cangjie
 // EXEC: cjc %import-path %L %l %f
-// EXEC: ./main
+// EXEC: export CJSTACKSIZE=10mb && ./main
 from std import collection.*
 from phonenumber import libphonenumber.inter.*
 from phonenumber import libphonenumber.data.*
