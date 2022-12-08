@@ -585,7 +585,7 @@ public open class PhoneNumberUtil {
         var internationalPrefixForFormatting: String = ""
         if (metadataForRegionCallingFrom != PhonemetadataPhoneMetadata()) {
             var internationalPrefix: String = metadataForRegionCallingFrom.getInternationalPrefix();
-            if ( findAllResult(SINGLE_INTERNATIONAL_PREFIX.matcher(internationalPrefix).findAll()) ) {
+            if (findRes(SINGLE_INTERNATIONAL_PREFIX.matcher(internationalPrefix).fullMatch())) {
                 internationalPrefixForFormatting = internationalPrefix
             }else {
                 internationalPrefixForFormatting = metadataForRegionCallingFrom.getPreferredInternationalPrefix()
