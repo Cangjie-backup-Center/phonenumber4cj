@@ -203,22 +203,22 @@ public open class PhonemetadataNumberFormat {
     1201转测 public func getLeadingDigitsPatternCount(): Int32
 
     /*
-     * 获取数字主导匹配模式集合中的值
+     * 根据序列号得到Pattern
      *
      * 参数 index - Int32 类型数据
      *
      * 返回 option 类型，表示集合中的值
      */
-    1201转测 public func getLeadingDigitsPatternCount(index: Int32): Option<String>
+    1201转测 public func getLeadingDigitsPattern(index: Int32): Option<String>
 
     /*
-     * 获取数字主导匹配模式集合中的值
+     * 向leadingDigitsPattern_中添加Pattern数据
      *
      * 参数 index - Int32 类型数据
      *
      * 返回 option<String> 类型，表示集合中的值
      */
-    1201转测 public func getLeadingDigitsPatternCount(index: Int32): Option<String>
+    1201转测 public func addLeadingDigitsPattern(value: Option<String>): PhonemetadataNumberFormat
 
     /*
      * 判断是否含有格式化规则的国家前缀函数
@@ -1230,6 +1230,53 @@ public static func matchCountryCodeSource(countryCodeSource: CountryCodeSource):
  * @return Type of String
  */
 1201转测 public open func formatOutOfCountryKeepingAlphaChars(number: PhoneNumber, regionCallingFrom: String): String
+/**
+ * 获得即时格式化对象
+ *
+ * @param regionCode of String, 地区码, 支持CN,US
+ *
+ * @return Type of AsYouTypeFormatter
+ */
+1208转测 public func getAsYouTypeFormatter(regionCode: String): AsYouTypeFormatter
+```
+
+#### class AsYouTypeFormatter
+
+```cangjie
+/**
+ * The Function is init constructor
+ *
+ * @param regionCode of String, 地区码, 支持CN,US
+ */
+1208转测 public init (regionCode: String)
+/**
+ * 添加即时格式字符
+ *
+ * @param nextChar of Char, 即时格式化字符
+ *
+ * @return Type of String
+ */
+1208转测 public func inputDigit (nextChar: Char): String
+/**
+ * 添加即时格式字符, 并记录位置
+ *
+ * @param nextChar of Char, 即时格式化字符
+ *
+ * @return Type of String
+ */
+1208转测 public func inputDigitAndRememberPosition (nextChar: Char): String
+/**
+ * 获得记录字符从1开始的位置
+ *
+ * @return Type of Int32 若发生格式则为格式化后的位置, 调用是返回最近的inputDigitAndRememberPosition字符的位置.
+ */
+1208转测 public func getRememberedPosition (): Int32
+/**
+ * 清除之前加入的即时格式化内容
+ *
+ * @return Type of Unit
+ */
+1208转测 public func clear (): Unit 
 ```
 
 #### enum PhoneNumberFormat
