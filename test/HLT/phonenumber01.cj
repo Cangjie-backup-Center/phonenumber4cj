@@ -1,6 +1,4 @@
 //3rd_party_lib:phonenumber/build/phonenumber
-// EXEC: cjc %import-path %L %l %f
-// EXEC: ./main
 from std import collection.*
 from phonenumber import libphonenumber.inter.*
 from phonenumber import libphonenumber.data.*
