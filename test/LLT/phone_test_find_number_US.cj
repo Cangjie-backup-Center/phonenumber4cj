@@ -9,6 +9,14 @@ main() {
     var phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
     var zipPreceding: String = "ads asd+1-4168765282 1-4168765282666"
     var iterator: Iterator<PhoneNumberMatch> = phoneUtil.findNumbers(zipPreceding, "US").iterator()
+    var m = MatchType.NO_MATCH
+    var m2 = MatchType.NOT_A_NUMBER
+    if (m == m2) {
+        m.toString()
+    }
+    if (m != m2) {
+        println(m2.toString())
+    }
     while (true) {
         match (iterator.next()) {
             case Some(v) => 
