@@ -1,5 +1,5 @@
 // EXEC: cjc %import-path %L %l %f
-// EXEC: ./main
+// EXEC: export CJSTACKSIZE=10mb && ./main
 from std import collection.*
 from std import io.*
 from phonenumber import libphonenumber.metadata.*

@@ -1,5 +1,5 @@
 // EXEC: cjc %import-path %L %l %f
-// EXEC: ./main
+// EXEC: export CJSTACKSIZE=10mb && ./main
 from std import collection.*
 from phonenumber import libphonenumber.inter.*
 from phonenumber import libphonenumber.data.*
