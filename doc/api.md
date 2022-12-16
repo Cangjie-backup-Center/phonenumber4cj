@@ -1238,6 +1238,70 @@ public static func matchCountryCodeSource(countryCodeSource: CountryCodeSource):
  * @return Type of AsYouTypeFormatter
  */
 1208转测 public func getAsYouTypeFormatter(regionCode: String): AsYouTypeFormatter
+
+/**
+ * 判断传入的电话号码是否有效
+ *
+ * @param number 传入一个电话号码
+ *
+ * @return 返回判断传入的电话号码是否有效，若有效，则为 true，反之，为 false
+ */
+1215转测 public func isValidNumber(number: PhoneNumber): Bool
+
+/**
+ * 根据传入的区域代码判断传入的电话号码是否有效
+ *
+ * @param number 传入一个电话号码
+ * @param regionCode String 类型字符串
+ *
+ * @return 返回判断传入的电话号码是否有效，若有效，则为 true，反之，为 false
+ */
+1215转测 public func isValidNumberForRegion(number: PhoneNumber, regionCode: String): Bool
+
+/**
+ * 当 RawInput 为 true 时，解析电话号码并返回
+ *
+ * @param numberToParse 传入将要被解析的电话号码
+ * @param defaultRegion String 类型字符串
+ *
+ * @return 返回解析后的电话号码
+ */
+1215转测 public open func parseAndKeepRawInput(numberToParse: String, defaultRegion: String): PhoneNumber
+
+/**
+ * 数字查找功能，根据输入的文本信息查找电话号码
+ *
+ * @param text 传入的文本信息
+ * @param defaultRegion String 类型字符串
+ *
+ * @return 返回 PhoneNumberMatch 类型的迭代器
+ */
+1215转测 public func findNumbers(text: String, defaultRegion: String): Iterable<PhoneNumberMatch>
+
+/**
+ * 判断两个 MatchType 是否相等
+ *
+ * @param that 传入的另外一个 MatchType
+ *
+ * @return 返回两个 MatchType 是否相等，若相等，返回 true，反之，返回 false
+ */
+1215转测 public operator func == (that: MatchType): Bool
+
+/**
+ * 判断两个 MatchType 是否不相等
+ *
+ * @param that 传入的另外一个 MatchType
+ *
+ * @return 返回两个 MatchType 是否不相等，若相等，返回 true，反之，返回 false
+ */
+1215转测 public operator func != (that: MatchType): Bool
+
+/**
+ * 返回字符串
+ *
+ * @return 返回字符串
+ */
+1215转测 public func toString(): String
 ```
 
 #### class AsYouTypeFormatter
@@ -1291,6 +1355,16 @@ public static func matchCountryCodeSource(countryCodeSource: CountryCodeSource):
 1201转测 public func toString(): String    
 ```
 
+#### enum State
+
+```cangjie
+| NOT_READY
+| READY
+| DONE
+1215转测 public operator func == (that: State): Bool
+1215转测 public operator func != (that: State): Bool
+1215转测 public func toString(): String    
+```
 #### enum PhoneNumberType
 
 ```cangjie
