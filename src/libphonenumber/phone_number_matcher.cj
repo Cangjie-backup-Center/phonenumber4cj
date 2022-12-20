@@ -108,6 +108,10 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
             }
             i = start + candidate.size
             maxTries = maxTries - 1
+            if (i == end) {
+                break
+            }
+            mcMatch = mc.find(i)
         }
         return Option<PhoneNumberMatch>.None
     }
