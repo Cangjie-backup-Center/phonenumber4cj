@@ -1,6 +1,7 @@
 package libphonenumber
 from std import regex.*
 from std import collection.*
+from std import unicode.*
 
 class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
 
@@ -108,7 +109,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
             }
             i = start + candidate.size
             maxTries = maxTries - 1
-            if (i == end) {
+            if (i == text.size) {
                 break
             }
             mcMatch = mc.find(i)
@@ -145,27 +146,23 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
         for (i in INNER_MATCHES) {
             var groupMatcher: Matcher = i.matcher(candidate)
             var isFirstMatch: Bool = true
-            while (maxTries > 0) {
-                match (groupMatcher.find()) {
-                    case Some(v) =>
-                        if (isFirstMatch) {
-                            var group: String = trimAfterFirstMatch(PhoneNumberUtil.UNWANTED_END_CHAR_PATTERN, candidate[..v.matchPosition().start])
-                            var m: Option<PhoneNumberMatch> = parseAndVerify(group, offset)
-                            if (let Some(v) = m) {
-                                return m
-                            }
-                            maxTries = maxTries -1
-                            isFirstMatch = false
-                        }
-                        var group: String = trimAfterFirstMatch(PhoneNumberUtil.UNWANTED_END_CHAR_PATTERN, v.matchStr(1))
-                        var n: Option<PhoneNumberMatch> = parseAndVerify(group, (offset + v.matchPosition(1).start))
-                        if (let Some(v) = n) {
-                            return n
-                        }
-                        maxTries = maxTries -1
-                    case None => ()
+            var gMatch = groupMatcher.find()
+            while (findRes(gMatch) && maxTries > 0) {
+                if (isFirstMatch) {
+                    var group: String = trimAfterFirstMatch(PhoneNumberUtil.UNWANTED_END_CHAR_PATTERN, candidate[..gMatch.getOrThrow().matchPosition().start])
+                    var m: Option<PhoneNumberMatch> = parseAndVerify(group, offset)
+                    if (let Some(v) = m) {
+                        return m
+                    }
+                    maxTries = maxTries -1
+                    isFirstMatch = false
                 }
-                break
+                var group: String = trimAfterFirstMatch(PhoneNumberUtil.UNWANTED_END_CHAR_PATTERN, gMatch.getOrThrow().matchStr(1))
+                var n: Option<PhoneNumberMatch> = parseAndVerify(group, (offset + gMatch.getOrThrow().matchPosition(1).start))
+                if (let Some(v) = n) {
+                    return n
+                }
+                maxTries = maxTries -1
             }
         }
         return Option<PhoneNumberMatch>.None
@@ -213,7 +210,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
     }
 
     static func isLatinLetter(letter: Char): Bool {
-        if (letter != '6') {
+        if (!letter.isLetter()) {
             return false
         }
         return true
