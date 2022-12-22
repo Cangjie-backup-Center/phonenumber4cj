@@ -19,7 +19,7 @@ public class AsYouTypeFormatter {
     private static let EMPTY_METADATA: PhonemetadataPhoneMetadata = PhonemetadataPhoneMetadata.newBuilder().setId("<ignored>").setInternationalPrefix("NA").build()
     private var defaultMetadata: PhonemetadataPhoneMetadata = PhonemetadataPhoneMetadata()
     private var currentMetadata: PhonemetadataPhoneMetadata = PhonemetadataPhoneMetadata()
-    private static let ELIGIBLE_FORMAT_PATTERN: Regex = Regex("[" + PhoneNumberUtil.VALID_PUNCTUATION +  "]*" + "\\$1" + "[" + PhoneNumberUtil.VALID_PUNCTUATION + "]*(\\$\\d" + "[" + PhoneNumberUtil.VALID_PUNCTUATION +  "]*)*")
+    private static let ELIGIBLE_FORMAT_PATTERN: Regex = Regex("[" + PhoneNumberUtil.VALID_PUNCTUATION +  "]*" + "\\$1" + "[" + PhoneNumberUtil.VALID_PUNCTUATION + "]*(\\$\\d" + PhoneNumberUtil.VALID_PUNCTUATION + ")*")
     private static let NATIONAL_PREFIX_SEPARATORS_PATTERN: Regex = Regex("[- ]")
     private static let MIN_LEADING_DIGITS_LENGTH: Int32 = 3
     private static let DIGIT_PLACEHOLDER: String = "\u{2008}"
@@ -211,15 +211,15 @@ public class AsYouTypeFormatter {
         currentFormattingPattern = ""
         prefixBeforeNationalNumber = StringBuilder(Char(0), 0)
         extractedNationalPrefix = ""
-        nationalNumber = StringBuilder(Char(0), 0)
         ableToFormat = true
-        inputHasFormatting = false
+        nationalNumber = StringBuilder(Char(0), 0)
         positionToRemember = 0
-        originalPosition = 0
         isCompleteNumber = false
-        isExpectingCountryCallingCode = false
         possibleFormats.clear()
+        isExpectingCountryCallingCode = false
+        inputHasFormatting = false
         shouldAddSpaceAfterNationalPrefix = false
+        originalPosition = 0
         if (!(currentMetadata == defaultMetadata)) {
           currentMetadata = getMetadataForRegion(defaultCountry)
         }
