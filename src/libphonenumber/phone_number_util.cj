@@ -740,7 +740,7 @@ public open class PhoneNumberUtil {
             case PREMIUM_RATE => return metadata.getPremiumRate().getOrThrow()
             case TOLL_FREE => return metadata.getTollFree().getOrThrow()
             case MOBILE => return metadata.getMobile().getOrThrow()
-            case FIXED_LINE => return PhonemetadataPhoneNumberDesc()
+            case FIXED_LINE => return metadata.getFixedLine().getOrThrow()
             case FIXED_LINE_OR_MOBILE => return metadata.getFixedLine().getOrThrow()
             case SHARED_COST => return metadata.getSharedCost().getOrThrow()
             case VOIP => return metadata.getVoip().getOrThrow()
@@ -1531,6 +1531,26 @@ public open class PhoneNumberUtil {
 
     public func getAsYouTypeFormatter(regionCode: String): AsYouTypeFormatter {
         return AsYouTypeFormatter(regionCode)
+    }
+
+    public func getExampleNumber (regionCode: String): Option<PhoneNumber> {
+        return getExampleNumberForType(regionCode, PhoneNumberType.FIXED_LINE)
+    }
+
+    public func getExampleNumberForType (regionCode: String, PhoneNumberType: PhoneNumberType): Option<PhoneNumber> {
+        if (!isValidRegionCode(regionCode)) {
+            logger.log(LogLevel.WARN, "Invalid or unknown region code provided: " + regionCode)
+            return Option<PhoneNumber>.None
+        }
+        var desc: PhonemetadataPhoneNumberDesc = getNumberDescByType(getMetadataForRegion(regionCode), PhoneNumberType)
+        try {
+            if (desc.hasExampleNumberFunc()) {
+                return parse(desc.getExampleNumber(), regionCode)
+            }
+        } catch (e: NumberParseException) {
+            logger.log(LogLevel.ERROR, e.toString())
+        }
+        return Option<PhoneNumber>.None
     }
 
 }
