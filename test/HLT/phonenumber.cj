@@ -342,7 +342,7 @@ public class phoneNumber_PhoneNumberUtil {
             @Assert(Phonenumber.hasPreferredDomesticCarrierCodes(),false)
             @Assert(Phonenumber.getPreferredDomesticCarrierCodes(),"")
         } catch (e: Exception) {
-            @Assert(e.toString(),"Error type: TOO_LONG. The string supplied is too long to be a phone number.")
+            @Assert(e.toString(),"Error type: NOT_A_NUMBER. The string supplied did not seem to be a phone number.")
         }
     }
 
@@ -1227,4 +1227,7 @@ public class phoneNumber_PhoneNumberUtil {
         println(Phonenumber2.hasCountryCodes())
         println(Phonenumber2.getCountryCodes())
         @Assert(Phonenumber2.hasCountryCodes(),true)
-        @Assert(Phonenumbe
+        @Assert(Phonenumber2.getCountryCodes(),86)
+	}
+
+}
