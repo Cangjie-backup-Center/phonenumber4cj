@@ -1279,6 +1279,26 @@ public static func matchCountryCodeSource(countryCodeSource: CountryCodeSource):
 1215转测 public func findNumbers(text: String, defaultRegion: String): Iterable<PhoneNumberMatch>
 
 /**
+ * 获得地区的号码示例，获得PhoneNumberType为FIXED_LINE的示例
+ *
+ * @param regionCode of String 地区码, 支持CN, US
+ *
+ * @return Type of Option<PhoneNumber>
+ * @since 0.35.6
+ */
+1229转测 public func getExampleNumber (regionCode: String): Option<PhoneNumber>
+/**
+ * 获得地区指定类型的号码示例
+ *
+ * @param regionCode of String 地区码, 支持CN, US
+ * @param PhoneNumberType of PhoneNumberType 号码类型,枚举类型PhoneNumberType分为12种类型, 具体参考PhoneNumberType类型。
+ *
+ * @return Type of Option<PhoneNumber>
+ * @since 0.35.6
+ */
+1229转测 public func getExampleNumberForType (regionCode: String, PhoneNumberType: PhoneNumberType): Option<PhoneNumber>
+
+/**
  * 判断两个 MatchType 是否相等
  *
  * @param that 传入的另外一个 MatchType
