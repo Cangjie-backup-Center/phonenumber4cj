@@ -6,7 +6,7 @@ from std import unicode.*
 class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
 
     private let phoneUtil: PhoneNumberUtil
-    private let text: String
+    private var text: String
     private let preferredRegion: String
     private let leniency: Leniency
     private var maxTries: Int64
@@ -95,6 +95,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
     }
 
     private func find(index: Int32): Option<PhoneNumberMatch> {
+        this.text = transCn(text)
         var mc: Matcher = REGEX.matcher(text)
         var i: Int64 = Int64(index)
         var mcMatch = mc.find(i)
@@ -115,6 +116,16 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
             mcMatch = mc.find(i)
         }
         return Option<PhoneNumberMatch>.None
+    }
+
+    private func transCn (text: String): String {
+        var tranStr = text
+        var compileCn: Regex = Regex("[\u{4e00}-\u{9fa5}]")
+        var num: Int64 = compileCn.matcher(text).allCount()
+        for ( i in 0..num ) {
+            tranStr = compileCn.matcher(tranStr).replace(".")
+        }
+        return tranStr
     }
 
     private func extractMatch(candidate: String, offset: Int64): Option<PhoneNumberMatch> {
@@ -297,11 +308,4 @@ enum State {
         return !(this == that)
     }
 
-    public func toString(): String {
-        return match(this) {
-            case NOT_READY => "NOT_READY"
-            case READY => "READY"
-            case DONE => "DONE"
-        }
-    }
 }

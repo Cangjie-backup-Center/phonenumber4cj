@@ -40,5 +40,4 @@ public class MetadataParser {
         return ArrayList<PhonemetadataPhoneMetadata>()
     }
 
-    private func close(inputStream: InputStream): Unit {}
 }
