@@ -188,7 +188,7 @@ public class phoneNumberutil_{
 
 
     @TestCase
-    func phoneNumber_19(): Unit {
+    func phoneNumber_17(): Unit {
 
     var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
     var iterator: Iterator<PhoneNumberMatch>=phonenumberUtil.findNumbers("18717619089","CN").iterator()
@@ -210,7 +210,7 @@ public class phoneNumberutil_{
 
     @Skip
     @TestCase
-    func phoneNumber_20(): Unit {
+    func phoneNumber_18(): Unit {
 
     var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
     var iterator: Iterator<PhoneNumberMatch>=phonenumberUtil.findNumbers("红红火火恍恍惚惚18717619089","CN").iterator()
@@ -233,7 +233,7 @@ public class phoneNumberutil_{
 
 
     @TestCase
-    func phoneNumber_21(): Unit {
+    func phoneNumber_19(): Unit {
 
     var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
     var iterator: Iterator<PhoneNumberMatch>=phonenumberUtil.findNumbers("cangjie1hhhhhhh,18717619089","CN").iterator()
@@ -255,7 +255,7 @@ public class phoneNumberutil_{
 
 
     @TestCase
-    func phoneNumber_22(): Unit {
+    func phoneNumber_20(): Unit {
 
     var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
     var iterator: Iterator<PhoneNumberMatch>=phonenumberUtil.findNumbers("cangjie13636766050hhhhhhh,18717619089","CN").iterator()
@@ -277,7 +277,7 @@ public class phoneNumberutil_{
 
 
     @TestCase
-    func phoneNumber_17(): Unit {
+    func phoneNumber_21(): Unit {
     var m = MatchType.NO_MATCH
     var m2 = MatchType.NOT_A_NUMBER
     @Assert(m.toString(),"NO_MATCH")
@@ -287,7 +287,7 @@ public class phoneNumberutil_{
 
 
     @TestCase
-    func phoneNumber_18(): Unit {
+    func phoneNumber_22(): Unit {
     var m = MatchType.NO_MATCH
     var m2=m
     @Assert(m.toString(),"NO_MATCH")
@@ -295,6 +295,181 @@ public class phoneNumberutil_{
     @Assert(m==m2,true)
     }
 
+
+    @TestCase
+    func phoneNumber_23(): Unit {
+
+    var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var us = phonenumberUtil.getExampleNumberForType ("US",PhoneNumberType.MOBILE)
+    var str=""
+        match(us) {
+        case Some(x) =>
+            println("showExamplePhoneNumber ==> ${x.getNationalNumbers()}")
+            @Assert(x.getNationalNumbers().toString(),"2015550123")
+        case None =>str="Null"
+            println(str)
+            @Assert(str,"Null")
+        }
+    }
+
+
+    @TestCase
+    func phoneNumber_24(): Unit {
+
+    var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var us = phonenumberUtil.getExampleNumberForType ("US",PhoneNumberType.FIXED_LINE_OR_MOBILE)
+    var str=""
+        match(us) {
+        case Some(x) =>
+            println("showExamplePhoneNumber ==> ${x.getNationalNumbers()}")
+            @Assert(x.getNationalNumbers().toString(),"2015550123")
+        case None =>str="Null"
+            println(str)
+            @Assert(str,"Null")
+        }
+    }
+
+
+    @TestCase
+    func phoneNumber_25(): Unit {
+
+    var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var us = phonenumberUtil.getExampleNumberForType ("US",PhoneNumberType.TOLL_FREE)
+    var str=""
+        match(us) {
+        case Some(x) =>
+            println("showExamplePhoneNumber ==> ${x.getNationalNumbers()}")
+            @Assert(x.getNationalNumbers().toString(),"8002345678")
+        case None =>str="Null"
+            println(str)
+            @Assert(str,"Null")
+        }
+    }
+
+
+
+    @TestCase
+    func phoneNumber_26(): Unit {
+
+    var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var us = phonenumberUtil.getExampleNumberForType ("US",PhoneNumberType.PREMIUM_RATE)
+    var str=""
+        match(us) {
+        case Some(x) =>
+            println("showExamplePhoneNumber ==> ${x.getNationalNumbers()}")
+            @Assert(x.getNationalNumbers().toString(),"9002345678")
+        case None =>str="Null"
+            println(str)
+            @Assert(str,"Null")
+        }
+    }
+
+
+    @TestCase
+    func phoneNumber_27(): Unit {
+
+    var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var us = phonenumberUtil.getExampleNumberForType ("US",PhoneNumberType.SHARED_COST)
+    var str=""
+        match(us) {
+        case Some(x) =>
+            println("showExamplePhoneNumber ==> ${x.getNationalNumbers()}")
+            @Assert(x.getNationalNumbers().toString(),"2015550123")
+        case None =>str="Null"
+            println(str)
+            @Assert(str,"Null")
+        }
+    }
+
+
+    
+    @TestCase
+    func phoneNumber_28(): Unit {
+
+    var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var us = phonenumberUtil.getExampleNumberForType ("US",PhoneNumberType.VOIP)
+    var str=""
+        match(us) {
+        case Some(x) =>
+            println("showExamplePhoneNumber ==> ${x.getNationalNumbers()}")
+            @Assert(x.getNationalNumbers().toString(),"2015550123")
+        case None =>str="Null"
+            println(str)
+            @Assert(str,"Null")
+
+        }
+    }
+
+
+    @TestCase
+    func phoneNumber_29(): Unit {
+
+    var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var us = phonenumberUtil.getExampleNumberForType ("US",PhoneNumberType.PERSONAL_NUMBER)
+    var str=""
+        match(us) {
+        case Some(x) =>
+            println("showExamplePhoneNumber ==> ${x.getNationalNumbers()}")
+            @Assert(x.getNationalNumbers().toString(),"5002345678")
+        case None =>str="Null"
+            println(str)
+            @Assert(str,"Null")
+        }
+    }
+
+
+
+    @TestCase
+    func phoneNumber_30(): Unit {
+
+    var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var us = phonenumberUtil.getExampleNumberForType ("US",PhoneNumberType.PAGER)
+    var str=""
+        match(us) {
+        case Some(x) =>
+            println("showExamplePhoneNumber ==> ${x.getNationalNumbers()}")
+            @Assert(x.getNationalNumbers().toString(),"2015550123")
+        case None =>str="Null"
+            println(str)
+            @Assert(str,"Null")
+        }
+    }
+
+
+
+
+
+    @TestCase
+    func phoneNumber_31(): Unit {
+
+    var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var us = phonenumberUtil.getExampleNumberForType ("US",PhoneNumberType.PREMIUM_RATE)
+    var str=""
+        match(us) {
+        case Some(x) =>
+            println("showExamplePhoneNumber ==> ${x.getNationalNumbers()}")
+            @Assert(x.getNationalNumbers().toString(),"9002345678")
+        case None =>str="Null"
+            println(str)
+            @Assert(str,"Null")
+        }
+    }
+
+
+    @TestCase
+    func phoneNumber_32(): Unit {
+
+    var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var us = phonenumberUtil.getExampleNumber("US")
+    var str=""
+        match(us) {
+        case Some(x) =>
+            println("showExamplePhoneNumber ==> ${x.getNationalNumbers()}")
+            @Assert(x.getNationalNumbers().toString(),"2015550123")
+        case None => str="None..."
+            println(str)
+        }
+    }
 }
 
     
