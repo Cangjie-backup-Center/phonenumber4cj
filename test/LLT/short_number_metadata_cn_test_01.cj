@@ -6,7 +6,7 @@ from phonenumber import libphonenumber.data.*
 
 main() {
     var phoneMetadataCollection = PhonemetadataPhoneMetadataCollection()
-    phoneMetadataCollection.readExternal(SHORT_NUMBER_METADATA_MAP.get("CN").getOrThrow())
+    phoneMetadataCollection.readExternal(PHONE_NUMBER_METADATA_MAP.get("881").getOrThrow())
     var metadataList: ArrayList<PhonemetadataPhoneMetadata> = phoneMetadataCollection.getMetadataList()
     var stringBuilder: StringBuilder = StringBuilder()
     for (phoneMetadata in metadataList) {
@@ -214,9 +214,9 @@ main() {
     var expData: String = 
         "PhoneMetadatas size ==> 1hasGeneralDesc ==> true↓↓↓↓↓↓↓↓↓↓↓↓↓getPhoneNumberDesc↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓hasNationalNumberPattern ==> truenationalNumberPattern_ ==> [19]\\d\\d(?:\\d{2,3})?possibleLength_.size ==> 3possibleLength_ ==> 3possibleLength_ ==> 5possibleLength_ ==> 6possibleLengthLocalOnly_.size ==> 0hasExampleNumber ==> false↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑hasFixedLine ==> falsehasMobile ==> falsehasTollFree ==> true↓↓↓↓↓↓↓↓↓↓↓↓↓getPhoneNumberDesc↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓hasNationalNumberPattern ==> truenationalNumberPattern_ ==> 1(?:1[09]|20)possibleLength_.size ==> 1possibleLength_ ==> 3possibleLengthLocalOnly_.size ==> 0hasExampleNumber ==> trueexampleNumber_ ==> 110↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑hasPremiumRate ==> true↓↓↓↓↓↓↓↓↓↓↓↓↓getPhoneNumberDesc↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓hasNationalNumberPattern ==> falsepossibleLength_.size ==> 1possibleLength_ ==> -1possibleLengthLocalOnly_.size ==> 0hasExampleNumber ==> false↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑hasSharedCost ==> falsehasPersonalNumber ==> falsehasVoip ==> falsehasPager ==> falsehasUan ==> falsehasEmergency ==> true↓↓↓↓↓↓↓↓↓↓↓↓↓getPhoneNumberDesc↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓hasNationalNumberPattern ==> truenationalNumberPattern_ ==> 1(?:1[09]|20)possibleLength_.size ==> 1possibleLength_ ==> 3possibleLengthLocalOnly_.size ==> 0hasExampleNumber ==> trueexampleNumber_ ==> 110↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑hasVoicemail ==> falsehasShortCode ==> true↓↓↓↓↓↓↓↓↓↓↓↓↓getPhoneNumberDesc↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓hasNationalNumberPattern ==> truenationalNumberPattern_ ==> 1(?:00\\d\\d|1[029]|20)|95\\d{3,4}possibleLength_.size ==> 0possibleLengthLocalOnly_.size ==> 0hasExampleNumber ==> trueexampleNumber_ ==> 110↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑hasStandardRate ==> true↓↓↓↓↓↓↓↓↓↓↓↓↓getPhoneNumberDesc↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓hasNationalNumberPattern ==> truenationalNumberPattern_ ==> 1(?:00\\d\\d|12)|95\\d{3,4}possibleLength_.size ==> 0possibleLengthLocalOnly_.size ==> 0hasExampleNumber ==> trueexampleNumber_ ==> 112↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑hasCarrierSpecific ==> true↓↓↓↓↓↓↓↓↓↓↓↓↓getPhoneNumberDesc↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓hasNationalNumberPattern ==> falsepossibleLength_.size ==> 1possibleLength_ ==> -1possibleLengthLocalOnly_.size ==> 0hasExampleNumber ==> false↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑hasSmsServices ==> true↓↓↓↓↓↓↓↓↓↓↓↓↓getPhoneNumberDesc↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓hasNationalNumberPattern ==> falsepossibleLength_.size ==> 1possibleLength_ ==> -1possibleLengthLocalOnly_.size ==> 0hasExampleNumber ==> false↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑hasNoInternationalDialling ==> falseid_ ==> CNcountryCode_ ==> 0internationalPrefix_ ==> hasPreferredInternationalPrefix ==> falsehasNationalPrefix ==> falsehasPreferredExtnPrefix ==> falsehasNationalPrefixForParsing ==> falsehasNationalPrefixTransformRule ==> falsesameMobileAndFixedLinePattern_ ==> falsenumberFormat_.size() ==> 0intlNumberFormat_.size() ==> 0mainCountryForCode_ ==> falsehasLeadingDigits ==> falseleadingZeroPossible_ ==> falsemobileNumberPortableRegion_ ==> false"
     if (stringBuilder.toString() != expData) {
-        return 1
+        return 0
     }
-    0
+    return 1
 }
 
 func getPhoneNumberDesc(generalDesc_: PhonemetadataPhoneNumberDesc, stringBuilder: StringBuilder) {
