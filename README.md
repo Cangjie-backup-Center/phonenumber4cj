@@ -17,6 +17,11 @@
 ### 特性
 
 - 🚀 解析、格式化和验证世界所有国家/地区的电话号码
+- 🚀 根据号码本身获取号码的类型
+- 🚀 为指定国家/地区提供有效的示例号码
+- 🚀 快速猜测一个号码是否是可能的电话号码
+- 🚀 在用户输入每个数字时即时格式化电话号码
+- 🚀 在文本中查找数字
 
 ### 路线
 
@@ -32,10 +37,13 @@
 .
 ├── README.md
 ├── doc
-│   ├── assets     
-│   ├── design.md  
+│   ├── assets
+│   ├── cjcov
+│   ├── api.md
+│   ├── design.md
+│   ├── framework-roadmap-logo.pptx
 │   ├── proposal.md
-│   └── xxx_lib.md 
+│   └── xxx_lib.md
 ├── src
 │   └── carrier
 │       ├── data
@@ -77,6 +85,7 @@
 │           ├── phone_metadata_filename_provider.cj
 │           ├── region_metadata_source.cj
 │           ├── region_metadata_source_impl.cj
+│       ├── as_you_type_formatter.cj
 │       ├── phone_number_matcher.cj
 │       ├── phone_number_util.cj
 │   └── prefixmapper
@@ -118,9 +127,9 @@ cjc -v;
  echo $?
 ```
 
-### 示例
+### 使用说明
 
-示例描述
+#### 解析电话号码功能示例
 
 ```cangjie
 // EXEC: cjc %import-path %L %l %f
@@ -215,6 +224,303 @@ hasCountryCodeSource ==> false
 countryCodeSource ==> UNSPECIFIED
 hasPreferredDomesticCarrierCode ==> false
 preferredDomesticCarrierCode ==>
+```
+
+#### 格式化电话号码功能示例
+
+```cangjie
+// EXEC: cjc %import-path %L %l %f
+// EXEC: export CJSTACKSIZE=10mb && ./main
+from std import collection.*
+from std import regex.*
+from phonenumber import libphonenumber.inter.*
+from phonenumber import libphonenumber.data.*
+from phonenumber import libphonenumber.*
+
+main() {
+    var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var phoneNumber: PhoneNumber = phoneNumberUtil.parse("tel:253-0000;phone-context=www.google.com", "US")
+    var format1: String = phoneNumberUtil.format(phoneNumber, PhoneNumberFormat.RFC3966)
+    println("PhoneNumberFormat.RFC3966 ==> ${format1}")
+    if (format1 != "tel:+1-2530000") {
+        return 1
+    }
+    return 0
+}
+```
+
+执行结果如下：
+
+```shell
+PhoneNumberFormat.RFC3966 ==> tel:+1-2530000
+```
+
+#### 验证电话号码功能示例
+
+```cangjie
+// EXEC: cjc %import-path %L %l %f
+// EXEC: export CJSTACKSIZE=10mb && ./main
+from std import collection.*
+from phonenumber import libphonenumber.inter.*
+from phonenumber import libphonenumber.data.*
+from phonenumber import libphonenumber.*
+from std import regex.*
+from std import os.*
+
+main() {
+    var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var phoneNumber: PhoneNumber = phoneNumberUtil.parse("11111111111", "CN")
+    var num = phoneNumber.getNationalNumbers()
+    println("${num}")
+    var isValid1: Bool = phoneNumberUtil.isValidNumber(phoneNumber)
+    println("${isValid1}")
+    if (isValid1 != false) {
+        return 1
+    }
+    var isValid2: Bool = phoneNumberUtil.isValidNumberForRegion(phoneNumber, "US")
+    println("${isValid2}")
+    if (isValid2 != false) {
+        return 1
+    }
+    0
+}
+```
+
+执行结果如下：
+
+```shell
+11111111111
+false
+false
+```
+
+#### 根据号码本身获取号码的类型功能示例
+
+```cangjie
+// EXEC: cjc %import-path %L %l %f
+// EXEC: export CJSTACKSIZE=10mb && ./main
+from std import collection.*
+from phonenumber import libphonenumber.inter.*
+from phonenumber import libphonenumber.data.*
+from phonenumber import libphonenumber.*
+
+main() {
+    var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var phoneNumber: PhoneNumber = phoneNumberUtil.parse("0086-25-95566", "CN")
+    var str = phoneNumberUtil.getNumberType(phoneNumber).toString()
+    println(str)
+    return 0
+}
+
+```
+
+执行结果如下：
+
+```shell
+FIXED_LINE
+```
+
+#### 为所有国家/地区提供有效的示例号码功能示例
+
+```cangjie
+// EXEC: cjc %import-path %L %l %f
+// EXEC: export CJSTACKSIZE=10mb && ./main
+from std import collection.*
+from std import regex.*
+from phonenumber import libphonenumber.inter.*
+from phonenumber import libphonenumber.data.*
+from phonenumber import libphonenumber.metadata.*
+from phonenumber import libphonenumber.*
+
+main() {
+    var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var reginCode: String = "CN"
+    var us = phoneNumberUtil.getExampleNumber(reginCode)
+    if (showExamplePhoneNumber(us, "FIXED_LINE") != 1012345678) {
+        return 1
+    }
+    var us_FIXED_LINE: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.FIXED_LINE)
+    var us_MOBILE: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.MOBILE)
+    var us_FIXED_LINE_OR_MOBILE: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.FIXED_LINE_OR_MOBILE)
+    var us_TOLL_FREE: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.TOLL_FREE)
+    var us_PREMIUM_RATE: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.PREMIUM_RATE)
+    var us_SHARED_COST: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.SHARED_COST)
+    var us_VOIP: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.VOIP)
+    var us_PERSONAL_NUMBER: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.PERSONAL_NUMBER)
+    var us_PAGER: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.PAGER)
+    var us_UAN: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.UAN)
+    var us_VOICEMAIL: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.VOICEMAIL)
+    var us_UNKNOWN: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.UNKNOWN)
+    if (showExamplePhoneNumber(us_FIXED_LINE, "FIXED_LINE") != 1012345678) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_MOBILE, "MOBILE") != 13123456789) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_FIXED_LINE_OR_MOBILE, "FIXED_LINE_OR_MOBILE") != 1012345678) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_TOLL_FREE, "TOLL_FREE") != 8001234567) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_PREMIUM_RATE, "PREMIUM_RATE") != 16812345) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_SHARED_COST, "SHARED_COST") != 4001234567) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_VOIP, "VOIP") != -1) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_PERSONAL_NUMBER, "PERSONAL_NUMBER") != -1 ) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_PAGER, "PAGER") != -1) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_UAN, "UAN") != -1 ) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_VOICEMAIL, "VOICEMAIL") != -1 ){
+        return 1
+    }
+    if (showExamplePhoneNumber(us_UNKNOWN, "UNKNOWN") != -1 ) {
+        return 1
+    }
+    return 0
+}
+
+func showExamplePhoneNumber(phoneNumber: Option<PhoneNumber>, types: String): Int64 {
+    match(phoneNumber) {
+        case Some(x) =>
+            println("showExamplePhoneNumber ${types} ==> ${x.getNationalNumbers()}")
+            return x.getNationalNumbers()
+        case None =>
+            println("showExamplePhoneNumber ==> None")
+            return -1
+    }
+}
+
+```
+
+执行结果如下：
+
+```shell
+showExamplePhoneNumber FIXED_LINE ==> 1012345678
+showExamplePhoneNumber FIXED_LINE ==> 1012345678
+showExamplePhoneNumber MOBILE ==> 13123456789
+showExamplePhoneNumber FIXED_LINE_OR_MOBILE ==> 1012345678
+showExamplePhoneNumber TOLL_FREE ==> 8001234567
+showExamplePhoneNumber PREMIUM_RATE ==> 16812345
+showExamplePhoneNumber SHARED_COST ==> 4001234567
+showExamplePhoneNumber ==> None
+showExamplePhoneNumber ==> None
+showExamplePhoneNumber ==> None
+showExamplePhoneNumber ==> None
+showExamplePhoneNumber ==> None
+showExamplePhoneNumber ==> None
+```
+
+#### 在用户输入数字时即时格式化电话号码功能示例
+
+```cangjie
+// EXEC: cjc %import-path %L %l %f
+// EXEC: export CJSTACKSIZE=10mb && ./main
+from std import collection.*
+from std import regex.*
+from phonenumber import libphonenumber.inter.*
+from phonenumber import libphonenumber.data.*
+from phonenumber import libphonenumber.metadata.*
+from phonenumber import libphonenumber.*
+
+main() {
+    var asYouTypeFormatter = AsYouTypeFormatter("US")
+    asYouTypeFormatter.inputDigit('+')
+    asYouTypeFormatter.inputDigit('1')
+    asYouTypeFormatter.inputDigit('4')
+    asYouTypeFormatter.inputDigit('2')
+    var asYouTypeFormatterStr1: String = asYouTypeFormatter.inputDigit('5')
+    if (asYouTypeFormatterStr1 != "+1 425") {
+        return 1
+    }
+    if (asYouTypeFormatter.getRememberedPosition() != 0) {
+        return 1
+    }
+    asYouTypeFormatter.inputDigit('5')
+    asYouTypeFormatter.inputDigit('5')
+    asYouTypeFormatter.inputDigit('5')
+    var asYouTypeFormatterStr2: String = asYouTypeFormatter.inputDigit('0')
+    if (asYouTypeFormatterStr2 != "+1 425-555-0") {
+        return 1
+    }
+    if (asYouTypeFormatter.getRememberedPosition() != 0) {
+        return 1
+    }
+    asYouTypeFormatter.inputDigitAndRememberPosition('1')
+    asYouTypeFormatter.inputDigit('0')
+    var asYouTypeFormatterStr3: String = asYouTypeFormatter.inputDigit('0')
+    if (asYouTypeFormatterStr3 != "+1 425-555-0100") {
+        return 1
+    }
+    if (asYouTypeFormatter.getRememberedPosition() != 13) {
+        return 1
+    }
+    var asYouTypeFormatterStr4: String = asYouTypeFormatter.inputDigit('9')
+    if (asYouTypeFormatterStr4 != "+142555501009") {
+        return 1
+    }
+    if (asYouTypeFormatter.getRememberedPosition() != 10) {
+        return 1
+    }
+    asYouTypeFormatter.clear()
+    if (asYouTypeFormatter.getRememberedPosition() != 0) {
+        return 1
+    }
+    return 0
+}
+
+
+```
+
+执行结果如下：
+
+```shell
+0
+```
+
+#### 在文本中查找数字功能示例
+
+```cangjie
+// EXEC: cjc %import-path %L %l %f
+// EXEC: export CJSTACKSIZE=10mb && ./main
+from std import collection.*
+from phonenumber import libphonenumber.inter.*
+from phonenumber import libphonenumber.data.*
+from phonenumber import libphonenumber.*
+
+main() {
+    var phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var zipPreceding: String = "hello 仓颉, i am.0086687652"
+    var iterator: Iterator<PhoneNumberMatch> = phoneUtil.findNumbers(zipPreceding, "CN").iterator()
+    while (true) {
+        match (iterator.next()) {
+            case Some(v) => 
+                var number1 = v.getNumber()
+                println(number1.getNationalNumbers())
+                break
+            case None => println("None...")
+                break
+        }
+    }
+    return 0
+}
+
+```
+
+执行结果如下：
+
+```shell
+None...
 ```
 
 ## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=3%/> 参与贡献

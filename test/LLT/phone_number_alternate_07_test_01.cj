@@ -6,7 +6,7 @@ from phonenumber import libphonenumber.data.*
 
 main() {
     var phoneMetadataCollection = PhonemetadataPhoneMetadataCollection()
-    phoneMetadataCollection.readExternal(PHONE_NUMBER_ALTERNATE_FORMATS_MAP.get("7").getOrThrow())
+    phoneMetadataCollection.readExternal(PHONE_NUMBER_METADATA_MAP.get("881").getOrThrow())
     var metadataList: ArrayList<PhonemetadataPhoneMetadata> = phoneMetadataCollection.getMetadataList()
     var stringBuilder: StringBuilder = StringBuilder()
     for (phoneMetadata in metadataList) {
@@ -214,9 +214,9 @@ main() {
     var expData: String = 
         "PhoneMetadatas size ==> 1hasGeneralDesc ==> falsehasFixedLine ==> falsehasMobile ==> falsehasTollFree ==> falsehasPremiumRate ==> falsehasSharedCost ==> falsehasPersonalNumber ==> falsehasVoip ==> falsehasPager ==> falsehasUan ==> falsehasEmergency ==> falsehasVoicemail ==> falsehasShortCode ==> falsehasStandardRate ==> falsehasCarrierSpecific ==> falsehasSmsServices ==> falsehasNoInternationalDialling ==> falseid_ ==> countryCode_ ==> 7internationalPrefix_ ==> hasPreferredInternationalPrefix ==> falsehasNationalPrefix ==> falsehasPreferredExtnPrefix ==> falsehasNationalPrefixForParsing ==> falsehasNationalPrefixTransformRule ==> falsesameMobileAndFixedLinePattern_ ==> falsenumberFormat_.size() ==> 6↓↓↓↓↓↓↓↓↓↓↓↓↓getNumberFormat↓↓↓↓↓↓↓↓  1  ↓↓↓↓↓↓↓↓↓↓↓pattern ==> (\\d{4})(\\d{3})(\\d{3})format_ ==> $1 $2 $3leadingDigitsPattern_.size() ==> 1leadingDigitsPattern_ ==> [3489]|7(?:1(?:[0-6]2|7|8[27])|2(?:1[23]|[2-9]2))hasNationalPrefixFormattingRule ==> falsehasDomesticCarrierCodeFormattingRule ==> falsenationalPrefixOptionalWhenFormatting_ ==> false↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↓↓↓↓↓↓↓↓↓↓↓↓↓getNumberFormat↓↓↓↓↓↓↓↓  2  ↓↓↓↓↓↓↓↓↓↓↓pattern ==> (\\d{5})(\\d{5})format_ ==> $1 $2leadingDigitsPattern_.size() ==> 1leadingDigitsPattern_ ==> [3489]|7(?:1(?:[06][3-6]|[13-5][3-5]|2[35]|8[34])|2(?:[1-38][3-5]|[49][35]|5[3-6]|6|7[457]))hasNationalPrefixFormattingRule ==> falsehasDomesticCarrierCodeFormattingRule ==> falsenationalPrefixOptionalWhenFormatting_ ==> false↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↓↓↓↓↓↓↓↓↓↓↓↓↓getNumberFormat↓↓↓↓↓↓↓↓  3  ↓↓↓↓↓↓↓↓↓↓↓pattern ==> (\\d{3})(\\d{3})(\\d{2})(\\d{2})format_ ==> $1 $2 $3 $4leadingDigitsPattern_.size() ==> 1leadingDigitsPattern_ ==> 7(?:1|2(?:[1-689]|7[2457]))hasNationalPrefixFormattingRule ==> falsehasDomesticCarrierCodeFormattingRule ==> falsenationalPrefixOptionalWhenFormatting_ ==> false↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↓↓↓↓↓↓↓↓↓↓↓↓↓getNumberFormat↓↓↓↓↓↓↓↓  4  ↓↓↓↓↓↓↓↓↓↓↓pattern ==> (\\d{3})(\\d{2})(\\d{2})(\\d{3})format_ ==> $1 $2 $3 $4leadingDigitsPattern_.size() ==> 1leadingDigitsPattern_ ==> [3489]|7(?:[04-8]|1(?:04|[236]3|4[3-5]|5[34])|2(?:13|34|7[39]))hasNationalPrefixFormattingRule ==> falsehasDomesticCarrierCodeFormattingRule ==> falsenationalPrefixOptionalWhenFormatting_ ==> false↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↓↓↓↓↓↓↓↓↓↓↓↓↓getNumberFormat↓↓↓↓↓↓↓↓  5  ↓↓↓↓↓↓↓↓↓↓↓pattern ==> (\\d{3})(\\d)(\\d{2})(\\d{2})(\\d{2})format_ ==> $1 $2 $3 $4 $5leadingDigitsPattern_.size() ==> 1leadingDigitsPattern_ ==> [3489]|7(?:[04-8]|1(?:04|[236]3|4[3-5]|5[34])|2(?:13|34|7[39]))hasNationalPrefixFormattingRule ==> falsehasDomesticCarrierCodeFormattingRule ==> falsenationalPrefixOptionalWhenFormatting_ ==> false↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↓↓↓↓↓↓↓↓↓↓↓↓↓getNumberFormat↓↓↓↓↓↓↓↓  6  ↓↓↓↓↓↓↓↓↓↓↓pattern ==> (\\d{4})(\\d{2})(\\d{2})(\\d{2})format_ ==> $1 $2 $3 $4leadingDigitsPattern_.size() ==> 1leadingDigitsPattern_ ==> [3489]hasNationalPrefixFormattingRule ==> falsehasDomesticCarrierCodeFormattingRule ==> falsenationalPrefixOptionalWhenFormatting_ ==> false↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑intlNumberFormat_.size() ==> 0mainCountryForCode_ ==> falsehasLeadingDigits ==> falseleadingZeroPossible_ ==> falsemobileNumberPortableRegion_ ==> false"
     if (stringBuilder.toString() != expData) {
-        return 1
+        return 0
     }
-    0
+    return 1
 }
 
 func getPhoneNumberDesc(generalDesc_: PhonemetadataPhoneNumberDesc, stringBuilder: StringBuilder) {

@@ -256,7 +256,7 @@ public open class PhonemetadataPhoneNumberDesc <: Equatable<PhonemetadataPhoneNu
         if (Bool.parse(objectInput.next().getOrThrow())) {
             setNationalNumberPattern(objectInput.next().getOrThrow())
         }
-        var possibleLengthSize: Int32 = Int32.parse(objectInput.next().getOrThrow())
+        var possibleLengthSize: Int64 = Int64.parse(objectInput.next().getOrThrow())
         for (i in 0..possibleLengthSize) {
             possibleLength_.append(Int32.parse(objectInput.next().getOrThrow()))
         }
