@@ -409,7 +409,7 @@ public open class PhonemetadataNumberFormat {
      *
      * 返回一个集合
      */
-    getPossibleLengthLocalOnlyList(): ArrayList<Int32>
+    public func getPossibleLengthLocalOnlyList(): ArrayList<Int32>
 
     /*
      * 获取个数
@@ -1440,6 +1440,21 @@ public class PhonemetadataPhoneMetadata {
 #### class PhoneMetadataBuilder
 
 ```cangjie
+
+    /*
+     * PhoneMetadataBuilder 的无参构造器
+     *
+     */
+    public init()
+
+    /*
+     * PhoneMetadataBuilder 的有参构造器
+     *
+     * 参数 out - PhonemetadataPhoneMetadata 类对象
+     *
+     */
+    public init(out: PhonemetadataPhoneMetadata)
+
     /*
      * 构建 PhoneMetadataBuilder
      *
@@ -1519,6 +1534,20 @@ public class PhonemetadataPhoneMetadata {
 #### class PhoneMetadataCollectionBuilder
 
 ```cangjie
+
+    /*
+     * PhoneMetadataCollectionBuilder 的无参构造器
+     *
+     */
+    public init()
+
+    /*
+     * PhoneMetadataCollectionBuilder 的无参构造器
+     *
+     * 参数 out - PhonemetadataPhoneMetadataCollection 类对象
+     *
+     */
+    public init(out: PhonemetadataPhoneMetadataCollection)
 
     /*
      * 构建 PhoneMetadataCollectionBuilder
