@@ -4,21 +4,16 @@ from std import collection.*
 from phonenumber import libphonenumber.inter.*
 from phonenumber import libphonenumber.data.*
 from phonenumber import libphonenumber.*
-import secodeFuzz.*
-from std import unittest.*
-from std import unittest.testmacro.*
-from std import collection.ArrayList
-
 
 
 func call_fuzz(string:String){
-    let ph: PhonemetadataNumberFormat = PhonemetadataNumberFormat()
+    let phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
     println(string)
-    ph.setPattern(string)
+    phonenumberUtil.getAsYouTypeFormatter(string)
 }
 
 func unboundTest():Unit{
-    var case_name=CString("Fuzz_ph.setPattern")
+    var case_name=CString("Fuzz_Phonenumber.getAsYouTypeFormatter")
     unsafe{
         DT_FUZZ_String(0,100000,case_name,0,call_fuzz)
         case_name.free()

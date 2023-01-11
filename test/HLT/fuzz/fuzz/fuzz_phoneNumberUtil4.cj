@@ -12,10 +12,10 @@ from std import collection.ArrayList
 from http2 import buffer.*
 
 func call_fuzz(string:String){
-    var Phonenumber: PhoneNumber = PhoneNumber()
-    let phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
-    // 对input进行变异，并调用被测接口
-    phonenumberUtil.formatNationalNumberWithPreferredCarrierCod(Phonenumber,string)
+    var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var phonenumber: PhoneNumber = phoneNumberUtil.parse("18717619089", "CN")
+    var phonenumber1 = phonenumber.setPreferredDomesticCarrierCodes("1111")
+    phonenumber.formatNationalNumberWithPreferredCarrierCode(phonenumber1, string)
 }
 
 func unboundTest():Unit{
