@@ -19,7 +19,7 @@ func call_fuzz(sting:String,string1:String){
 }
 
 func unboundTest():Unit{
-    var case_name = CString("Fuzz_phonenumberUtil. parseAndKeepRawInput")
+    var case_name = CString("Fuzz_phonenumberUtil.parseAndKeepRawInput")
     unsafe{
         // 根据 call_fuzz的入参类型，选择fuzz方法，例如DF_FUZZ_Int64。其他方法见secodeFuzz.cj。其中100000为定义测试次数。其他参数可不变
         DT_FUZZ_String_2(0,100000,case_name,0,call_fuzz)
