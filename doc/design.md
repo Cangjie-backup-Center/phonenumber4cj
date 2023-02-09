@@ -32,12 +32,101 @@ Java 库：java.io.ObjectInput、java.io.ObjectOutput、java.util.SortedMap、ja
 
 ###### 5.1.1 特性介绍
 
-    解析、格式化和验证世界所有国家/地区的电话号码。可以根据号码本身获取号码的类型，为所有国家/地区提供有效的示例号码，仅使用长度信息快速猜测一个号码是否是可能的电话号码，使用长度和前缀信息对区域的电话号码进行全面验证等等。
+    提供对中国及美国的电话号码进行解析功能
 
 ###### 5.1.2 实现方案
-    获取 PhoneNumberUtil 的 getInstance 实例，校验号码前需要通过 号码字符串 + 国家代号 来解析成国际通过的号码，通过 format 方法对解析后的号码按不同标准进行格式化，通过 isPossibleNumber 方法来验证手机号的有效性
+    获取 PhoneNumberUtil 的 getInstance 实例，传入需要解析的电话号码，通过 parse 解析数据
 
 ###### 5.1.3 接口设计
+
+💡 PhoneNumberUtil.cj 提供对中国及美国的电话号码进行解析功能
+
+| 成员函数 | 入参 | 返回值 | 作用描述 |
+| --- | --- |  --- | --- |
+| getInstance | --- |  PhoneNumberUtil   | 获取 PhoneNumberUtil 的实例 |
+| parse | numberToParse: CharSequence, defaultRegion: String |  PhoneNumber   | 解析一个字符串并将其作为原始缓冲区格式的电话号码返回 |
+| parse | numberToParse: CharSequence, defaultRegion: String, phoneNumber: PhoneNumber |  PhoneNumber   | 解析一个字符串并将其作为原始缓冲区格式的电话号码返回 |
+
+##### 5.2 核心特性2 
+
+###### 5.2.1 特性介绍
+
+    提供对中国及美国的电话号码进行格式化功能
+
+###### 5.2.2 实现方案
+    获取 PhoneNumberUtil 的 getInstance 实例，传入需要格式化的电话号码，通过 format 进行格式化，也可先进行解析而后进行格式化
+
+###### 5.2.3 接口设计
+
+💡 PhoneNumberUtil.cj 提供对中国及美国的电话号码进行格式化功能
+
+| 成员函数 | 入参 | 返回值 | 作用描述 |
+| --- | --- |  --- | --- |
+| getInstance | --- |  PhoneNumberUtil   | 获取 PhoneNumberUtil 的实例 |
+| format | number: PhoneNumber, numberFormat: PhoneNumberFormat |  String   | 使用默认规则以指定格式格式化电话号码，number: 要格式化的电话号码，numberFormat: 电话号码应该格式化成的格式 |
+| format | number: PhoneNumber, numberFormat: PhoneNumberFormat, formattedNumber: StringBuilder |  String   | 使用默认规则以指定格式格式化电话号码，number: 要格式化的电话号码，numberFormat: 电话号码应该格式化成的格式 |
+
+
+##### 5.3 核心特性3 
+
+###### 5.3.1 特性介绍
+
+    提供对中国及美国的电话号码进行验证功能
+
+###### 5.3.2 实现方案
+    获取 PhoneNumberUtil 的 getInstance 实例，传入需要验证的电话号码，通过 isValidNumber 验证电话号码是否是有效的，也可通过 isValidNumberForRegion 来验证是否有效
+
+###### 5.3.3 接口设计
+
+💡 PhoneNumberUtil.cj 提供对中国及美国的电话号码进行验证功能
+
+| 成员函数 | 入参 | 返回值 | 作用描述 |
+| --- | --- |  --- | --- |
+| getInstance | --- |  PhoneNumberUtil   | 获取 PhoneNumberUtil 的实例 |
+| isValidNumber | number: PhoneNumber |  Bool | 测试电话号码是否与有效模式匹配，number: 我们要验证的电话号码 |
+| isValidNumberForRegion | number: PhoneNumber, regionCode: String |  Bool   | 测试电话号码在特定区域是否有效 |
+
+
+##### 5.4 核心特性4 
+
+###### 5.4.1 特性介绍
+
+    提供对电话号码进行相关信息查询： 获取号码类型；仅使用长度信息快速猜测一个电话号码是否是可能的电话号码；提供制定国家/地区的有效示例；在输入文本中查找数字；计算电话号码之间的置信度
+
+###### 5.4.2 实现方案
+    获取 PhoneNumberUtil 的 getInstance 实例，通过 getNumberType 获取号码类型；通过 isPossibleNumber 猜测电话号码有效否；通过 getExampleNumber 获取有效示例；通过 findNumbers 在输入文本中查找数字；通过 isNumberMatch 来计算置信度
+
+###### 5.4.3 接口设计
+
+💡 PhoneNumberUtil.cj 提供对电话号码进行相关信息查询
+
+| 成员函数 | 入参 | 返回值 | 作用描述 |
+| --- | --- |  --- | --- |
+| getInstance | --- |  PhoneNumberUtil   | 获取 PhoneNumberUtil 的实例 |
+| getNumberType | number: PhoneNumber, numberFormat: PhoneNumberFormat |  PhoneNumberType | 获取有效电话号码的类型 |
+| getNumberTypeHelper | nationalNumber: String, metadata: PhoneMetadata |  PhoneNumberType   | --- |
+| isPossibleNumber | number: PhoneNumber |  Bool | number: 需要检查的数字  |
+| isPossibleNumberForType | number: PhoneNumber， type: PhoneNumberType |  Bool   | --- |
+| testNumberLength | number: CharSequence，metadata: PhoneMetadata |  ValidationResult   | 辅助方法根据传入的元数据检查该区域的可能长度，并确定它是否匹配，或者太短或太长 |
+| isPossibleNumberWithReason | number: PhoneNumber |  ValidationResult | 检查电话号码是否是可能的号码，number: 需要检查的数字 |
+| isPossibleNumberForTypeWithReason | number: PhoneNumber, type: PhoneNumberType |  ValidationResult | 检查电话号码是否是特定类型的可能号码，type: 需要的数字类型 |
+| isPossibleNumber | number: CharSequence，regionDialingFrom: String |  PhoneNumber   | 检查电话号码是否是给定字符串形式的号码的可能号码，以及可以拨打该号码的地区，number: 需要检查的号码，regionDialingFrom: 我们期望拨打号码的区域 |
+| findNumbers | text: CharSequence, defaultRegion: String |  Iterable<PhoneNumberMatch>   | 返回所有的可迭代对象 |
+| findNumbers | text: CharSequence, defaultRegion: String, leniency: Leniency, maxTries: Int64 |  Iterable<PhoneNumberMatch>   | 返回所有的可迭代对象 |
+| isNumberMatch | firstNumber: CharSequence, secondNumber: CharSequence |  MatchType | 将两个电话号码作为字符串并比较它们是否相等 |
+| isNumberMatch | firstNumber: PhoneNumber secondNumber: CharSequence |  MatchType   | 获取两个电话号码并比较它们是否相等 |
+| isNumberMatch | firstNumberIn: PhoneNumber, secondNumberIn: PhoneNumber |  MatchType   | 获取两个电话号码并比较它们是否相等 |
+
+##### 5.5 核心特性5 
+
+###### 5.5.1 特性介绍
+
+    提供地理位置、时区、运行商相关信息查询功能
+
+###### 5.5.2 实现方案
+    获取 PhoneNumberOfflineGeocoder 实例，通过查询功能获取信息；获取 PhoneNumberToCarrier 实例，通过查询功能获取信息
+
+###### 5.5.3 接口设计
 
 💡 carrier.PhoneNumberToCarrierMapper.cj 提供与电话号码相关的运营商信息的电话前缀映射器
 
@@ -176,6 +265,104 @@ Java 库：java.io.ObjectInput、java.io.ObjectOutput、java.util.SortedMap、ja
 | lookupCountryLevelTimeZonesForNumber   | number: PhoneNumber | ArrayList<String> | --- |
 | tokenizeRawOutputString   | timezonesString: String | ArrayList<String> | --- |
 | toString   | --- | String | --- |
+
+
+##### 5.6 核心特性6 
+
+###### 5.6.1 特性介绍
+
+    内置辅助功能设计
+
+###### 5.6.2 接口设计
+
+💡 PhoneNumberUtil.cj 国际电话号码的入口程序。功能包括格式化、解析和验证
+
+| 成员函数 | 入参 | 返回值 | 作用描述 |
+| --- | --- |  --- | --- |
+| extnDigits | maxLength: Int64 |  String | 构造正则表达式以进行解析的辅助方法 |
+| createExtnPattern | forParsing: Bool |  String | 辅助初始化方法来创建正则表达式模式以匹配扩展，forParsing: Bool 类型的参数 |
+| init | metadataSource: MetadataSource, countryCallingCodeToRegionCodeMap: Map<Integer, List<String>> |  PhoneNumberUtil | PhoneNumberUtil 的有参构造 |
+| extractPossibleNumber | number: CharSequence |  CharSequence | 尝试从传入的字符串中提取可能的号码，number: 可能包含电话号码的字符串 |
+| isViablePhoneNumber | number: CharSequence |  Bool   | 检查字符串是否可能是电话号码，number: 数字字符串作为电话号码检查可行性 |
+| normalize | number: StringBuilder |  StringBuilder | 规范化表示电话号码的字符串，number: number 代表电话号码的字符的 StringBuilder 将被规范化 |
+| normalizeDigitsOnly | number: CharSequence |  String | 规范化表示电话号码的字符串，number: 代表电话号码的字符串 |
+| normalizeDigits | number: CharSequence, keepNonDigits: Bool |  StringBuilder   | --- |
+| setExtnormalizeDiallableCharsOnlyension | number: CharSequence |  String   | 规范化表示电话号码的字符串，number: 代表电话号码的字符串 |
+| convertAlphaCharactersInNumber | number: CharSequence |  String | 将数字中的所有字母字符转换为键盘上的相应数字，但保留现有格式 |
+| getLengthOfGeographicalAreaCode | number: PhoneNumber |  Int64 | 从传入的 PhoneNumber 对象中获取地理区号的长度，number: 客户端想知道区号长度的PhoneNumber对象 |
+| getLengthOfNationalDestinationCode | number: PhoneNumber |  Int64   | 从传入的 PhoneNumber 对象中获取国家目的地代码 (NDC) 的长度，number: 客户端想知道 NDC 长度的 PhoneNumber 对象 |
+| getCountryMobileToken | countryCallingCode: Int64 |  String   | 如果有，则返回提供的国家/地区呼叫代码的移动令牌，否则返回空字符串，countryCallingCode: 我们想要移动令牌的国家/地区呼叫代码 |
+| normalizeHelper | number: CharSequence, normalizationReplacements: Map<Character, Character>, removeNonMatches: Bool |  String | 通过将随附地图中的所有字符替换为其中的值来规范表示电话号码的字符串，如果 removeNonMatches 为真，则删除所有其他字符 |
+| setInstance | util: PhoneNumberUtil |  Bool | 设置或重置 PhoneNumberUtil 单例实例 |
+| getSupportedRegions | --- |  Set<String>   | 返回库具有元数据的所有区域 |
+| getSupportedGlobalNetworkCallingCodes | value: Int64 |  PhoneNumber   | --- |
+| getSupportedCallingCodes | --- |  Set<Integer> | 返回图书馆具有元数据的所有国家/地区呼叫代码，包括非地理实体 |
+| descHasPossibleNumberData | desc: PhoneNumberDesc |  Bool | --- |
+| descHasData | desc: PhoneNumberDesc |  Bool   | --- |
+| getSupportedTypesForMetadata | metadata: PhoneMetadata |  Set<PhoneNumberType>   | 根据传入的 PhoneMetadata 对象返回我们拥有元数据的类型，该对象必须为非 null |
+| getSupportedTypesForRegion | regionCode: String |  Set<PhoneNumberType> | 返回库具有元数据的给定区域的类型 |
+| hasCountryCodeSource | --- |  Bool | --- |
+| getSupportedTypesForNonGeoEntity | countryCallingCode: Int64 |  Set<PhoneNumberType>   | 返回属于图书馆有元数据的非地理实体的国家代码的类型 |
+| getInstance | --- |  PhoneNumberUtil   | 获取 PhoneNumberUtil 的实例 |
+| createInstance | metadataLoader: MetadataLoader |  PhoneNumberUtil | 创建一个新的实例来执行国际电话号码格式化、解析或验证，metadataLoader: 自定义元数据加载器 |
+| createInstance | metadataSource: MetadataSource |  PhoneNumberUtil | 创建一个新的实例来执行国际电话号码格式化、解析或验证，metadataSource: 自定义元数据源 |
+| formattingRuleHasFirstGroupOnly | nationalPrefixFormattingRule: String |  Bool   | 检查国家前缀格式规则是否只有第一组的辅助函数，即不以国家前缀开头 |
+| isNumberGeographical | phoneNumber: PhoneNumber |  Bool   | 测试电话号码是否具有地理关联。它检查该号码是否与其所属国家的某个地区相关联 |
+| isNumberGeographical | phoneNumberType: PhoneNumberType，countryCallingCode: Int64 |  Bool | 测试电话号码是否具有地理关联。它检查该号码是否与其所属国家的某个地区相关联 |
+| isValidRegionCode | regionCode: String |  Bool | 检查区域代码的辅助函数不是未知的或空的 |
+| hasValidCountryCallingCode | countryCallingCode: Int64 |  PhoneNumber   | 检查国家呼叫代码是否有效的辅助功能 |
+| formatByPattern | number: PhoneNumber, numberFormat: PhoneNumberFormat, userDefinedFormats: ArrayList<NumberFormat> |  String | 使用客户端定义的格式规则以指定格式格式化电话号码, number: 要格式化的电话号码, numberFormat: 电话号码应该格式化的格式, userDefinedFormats: 客户端指定的格式化规则，number: 要格式化的电话号码， carrierCode: 要使用的运营商选择代码 |
+| getMetadataForRegionOrCallingCode | countryCallingCode: Int64, regionCode: String |  PhoneMetadata   | --- |
+| formatNationalNumberWithPreferredCarrierCode | number: PhoneNumber, fallbackCarrierCode: CharSequence |  String   | 使用传入的 PhoneNumber 对象的 preferredDomesticCarrierCode 字段中指定的运营商以国家格式格式化电话号码 |
+| formatNumberForMobileDialing | number: PhoneNumber, regionCallingFrom: String, withFormatting: Bool |  String   | 返回一个数字，其格式可以从特定地区的移动电话拨打，number: 要格式化的电话号码，regionCallingFrom: 呼叫所在的区域，withFormatting: 返回号码是否应带有格式化符号，例如空格和破折号 |
+| formatOutOfCountryCallingNumber | number: PhoneNumber, regionCallingFrom: String |  String   | 格式化电话号码以用于国外拨号目的 |
+| formatInOriginalFormat | number: PhoneNumber, regionCallingFrom: String |  String | 使用解析号码的原始电话号码格式格式化电话号码。原始格式嵌入在传入的 PhoneNumber 对象的 country_code_source 字段中 |
+| hasFormattingPatternForNumber | number: PhoneNumber |  Bool | --- |
+| formatOutOfCountryKeepingAlphaChars | number: PhoneNumber, regionCallingFrom: String |  String   | 格式化电话号码以用于国外拨号目的，number: 需要格式化的电话号码，regionCallingFrom: 呼叫所在区域 |
+| getNationalSignificantNumber | number: PhoneNumber |  String   | 获取电话号码的国家有效号码，number: 需要国家重要号码的电话号码 |
+| prefixNumberWithCountryCallingCode | countryCallingCode: Int64, numberFormat: PhoneNumberFormat, formattedNumber: StringBuilder |  --- | --- |
+| formatNsn | number: String, metadata: PhoneMetadata, numberFormat: PhoneNumberFormat |  String | --- |
+| formatNsn | number: String, metadata: PhoneMetadata, numberFormat: PhoneNumberFormat, carrierCode: CharSequence |  String   | --- |
+| chooseFormattingPatternForNumber | availableFormats: ArrayList<NumberFormat>, nationalNumber: String |  NumberFormat   | --- |
+| formatNsnUsingPattern | nationalNumber: String, formattingPattern: NumberFormat, numberFormat: PhoneNumberFormat |  String | --- |
+| formatNsnUsingPattern | nationalNumber: String, formattingPattern: NumberFormat, numberFormat: PhoneNumberFormat, carrierCode: CharSequence |  String | --- |
+| getExampleNumber | regionCode: String |  PhoneNumber   | 获取指定区域的有效数字，regionCode: 需要示例编号的区域 |
+| getInvalidExampleNumber | regionCode: String |  PhoneNumber   | 获取指定区域的无效数字。egionCode: 需要示例编号的区域 |
+| getExampleNumberForType | regionCode: String，type: PhoneNumberType |  PhoneNumber | 获取指定区域和号码类型的有效号码，regionCode: 需要示例编号的区域 |
+| getExampleNumberForType | type: PhoneNumberType |  PhoneNumber | 获取指定号码类型的有效号码，type: 需要的数字类型 |
+| getExampleNumberForNonGeoEntity | countryCallingCode: Int64 |  PhoneNumber   | 获取非地理实体的指定国家/地区呼叫代码的有效号码 |
+| maybeAppendFormattedExtension | number: PhoneNumber, metadata: PhoneMetadata, numberFormat: PhoneNumberFormat, formattedNumber: StringBuilder |  ---   | 如果电话号码指定了扩展名，则将电话号码的格式化扩展名附加到 formattedNumber |
+| getNumberDescByType | metadata: PhoneMetadata, type: PhoneNumberType |  PhoneNumberDesc   | --- |
+| getMetadataForRegion | regionCode: String |  PhoneMetadata   | 如果区域代码无效或未知，则返回给定区域代码或元数据 |
+| getMetadataForNonGeographicalRegion | countryCallingCode: Int64 |  PhoneMetadata   | 如果国家/地区呼叫代码无效或未知，则返回给定国家/地区呼叫代码或元数据 |
+| ensureMetadataIsNonNull | phoneMetadata: PhoneMetadata，message: String |  ---   | --- |
+| isNumberMatchingDesc | nationalNumber: String，numberDesc: PhoneNumberDesc |  Bool | --- |
+| getRegionCodeForNumber | number: PhoneNumber |  String   | --- |
+| getRegionCodeForNumberFromRegionList | number: PhoneNumber, regionCodes: ArrayList<String> |  String   | --- |
+| getRegionCodeForCountryCode | countryCallingCode: Int64 |  String | 返回与特定国家呼叫代码匹配的区域代码 |
+| getRegionCodesForCountryCode | countryCallingCode: Int64 |  ArrayList<String>   | 返回包含与特定国家/地区呼叫代码匹配的区域代码的列表 |
+| getCountryCodeForValidRegion | regionCode: String |  Int64   | 返回特定地区的国家/地区呼叫代码，param: regionCode 我们要获取国家/地区调用代码的区域 |
+| getNddPrefixForRegion | regionCode: String, stripNonDigits: Bool |  String   | 返回特定地区的国家拨号前缀，stripNonDigits: 以从国家拨号前缀中去除非数字 |
+| isNANPACountry | regionCode: String |  Bool   | 检查这是否是北美编号计划管理 (NANPA) 下的区域 |
+| isAlphaNumber | number: CharSequence |  Bool | 检查数字是否是有效的虚 (alpha) 数字 |
+| truncateTooLongNumber | number: PhoneNumber |  Bool   | 尝试从太长而无法有效的电话号码中提取有效号码，并将传入的 PhoneNumber 对象重置为该有效版本 |
+| getAsYouTypeFormatter | regionCode: String |  PhoneNumberDesc   | 获取特定区域，regionCode: 输入电话号码的区域 |
+| extractCountryCode | fullNumber: StringBuilder, nationalNumber: StringBuilder |  Int64 | --- |
+| maybeExtractCountryCode | number: CharSequence, defaultRegionMetadata: PhoneMetadata, nationalNumber: StringBuilder, keepRawInput: Bool, phoneNumber: PhoneNumber |  Int64   | 尝试从号码中提取国家/地区呼叫代码，number 我们希望从中提取国家呼叫代码的非标准化电话号码 - 可以以“+”开头，在提取国家/地区呼叫代码的情况下 |
+| parsePrefixAsIdd | iddPattern: Pattern, number: StringBuilder |  Bool   | 如果存在，则从号码的开头去除 IDD |
+| maybeStripInternationalPrefixAndNormalize | number: StringBuilder, possibleIddPrefix: String |  CountryCodeSource   | 去除提供的号码中存在的任何国际前缀 |
+| maybeStripNationalPrefixAndCarrierCode | number: StringBuilder, metadata: PhoneMetadata, carrierCode: StringBuilder  |  Bool   | 去除提供的号码中存在的任何国家前缀 |
+| maybeStripExtension | number: StringBuilder |  String | 从号码末尾删除任何分机 |
+| checkRegionForParsing | numberToParse: CharSequence，defaultRegion: String |  Bool | 检查使用的区域代码是否有效，或者如果它无效，则要解析的数字以 + 符号开头，以便我们可以尝试从数字推断区域 |
+| parseAndKeepRawInput | numberToParse: CharSequence，defaultRegion: String |  PhoneNumber   | --- |
+| parseAndKeepRawInput | numberToParse: CharSequence，defaultRegion: String，phoneNumber: PhoneNumber |  PhoneNumber   | --- |
+| setItalianLeadingZerosForPhoneNumber | nationalNumber: CharSequence, phoneNumber: PhoneNumber |  --- | 一个辅助函数，用于设置与电话号码中的前导零相关的值 |
+| parseHelper | numberToParse: CharSequence， defaultRegion: String， keepRawInput: Bool， checkRegion: Bool， phoneNumber: PhoneNumber |  ---   | 解析一个字符串并填写电话号码 |
+| buildNationalNumberForParsing | numberToParse: String, nationalNumber: StringBuilder |  ---   | --- |
+| copyCoreFieldsOnly | phoneNumberIn: PhoneNumber |  PhoneNumber   | 返回仅包含唯一标识电话号码所需的字段的新电话号码，而不是捕获创建电话号码的上下文的任何字段 |
+| isNationalNumberSuffixOfTheOther | firstNumber: PhoneNumber, secondNumber: PhoneNumber |  Bool   | --- |
+| canBeInternationallyDialled | number: PhoneNumber |  Bool | 如果该号码可以从区域外拨打或未知，则返回 true，number: 我们想知道它是否可以从区域外拨打的电话号码 |
+| isMobileNumberPortableRegion | regionCode: String |  Bool   | 如果提供的区域支持手机号码可携带性，则返回 true，regionCode: 我们想知道它是否支持手机号码携带的地区 |
 
 💡 GeoEntityUtility.cj 用于检查标识符区域代码和国家呼叫代码是否属于地理实体的实用程序类
 
@@ -726,114 +913,6 @@ Java 库：java.io.ObjectInput、java.io.ObjectOutput、java.util.SortedMap、ja
 | extractMatch | candidate: CharSequence, offset: int64 |  PhoneNumberMatch   | 如果整个候选者不符合匹配条件，则尝试从中提取匹配项 |
 | parseAndVerify | candidate: CharSequence, offset: int64 |  PhoneNumberMatch | 解析电话号码，并验证它与请求的匹配 |
 | toString | --- |  String   | --- |
-
-💡 PhoneNumberUtil.cj 国际电话号码的实用程序。功能包括格式化、解析和验证
-
-| 成员函数 | 入参 | 返回值 | 作用描述 |
-| --- | --- |  --- | --- |
-| extnDigits | maxLength: Int64 |  String | 构造正则表达式以进行解析的辅助方法 |
-| createExtnPattern | forParsing: Bool |  String | 辅助初始化方法来创建正则表达式模式以匹配扩展，forParsing: Bool 类型的参数 |
-| init | metadataSource: MetadataSource, countryCallingCodeToRegionCodeMap: Map<Integer, List<String>> |  PhoneNumberUtil | PhoneNumberUtil 的有参构造 |
-| extractPossibleNumber | number: CharSequence |  CharSequence | 尝试从传入的字符串中提取可能的号码，number: 可能包含电话号码的字符串 |
-| isViablePhoneNumber | number: CharSequence |  Bool   | 检查字符串是否可能是电话号码，number: 数字字符串作为电话号码检查可行性 |
-| normalize | number: StringBuilder |  StringBuilder | 规范化表示电话号码的字符串，number: number 代表电话号码的字符的 StringBuilder 将被规范化 |
-| normalizeDigitsOnly | number: CharSequence |  String | 规范化表示电话号码的字符串，number: 代表电话号码的字符串 |
-| normalizeDigits | number: CharSequence, keepNonDigits: Bool |  StringBuilder   | --- |
-| setExtnormalizeDiallableCharsOnlyension | number: CharSequence |  String   | 规范化表示电话号码的字符串，number: 代表电话号码的字符串 |
-| convertAlphaCharactersInNumber | number: CharSequence |  String | 将数字中的所有字母字符转换为键盘上的相应数字，但保留现有格式 |
-| getLengthOfGeographicalAreaCode | number: PhoneNumber |  Int64 | 从传入的 PhoneNumber 对象中获取地理区号的长度，number: 客户端想知道区号长度的PhoneNumber对象 |
-| getLengthOfNationalDestinationCode | number: PhoneNumber |  Int64   | 从传入的 PhoneNumber 对象中获取国家目的地代码 (NDC) 的长度，number: 客户端想知道 NDC 长度的 PhoneNumber 对象 |
-| getCountryMobileToken | countryCallingCode: Int64 |  String   | 如果有，则返回提供的国家/地区呼叫代码的移动令牌，否则返回空字符串，countryCallingCode: 我们想要移动令牌的国家/地区呼叫代码 |
-| normalizeHelper | number: CharSequence, normalizationReplacements: Map<Character, Character>, removeNonMatches: Bool |  String | 通过将随附地图中的所有字符替换为其中的值来规范表示电话号码的字符串，如果 removeNonMatches 为真，则删除所有其他字符 |
-| setInstance | util: PhoneNumberUtil |  Bool | 设置或重置 PhoneNumberUtil 单例实例 |
-| getSupportedRegions | --- |  Set<String>   | 返回库具有元数据的所有区域 |
-| getSupportedGlobalNetworkCallingCodes | value: Int64 |  PhoneNumber   | --- |
-| getSupportedCallingCodes | --- |  Set<Integer> | 返回图书馆具有元数据的所有国家/地区呼叫代码，包括非地理实体 |
-| descHasPossibleNumberData | desc: PhoneNumberDesc |  Bool | --- |
-| descHasData | desc: PhoneNumberDesc |  Bool   | --- |
-| getSupportedTypesForMetadata | metadata: PhoneMetadata |  Set<PhoneNumberType>   | 根据传入的 PhoneMetadata 对象返回我们拥有元数据的类型，该对象必须为非 null |
-| getSupportedTypesForRegion | regionCode: String |  Set<PhoneNumberType> | 返回库具有元数据的给定区域的类型 |
-| hasCountryCodeSource | --- |  Bool | --- |
-| getSupportedTypesForNonGeoEntity | countryCallingCode: Int64 |  Set<PhoneNumberType>   | 返回属于图书馆有元数据的非地理实体的国家代码的类型 |
-| getInstance | --- |  PhoneNumberUtil   | 获取 PhoneNumberUtil 的实例 |
-| createInstance | metadataLoader: MetadataLoader |  PhoneNumberUtil | 创建一个新的实例来执行国际电话号码格式化、解析或验证，metadataLoader: 自定义元数据加载器 |
-| createInstance | metadataSource: MetadataSource |  PhoneNumberUtil | 创建一个新的实例来执行国际电话号码格式化、解析或验证，metadataSource: 自定义元数据源 |
-| formattingRuleHasFirstGroupOnly | nationalPrefixFormattingRule: String |  Bool   | 检查国家前缀格式规则是否只有第一组的辅助函数，即不以国家前缀开头 |
-| isNumberGeographical | phoneNumber: PhoneNumber |  Bool   | 测试电话号码是否具有地理关联。它检查该号码是否与其所属国家的某个地区相关联 |
-| isNumberGeographical | phoneNumberType: PhoneNumberType，countryCallingCode: Int64 |  Bool | 测试电话号码是否具有地理关联。它检查该号码是否与其所属国家的某个地区相关联 |
-| isValidRegionCode | regionCode: String |  Bool | 检查区域代码的辅助函数不是未知的或空的 |
-| hasValidCountryCallingCode | countryCallingCode: Int64 |  PhoneNumber   | 检查国家呼叫代码是否有效的辅助功能 |
-| format | number: PhoneNumber, numberFormat: PhoneNumberFormat |  String   | 使用默认规则以指定格式格式化电话号码，number: 要格式化的电话号码，numberFormat: 电话号码应该格式化成的格式 |
-| format | number: PhoneNumber, numberFormat: PhoneNumberFormat, formattedNumber: StringBuilder |  String   | 使用默认规则以指定格式格式化电话号码，number: 要格式化的电话号码，numberFormat: 电话号码应该格式化成的格式 |
-| formatByPattern | number: PhoneNumber, numberFormat: PhoneNumberFormat, userDefinedFormats: ArrayList<NumberFormat> |  String | 使用客户端定义的格式规则以指定格式格式化电话号码, number: 要格式化的电话号码, numberFormat: 电话号码应该格式化的格式, userDefinedFormats: 客户端指定的格式化规则，number: 要格式化的电话号码， carrierCode: 要使用的运营商选择代码 |
-| getMetadataForRegionOrCallingCode | countryCallingCode: Int64, regionCode: String |  PhoneMetadata   | --- |
-| formatNationalNumberWithPreferredCarrierCode | number: PhoneNumber, fallbackCarrierCode: CharSequence |  String   | 使用传入的 PhoneNumber 对象的 preferredDomesticCarrierCode 字段中指定的运营商以国家格式格式化电话号码 |
-| formatNumberForMobileDialing | number: PhoneNumber, regionCallingFrom: String, withFormatting: Bool |  String   | 返回一个数字，其格式可以从特定地区的移动电话拨打，number: 要格式化的电话号码，regionCallingFrom: 呼叫所在的区域，withFormatting: 返回号码是否应带有格式化符号，例如空格和破折号 |
-| formatOutOfCountryCallingNumber | number: PhoneNumber, regionCallingFrom: String |  String   | 格式化电话号码以用于国外拨号目的 |
-| formatInOriginalFormat | number: PhoneNumber, regionCallingFrom: String |  String | 使用解析号码的原始电话号码格式格式化电话号码。原始格式嵌入在传入的 PhoneNumber 对象的 country_code_source 字段中 |
-| hasFormattingPatternForNumber | number: PhoneNumber |  Bool | --- |
-| formatOutOfCountryKeepingAlphaChars | number: PhoneNumber, regionCallingFrom: String |  String   | 格式化电话号码以用于国外拨号目的，number: 需要格式化的电话号码，regionCallingFrom: 呼叫所在区域 |
-| getNationalSignificantNumber | number: PhoneNumber |  String   | 获取电话号码的国家有效号码，number: 需要国家重要号码的电话号码 |
-| prefixNumberWithCountryCallingCode | countryCallingCode: Int64, numberFormat: PhoneNumberFormat, formattedNumber: StringBuilder |  --- | --- |
-| formatNsn | number: String, metadata: PhoneMetadata, numberFormat: PhoneNumberFormat |  String | --- |
-| formatNsn | number: String, metadata: PhoneMetadata, numberFormat: PhoneNumberFormat, carrierCode: CharSequence |  String   | --- |
-| chooseFormattingPatternForNumber | availableFormats: ArrayList<NumberFormat>, nationalNumber: String |  NumberFormat   | --- |
-| formatNsnUsingPattern | nationalNumber: String, formattingPattern: NumberFormat, numberFormat: PhoneNumberFormat |  String | --- |
-| formatNsnUsingPattern | nationalNumber: String, formattingPattern: NumberFormat, numberFormat: PhoneNumberFormat, carrierCode: CharSequence |  String | --- |
-| getExampleNumber | regionCode: String |  PhoneNumber   | 获取指定区域的有效数字，regionCode: 需要示例编号的区域 |
-| getInvalidExampleNumber | regionCode: String |  PhoneNumber   | 获取指定区域的无效数字。egionCode: 需要示例编号的区域 |
-| getExampleNumberForType | regionCode: String，type: PhoneNumberType |  PhoneNumber | 获取指定区域和号码类型的有效号码，regionCode: 需要示例编号的区域 |
-| getExampleNumberForType | type: PhoneNumberType |  PhoneNumber | 获取指定号码类型的有效号码，type: 需要的数字类型 |
-| getExampleNumberForNonGeoEntity | countryCallingCode: Int64 |  PhoneNumber   | 获取非地理实体的指定国家/地区呼叫代码的有效号码 |
-| maybeAppendFormattedExtension | number: PhoneNumber, metadata: PhoneMetadata, numberFormat: PhoneNumberFormat, formattedNumber: StringBuilder |  ---   | 如果电话号码指定了扩展名，则将电话号码的格式化扩展名附加到 formattedNumber |
-| getNumberDescByType | metadata: PhoneMetadata, type: PhoneNumberType |  PhoneNumberDesc   | --- |
-| getNumberType | number: PhoneNumber, numberFormat: PhoneNumberFormat |  PhoneNumberType | 获取有效电话号码的类型 |
-| getNumberTypeHelper | nationalNumber: String, metadata: PhoneMetadata |  PhoneNumberType   | --- |
-| getMetadataForRegion | regionCode: String |  PhoneMetadata   | 如果区域代码无效或未知，则返回给定区域代码或元数据 |
-| getMetadataForNonGeographicalRegion | countryCallingCode: Int64 |  PhoneMetadata   | 如果国家/地区呼叫代码无效或未知，则返回给定国家/地区呼叫代码或元数据 |
-| ensureMetadataIsNonNull | phoneMetadata: PhoneMetadata，message: String |  ---   | --- |
-| isNumberMatchingDesc | nationalNumber: String，numberDesc: PhoneNumberDesc |  Bool | --- |
-| isValidNumber | number: PhoneNumber |  Bool | 测试电话号码是否与有效模式匹配，number: 我们要验证的电话号码 |
-| isValidNumberForRegion | number: PhoneNumber, regionCode: String |  Bool   | 测试电话号码在特定区域是否有效 |
-| getRegionCodeForNumber | number: PhoneNumber |  String   | --- |
-| getRegionCodeForNumberFromRegionList | number: PhoneNumber, regionCodes: ArrayList<String> |  String   | --- |
-| getRegionCodeForCountryCode | countryCallingCode: Int64 |  String | 返回与特定国家呼叫代码匹配的区域代码 |
-| getRegionCodesForCountryCode | countryCallingCode: Int64 |  ArrayList<String>   | 返回包含与特定国家/地区呼叫代码匹配的区域代码的列表 |
-| getCountryCodeForValidRegion | regionCode: String |  Int64   | 返回特定地区的国家/地区呼叫代码，param: regionCode 我们要获取国家/地区调用代码的区域 |
-| getNddPrefixForRegion | regionCode: String, stripNonDigits: Bool |  String   | 返回特定地区的国家拨号前缀，stripNonDigits: 以从国家拨号前缀中去除非数字 |
-| isNANPACountry | regionCode: String |  Bool   | 检查这是否是北美编号计划管理 (NANPA) 下的区域 |
-| isAlphaNumber | number: CharSequence |  Bool | 检查数字是否是有效的虚 (alpha) 数字 |
-| isPossibleNumber | number: PhoneNumber |  Bool | number: 需要检查的数字  |
-| isPossibleNumberForType | number: PhoneNumber， type: PhoneNumberType |  Bool   | --- |
-| testNumberLength | number: CharSequence，metadata: PhoneMetadata |  ValidationResult   | 辅助方法根据传入的元数据检查该区域的可能长度，并确定它是否匹配，或者太短或太长 |
-| isPossibleNumberWithReason | number: PhoneNumber |  ValidationResult | 检查电话号码是否是可能的号码，number: 需要检查的数字 |
-| isPossibleNumberForTypeWithReason | number: PhoneNumber, type: PhoneNumberType |  ValidationResult | 检查电话号码是否是特定类型的可能号码，type: 需要的数字类型 |
-| isPossibleNumber | number: CharSequence，regionDialingFrom: String |  PhoneNumber   | 检查电话号码是否是给定字符串形式的号码的可能号码，以及可以拨打该号码的地区，number: 需要检查的号码，regionDialingFrom: 我们期望拨打号码的区域 |
-| truncateTooLongNumber | number: PhoneNumber |  Bool   | 尝试从太长而无法有效的电话号码中提取有效号码，并将传入的 PhoneNumber 对象重置为该有效版本 |
-| getAsYouTypeFormatter | regionCode: String |  PhoneNumberDesc   | 获取特定区域，regionCode: 输入电话号码的区域 |
-| extractCountryCode | fullNumber: StringBuilder, nationalNumber: StringBuilder |  Int64 | --- |
-| maybeExtractCountryCode | number: CharSequence, defaultRegionMetadata: PhoneMetadata, nationalNumber: StringBuilder, keepRawInput: Bool, phoneNumber: PhoneNumber |  Int64   | 尝试从号码中提取国家/地区呼叫代码，number 我们希望从中提取国家呼叫代码的非标准化电话号码 - 可以以“+”开头，在提取国家/地区呼叫代码的情况下 |
-| parsePrefixAsIdd | iddPattern: Pattern, number: StringBuilder |  Bool   | 如果存在，则从号码的开头去除 IDD |
-| maybeStripInternationalPrefixAndNormalize | number: StringBuilder, possibleIddPrefix: String |  CountryCodeSource   | 去除提供的号码中存在的任何国际前缀 |
-| maybeStripNationalPrefixAndCarrierCode | number: StringBuilder, metadata: PhoneMetadata, carrierCode: StringBuilder  |  Bool   | 去除提供的号码中存在的任何国家前缀 |
-| maybeStripExtension | number: StringBuilder |  String | 从号码末尾删除任何分机 |
-| checkRegionForParsing | numberToParse: CharSequence，defaultRegion: String |  Bool | 检查使用的区域代码是否有效，或者如果它无效，则要解析的数字以 + 符号开头，以便我们可以尝试从数字推断区域 |
-| parse | numberToParse: CharSequence, defaultRegion: String |  PhoneNumber   | 解析一个字符串并将其作为原始缓冲区格式的电话号码返回 |
-| parse | numberToParse: CharSequence, defaultRegion: String, phoneNumber: PhoneNumber |  PhoneNumber   | 解析一个字符串并将其作为原始缓冲区格式的电话号码返回 |
-| parseAndKeepRawInput | numberToParse: CharSequence，defaultRegion: String |  PhoneNumber   | --- |
-| parseAndKeepRawInput | numberToParse: CharSequence，defaultRegion: String，phoneNumber: PhoneNumber |  PhoneNumber   | --- |
-| findNumbers | text: CharSequence, defaultRegion: String |  Iterable<PhoneNumberMatch>   | 返回所有的可迭代对象 |
-| findNumbers | text: CharSequence, defaultRegion: String, leniency: Leniency, maxTries: Int64 |  Iterable<PhoneNumberMatch>   | 返回所有的可迭代对象 |
-| setItalianLeadingZerosForPhoneNumber | nationalNumber: CharSequence, phoneNumber: PhoneNumber |  --- | 一个辅助函数，用于设置与电话号码中的前导零相关的值 |
-| parseHelper | numberToParse: CharSequence， defaultRegion: String， keepRawInput: Bool， checkRegion: Bool， phoneNumber: PhoneNumber |  ---   | 解析一个字符串并填写电话号码 |
-| buildNationalNumberForParsing | numberToParse: String, nationalNumber: StringBuilder |  ---   | --- |
-| copyCoreFieldsOnly | phoneNumberIn: PhoneNumber |  PhoneNumber   | 返回仅包含唯一标识电话号码所需的字段的新电话号码，而不是捕获创建电话号码的上下文的任何字段 |
-| isNumberMatch | firstNumberIn: PhoneNumber, secondNumberIn: PhoneNumber |  MatchType   | 获取两个电话号码并比较它们是否相等 |
-| isNationalNumberSuffixOfTheOther | firstNumber: PhoneNumber, secondNumber: PhoneNumber |  Bool   | --- |
-| isNumberMatch | firstNumber: CharSequence, secondNumber: CharSequence |  MatchType | 将两个电话号码作为字符串并比较它们是否相等 |
-| isNumberMatch | firstNumber: PhoneNumber secondNumber: CharSequence |  MatchType   | 获取两个电话号码并比较它们是否相等 |
-| canBeInternationallyDialled | number: PhoneNumber |  Bool | 如果该号码可以从区域外拨打或未知，则返回 true，number: 我们想知道它是否可以从区域外拨打的电话号码 |
-| isMobileNumberPortableRegion | regionCode: String |  Bool   | 如果提供的区域支持手机号码可携带性，则返回 true，regionCode: 我们想知道它是否支持手机号码携带的地区 |
 
 💡 NumberGroupingChecker.cj 小型帮助界面，以便可以根据不同的标准检查数字组，这既适用于我们执行格式化的默认方式，也适用于我们可能想要检查的任何替代格式
 

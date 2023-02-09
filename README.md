@@ -5,7 +5,7 @@
 <p align="center">
 <img alt="" src="https://img.shields.io/badge/release-v0.0.3-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjc-v0.35.6-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjc-v0.36.4-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjcov-90.0%25-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/project-open-brightgreen" style="display: inline-block;" />
 </p>
@@ -103,31 +103,20 @@
 
 主要是核心类和成员函数说明,详情见 [API](./doc/api.md)
 
-## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=3%/> 编译执行
+## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=3%/> 使用说明
 
 ### 编译
 
-```shell
-cd test/LLT
-cjc ./*.cj
-```
-### 安装
+引入 testJekins 包,保持原目录结构 地址：https://gitee.com/HW-PLLab/testJekins 将 src 下 ci_test 放入 yaml 根目录下
 
 ```shell
-# install cjc;
-source cangjie/cangjie/envsetup.sh;
-cjc -v;
+git clone https://gitee.com/HW-PLLab/testJekins
+apt-get install python3
+python3 ci_test/main.py build
+python3 ci_test/main.py test
 ```
 
-### 运行
-
-```cangjie
- cjc phone_parse_test_01_US.cj
- ./main
- echo $?
-```
-
-### 使用说明
+### 功能示例
 
 #### 解析电话号码功能示例
 
@@ -525,5 +514,4 @@ None...
 
 ## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=3%/> 参与贡献
 
-[@chinesebear](https://gitee.com/chinesebear)
-[@shawnzhao19](https://gitee.com/shawnzhao19)
+欢迎给我们提交 PR，欢迎给我们提交 issue，欢迎参与任何形式的贡献。
