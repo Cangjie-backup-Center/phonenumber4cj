@@ -3,7 +3,7 @@
 </div>
 
 <p align="center">
-<img alt="" src="https://img.shields.io/badge/release-v0.0.3-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/release-v0.0.4-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjc-v0.36.4-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjcov-90.0%25-brightgreen" style="display: inline-block;" />
@@ -19,7 +19,6 @@
 - 🚀 解析、格式化和验证世界所有国家/地区的电话号码
 - 🚀 根据号码本身获取号码的类型
 - 🚀 为指定国家/地区提供有效的示例号码
-- 🚀 快速猜测一个号码是否是可能的电话号码
 - 🚀 在用户输入每个数字时即时格式化电话号码
 - 🚀 在文本中查找数字
 
@@ -39,8 +38,8 @@
 ├── doc
 │   ├── assets
 │   ├── cjcov
-│   ├── api.md
 │   ├── design.md
+│   ├── feature_api.md
 │   ├── framework-roadmap-logo.pptx
 │   ├── proposal.md
 │   └── xxx_lib.md
@@ -89,15 +88,22 @@
 │       ├── phone_number_matcher.cj
 │       ├── phone_number_util.cj
 │   └── prefixmapper
+│       ├── phone_prefixmap_storage_strategy.cj
 └── test   
     ├── HLT
     ├── LLT
     └── UT
+├── CHANGELOG.md
+├── gitee_gate.cfg
+├── LICENSE
+├── module.json
+├── README.md
+├── README.OpenSource
 ```
 
-- `doc`是库的设计文档、提案、库的使用文档
-- `src`是库源码目录
-- `test`是存放测试用例，包括HLT用例、LLT 用例和UT用例
+- `doc` 存放库的设计文档、使用文档、需求文档、LLT 用例覆盖报告
+- `src` 是库源码目录
+- `test` 是存放测试用例的文件夹，含有 HLT 测试用例、LLT 自测用例和 UT 单元测试用例
 
 ### 接口说明
 
@@ -107,22 +113,33 @@
 
 ### 编译
 
-引入 testJekins 包,保持原目录结构 地址：https://gitee.com/HW-PLLab/testJekins 将 src 下 ci_test 放入 yaml 根目录下
+1. <a id = "jump1">本项目编译运行方式<a>
 
-```shell
-git clone https://gitee.com/HW-PLLab/testJekins
-apt-get install python3
-python3 ci_test/main.py build
-python3 ci_test/main.py test
-```
+-  <a id = "jump">引入 testJekins 包<a>
+
+    ```
+    git clone https://gitee.com/HW-PLLab/testJekins
+    ```
+
+    将 src 下 ci_test 放入 phonenumber 根目录下,执行：
+
+    ```
+    cpm clean
+    cpm update
+    python3 ci_test/main.py build    ---> 编译
+    python3 ci_test/main.py test     ---> 执行 test/LLT 用例
+    ```
+    test/LLT 用例书写参考：https://gitee.com/HW-PLLab/cangjie-library-pages/wikis 的门禁测试脚本使用方式
+
+- 重复 [本项目编译运行方式的第二步](#jump)
 
 ### 功能示例
+
+注意：用例需放入 `test/LLT` 下，执行步骤是 [本项目编译运行方式](#jump1)
 
 #### 解析电话号码功能示例
 
 ```cangjie
-// EXEC: cjc %import-path %L %l %f
-// EXEC: export CJSTACKSIZE=10mb && ./main
 from std import collection.*
 from phonenumber import libphonenumber.inter.*
 from phonenumber import libphonenumber.data.*
@@ -218,8 +235,6 @@ preferredDomesticCarrierCode ==>
 #### 格式化电话号码功能示例
 
 ```cangjie
-// EXEC: cjc %import-path %L %l %f
-// EXEC: export CJSTACKSIZE=10mb && ./main
 from std import collection.*
 from std import regex.*
 from phonenumber import libphonenumber.inter.*
@@ -247,8 +262,6 @@ PhoneNumberFormat.RFC3966 ==> tel:+1-2530000
 #### 验证电话号码功能示例
 
 ```cangjie
-// EXEC: cjc %import-path %L %l %f
-// EXEC: export CJSTACKSIZE=10mb && ./main
 from std import collection.*
 from phonenumber import libphonenumber.inter.*
 from phonenumber import libphonenumber.data.*
@@ -286,8 +299,6 @@ false
 #### 根据号码本身获取号码的类型功能示例
 
 ```cangjie
-// EXEC: cjc %import-path %L %l %f
-// EXEC: export CJSTACKSIZE=10mb && ./main
 from std import collection.*
 from phonenumber import libphonenumber.inter.*
 from phonenumber import libphonenumber.data.*
@@ -312,8 +323,6 @@ FIXED_LINE
 #### 为所有国家/地区提供有效的示例号码功能示例
 
 ```cangjie
-// EXEC: cjc %import-path %L %l %f
-// EXEC: export CJSTACKSIZE=10mb && ./main
 from std import collection.*
 from std import regex.*
 from phonenumber import libphonenumber.inter.*
@@ -413,8 +422,6 @@ showExamplePhoneNumber ==> None
 #### 在用户输入数字时即时格式化电话号码功能示例
 
 ```cangjie
-// EXEC: cjc %import-path %L %l %f
-// EXEC: export CJSTACKSIZE=10mb && ./main
 from std import collection.*
 from std import regex.*
 from phonenumber import libphonenumber.inter.*
@@ -480,8 +487,6 @@ main() {
 #### 在文本中查找数字功能示例
 
 ```cangjie
-// EXEC: cjc %import-path %L %l %f
-// EXEC: export CJSTACKSIZE=10mb && ./main
 from std import collection.*
 from phonenumber import libphonenumber.inter.*
 from phonenumber import libphonenumber.data.*
