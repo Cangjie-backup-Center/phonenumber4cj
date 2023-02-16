@@ -104,7 +104,7 @@
 
 ### 接口说明
 
-主要是核心类和成员函数说明,详情见 [API](./doc/api.md)
+主要是核心类和成员函数说明,详情见 [API](./doc/feature_api.md)
 
 ## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=3%/> 使用说明
 
