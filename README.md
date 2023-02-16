@@ -40,9 +40,6 @@
 │   ├── cjcov
 │   ├── design.md
 │   ├── feature_api.md
-│   ├── framework-roadmap-logo.pptx
-│   ├── proposal.md
-│   └── xxx_lib.md
 ├── src
 │   └── carrier
 │       ├── data
