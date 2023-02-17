@@ -1365,7 +1365,7 @@ public class PhonemetadataPhoneMetadata {
      *
      * 参数 value - String 类型字符串
      *
-     * 返回值是 String 类型字符串
+     * 返回值是 PhonemetadataPhoneMetadata 类对象
      */
     public func setId(value: String): PhonemetadataPhoneMetadata
 
