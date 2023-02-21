@@ -455,9 +455,7 @@ public open class PhoneNumberUtil {
         if (!hasValidCountryCallingCode(countryCallingCode)) {
             if (number.hasRawInputs()) {
                 return  number.getRawInputs()
-            }else {
-                return ""
-            }
+            } else { return "" }
         }
         var formattedNumber: String = "";
         var numberNoExt: PhoneNumber = PhoneNumber().mergeFrom(number).clearExtensions()
@@ -471,9 +469,7 @@ public open class PhoneNumberUtil {
             } else if (regionCode.equals("BR") && isFixedLineOrMobile) {
                 if (numberNoExt.getPreferredDomesticCarrierCodes().size > 0) {
                     formattedNumber = formatNationalNumberWithPreferredCarrierCode(numberNoExt, "")
-                }else {
-                    formattedNumber = ""
-                }
+                }else { formattedNumber = "" }
             } else if (countryCallingCode == NANPA_COUNTRY_CODE) {
                 var regionMetadata: PhonemetadataPhoneMetadata = getMetadataForRegion(regionCallingFrom)
                 if (canBeInternationallyDialled(numberNoExt) && testNumberLength(getNationalSignificantNumber(numberNoExt), regionMetadata) != ValidationResult.TOO_SHORT) {
@@ -1034,18 +1030,15 @@ public open class PhoneNumberUtil {
             if (countryCodeSource[0] != CountryCodeSource.FROM_DEFAULT_COUNTRY) {
                 if (fullNumber.size <= MIN_LENGTH_FOR_NSN) {
                     throw NumberParseException(ErrorType.TOO_SHORT_AFTER_IDD,
-                                        "Phone number had an IDD, but after this was not "
-                                        + "long enough to be a viable phone number.")
+                                        "Phone number had an IDD, but after this was not "+ "long enough to be a viable phone number.")
                 }
                 var potentialCountryCode: Int32 = extractCountryCode(fullNumber, nationalNumber)
                 if (potentialCountryCode != 0) {
                     phoneNumber.setCountryCodes(Int64(potentialCountryCode))
                     return potentialCountryCode
                 }
-                throw NumberParseException(ErrorType.INVALID_COUNTRY_CODE,
-                                        "Country calling code supplied was not recognised.")
+                throw NumberParseException(ErrorType.INVALID_COUNTRY_CODE, "Country calling code supplied was not recognised.")
             } else {
-
                 if (let Some(i) = defaultRegionMetadata) {
                     let defaultCountryCode: Int32 = defaultRegionMetadata.getOrThrow().getCountryCode()
                     let defaultCountryCodeString: String = "${defaultCountryCode}"
@@ -1066,7 +1059,6 @@ public open class PhoneNumberUtil {
                         }
                     }
                 }
-
                 phoneNumber.setCountryCodes(0)
                 return 0
             }

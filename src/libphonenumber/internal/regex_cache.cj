@@ -4,7 +4,7 @@ from std import collection.*
 from std import regex.*
 
 public open class RegexCache {
-    private var cache: LinkedHashMap<String, Regex> = LinkedHashMap<String, Regex>()
+    private var cache: HashMap<String, Regex> = HashMap<String, Regex>()
 
     public init() {}
 
