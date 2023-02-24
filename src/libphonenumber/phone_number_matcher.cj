@@ -208,7 +208,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
                 }
             }
             var number: PhoneNumber = phoneUtil.parseAndKeepRawInput(candidate, preferredRegion)
-            if (leniency.verify(number, candidate, phoneUtil, this)) {
+            if (leniency.verify(number, candidate, phoneUtil)) {
                 number.clearCountryCodeSources()
                 number.clearRawInputs()
                 number.clearPreferredDomesticCarrierCodes()

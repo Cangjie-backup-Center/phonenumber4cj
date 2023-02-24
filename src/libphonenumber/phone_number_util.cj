@@ -1743,12 +1743,12 @@ class FindNumbersImpl<: Iterable<PhoneNumberMatch> {
 }
 
 abstract class Leniency {
-    func verify(number: PhoneNumber, candidate: String, util: PhoneNumberUtil, matcher: PhoneNumberMatcher): Bool
+    func verify(number: PhoneNumber, candidate: String, util: PhoneNumberUtil): Bool
 }
 
 class Valid <: Leniency {
 
-    func verify(number: PhoneNumber, candidate: String, util: PhoneNumberUtil, matcher: PhoneNumberMatcher): Bool {
+    func verify(number: PhoneNumber, candidate: String, util: PhoneNumberUtil): Bool {
 
         if(!util.isValidNumber(number) || !PhoneNumberMatcher.containsOnlyValidXChars(number, candidate, util)) {
             return false
