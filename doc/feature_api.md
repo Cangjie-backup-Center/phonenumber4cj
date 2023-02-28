@@ -18,20 +18,30 @@
 
 ##### 1.1.1 主要接口
 
+class PhoneNumberUtil
+
+```cangjie
+    /**
+    * 获取 PhoneNumberUtil 实例，实例内含有元数据
+    *
+    * 返回值是 Option<PhoneNumberUtil> 类型，返回类对象
+    */
+    public static func getInstance(): Option<PhoneNumberUtil>
+```
+
+##### 1.1.2 内部接口
+
 class CountryCodeToRegionCodeMap
 
 此类是从国家代码到地区代码的映射类，用国家代码表示国家/地区
 
 ```cangjie
-public class CountryCodeToRegionCodeMap {
-
     /*
      * 从 Hashmap 中根据国家代码获取国家/地区
      *
      * 返回值 HashMap<Int32, ArrayList<String>> - 返回所有的国家代码到地区代码的映射类集合
      */
     public static func getCountryCodeToRegionCodeMap(): HashMap<Int32, ArrayList<String>>
-}
 ```
 
 class BlockingMetadataBootstrappingGuard
@@ -2073,44 +2083,38 @@ public class NumberParseException {
 }
 ```
 
-class PhoneNumberUtil
-
-```cangjie
-    /**
-    * 获取 PhoneNumberUtil 实例，实例内含有元数据
-    *
-    * 返回值是 Option<PhoneNumberUtil> 类型，返回类对象
-    */
-    public static func getInstance(): Option<PhoneNumberUtil>
-```
-
 #### 1.2 电话号码解析
 获取 phonenumberUtil 实例，调用parse解析电话号码
 
 ##### 1.2.1 主要接口
 
+class PhoneNumberUtil
+
+```cangjie
+    /**
+    * 解析电话号码
+    *
+    * 参数 numberToParse - 将要进行解析的电话号码
+    * 参数 defaultRegion - 默认区域代码
+    *
+    * 返回值是 Option<PhoneNumberUtil> 类型
+    */
+    public open func parse(numberToParse: String, defaultRegion: String): PhoneNumber
+
+    /**
+    * 解析电话号码
+    *
+    * 参数 numberToParse - 将要进行解析的电话号码
+    * 参数 defaultRegion - 默认区域代码
+    * 参数 phoneNumber - Phonenumber 类对象
+    *
+    */
+    public open func parse(numberToParse: String, defaultRegion: String, phoneNumber: PhoneNumber): Unit
+```
+
 class PhoneNumber
 
 ```cangjie
-
-    /*
-     * 实现 Serializable 接口的序列化方法
-     *
-     * 返回值是一个 DataModel 对象
-     *
-     */
-    public func serialize(): DataModel
-
-    /*
-     * 实现 Serializable 接口的反序列化方法
-     *
-     * 参数 dm - DataModel 类对象
-     * 如果 dm 为空，则抛出 Exception 异常
-     *
-     * 返回值是一个 PhoneNumber 对象
-     *
-     */
-    public static func deserialize(dm: DataModel): PhoneNumber
 
     /*
      * PhoneNumber 的无参构造器
@@ -2161,14 +2165,6 @@ class PhoneNumber
      *
      */
     public func hasNationalNumbers(): Bool
-
-    /*
-     * 获取国家电话号码
-     *
-     * 返回值是 Int64 类型
-     *
-     */
-    public func getNationalNumbers(): Int64
 
     /*
      * 设置国家电话号码
@@ -2445,64 +2441,6 @@ class PhoneNumber
     public func toString(): String
 ```
 
-enum CountryCodeSource
-
-```cangjie
-    | FROM_NUMBER_WITH_PLUS_SIGN
-    | FROM_NUMBER_WITH_IDD
-    | FROM_NUMBER_WITHOUT_PLUS_SIGN
-    | FROM_DEFAULT_COUNTRY
-    | UNSPECIFIED
-
-    /*
-     * 判断两个枚举类型是否相等
-     *
-     * 参数 that - 传入的另一个错误信息枚举类型
-     *
-     * 返回两个枚举类型是否相等，若相等，返回 ture；否则，返回 false
-     */
-    public operator func == (that: CountryCodeSource): Bool
-
-    /*
-     * 判断两个枚举类型是否不相等
-     *
-     * 参数 that - 传入的另一个错误信息枚举类型
-     *
-     * 返回两个枚举类型是否不相等，若不相等，返回 ture；否则，返回 false
-     */
-    public operator func != (that: CountryCodeSource): Bool
-
-    /*
-     * 转成 String 字符串
-     *
-     * 返回值是 String 类型
-     *
-     */
-    public func toString()
-```
-
-```cangjie
-    /**
-    * 解析电话号码
-    *
-    * 参数 numberToParse - 将要进行解析的电话号码
-    * 参数 defaultRegion - 默认区域代码
-    *
-    * 返回值是 Option<PhoneNumberUtil> 类型
-    */
-    public open func parse(numberToParse: String, defaultRegion: String): PhoneNumber
-
-    /**
-    * 解析电话号码
-    *
-    * 参数 numberToParse - 将要进行解析的电话号码
-    * 参数 defaultRegion - 默认区域代码
-    * 参数 phoneNumber - Phonenumber 类对象
-    *
-    */
-    public open func parse(numberToParse: String, defaultRegion: String, phoneNumber: PhoneNumber): Unit
-```
-
 ##### 1.2.1.1 示例
 
 ```cangjie
@@ -2595,6 +2533,68 @@ hasCountryCodeSource ==> false
 countryCodeSource ==> UNSPECIFIED
 hasPreferredDomesticCarrierCode ==> false
 preferredDomesticCarrierCode ==>
+```
+
+##### 1.2.2 内部接口
+
+class PhoneNumber
+
+```cangjie
+
+    /*
+     * 实现 Serializable 接口的序列化方法
+     *
+     * 返回值是一个 DataModel 对象
+     *
+     */
+    public func serialize(): DataModel
+
+    /*
+     * 实现 Serializable 接口的反序列化方法
+     *
+     * 参数 dm - DataModel 类对象
+     * 如果 dm 为空，则抛出 Exception 异常
+     *
+     * 返回值是一个 PhoneNumber 对象
+     *
+     */
+    public static func deserialize(dm: DataModel): PhoneNumber
+```
+
+enum CountryCodeSource
+
+```cangjie
+    | FROM_NUMBER_WITH_PLUS_SIGN
+    | FROM_NUMBER_WITH_IDD
+    | FROM_NUMBER_WITHOUT_PLUS_SIGN
+    | FROM_DEFAULT_COUNTRY
+    | UNSPECIFIED
+
+    /*
+     * 判断两个枚举类型是否相等
+     *
+     * 参数 that - 传入的另一个错误信息枚举类型
+     *
+     * 返回两个枚举类型是否相等，若相等，返回 ture；否则，返回 false
+     */
+    public operator func == (that: CountryCodeSource): Bool
+
+    /*
+     * 判断两个枚举类型是否不相等
+     *
+     * 参数 that - 传入的另一个错误信息枚举类型
+     *
+     * 返回两个枚举类型是否不相等，若不相等，返回 ture；否则，返回 false
+     */
+    public operator func != (that: CountryCodeSource): Bool
+
+    /*
+     * 转成 String 字符串
+     *
+     * 返回值是 String 类型
+     *
+     */
+    public func toString()
 ```
 
 ### 2 提供对中国及美国的电话号码进行格式化功能
@@ -2727,48 +2727,6 @@ class PhoneNumberUtil
     public func getAsYouTypeFormatter(regionCode: String): AsYouTypeFormatter
 ```
 
-class AsYouTypeFormatter
-
-```cangjie
-    /**
-    * The Function is init constructor
-    *
-    * @param regionCode of String, 地区码, 支持CN,US
-    */
-    public init (regionCode: String)
-
-    /**
-    * 添加即时格式字符
-    *
-    * @param nextChar of Char, 即时格式化字符
-    *
-    * @return Type of String
-    */
-    public func inputDigit (nextChar: Char): String
-
-    /**
-    * 添加即时格式字符, 并记录位置
-    *
-    * @param nextChar of Char, 即时格式化字符
-    *
-    * @return Type of String
-    */
-    public func inputDigitAndRememberPosition (nextChar: Char): String
-
-    /**
-    * 获得记录字符从1开始的位置
-    *
-    * @return Type of Int32 若发生格式则为格式化后的位置, 调用是返回最近的inputDigitAndRememberPosition字符的位置.
-    */
-    public func getRememberedPosition (): Int32
-
-    /**
-    * 清除之前加入的即时格式化内容
-    *
-    * @return Type of Unit
-    */
-    public func clear (): Unit 
-```
 
 ##### 2.2.1.1 示例
 
@@ -2932,6 +2890,8 @@ false
 
 ##### 4.1.1 主要接口
 
+class PhonenumberUtil
+
 ```cangjie
     /**
     * 根据号码本身获取号码的类型
@@ -2942,6 +2902,80 @@ false
     */
     public func getNumberType(number: PhoneNumber): PhoneNumberType
 ```
+
+enum PhoneNumberType
+
+```cangjie
+    | FIXED_LINE
+    | MOBILE
+    | FIXED_LINE_OR_MOBILE
+    | TOLL_FREE
+    | PREMIUM_RATE
+    | SHARED_COST
+    | VOIP
+    | PERSONAL_NUMBER
+    | PAGER
+    | UAN
+    | VOICEMAIL
+    | UNKNOWN
+
+    /**
+    * 判断两个 PhoneNumberType 是否相等
+    *
+    * @param that 传入的另外一个 PhoneNumberType
+    *
+    * @return 返回两个 PhoneNumberType 是否相等，若相等，返回 true，反之，返回 false
+    */
+    public operator func == (that: PhoneNumberType): Bool
+
+    /**
+    * 判断两个 PhoneNumberType 是否不相等
+    *
+    * @param that 传入的另外一个 PhoneNumberType
+    *
+    * @return 返回两个 PhoneNumberType 是否相等，若相等，返回 true，反之，返回 false
+    */
+    public operator func != (that: PhoneNumberType): Bool
+
+    /**
+    * 转成字符串
+    *
+    * @return 返回 String 类型
+    */
+    public func toString(): String
+
+    /**
+    * hashcode 方法
+    *
+    * @return 返回 Int64 类型
+    */
+    public func hashCode(): Int64
+```
+
+##### 4.1.1.1 示例
+
+```cangjie
+from std import collection.*
+from phonenumber import libphonenumber.inter.*
+from phonenumber import libphonenumber.data.*
+from phonenumber import libphonenumber.*
+
+main() {
+    var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var phoneNumber: PhoneNumber = phoneNumberUtil.parse("0086-25-95566", "CN")
+    var str = phoneNumberUtil.getNumberType(phoneNumber).toString()
+    println(str)
+    return 0
+}
+```
+
+执行结果如下：
+
+```shell
+FIXED_LINE
+```
+
+##### 4.1.2 内部接口
 
 class RegexBasedMatcher
 
@@ -3236,55 +3270,6 @@ enum PhoneNumberFormat
     public func toString(): String
 ```
 
-enum PhoneNumberType
-
-```cangjie
-    | FIXED_LINE
-    | MOBILE
-    | FIXED_LINE_OR_MOBILE
-    | TOLL_FREE
-    | PREMIUM_RATE
-    | SHARED_COST
-    | VOIP
-    | PERSONAL_NUMBER
-    | PAGER
-    | UAN
-    | VOICEMAIL
-    | UNKNOWN
-
-    /**
-    * 判断两个 PhoneNumberType 是否相等
-    *
-    * @param that 传入的另外一个 PhoneNumberType
-    *
-    * @return 返回两个 PhoneNumberType 是否相等，若相等，返回 true，反之，返回 false
-    */
-    public operator func == (that: PhoneNumberType): Bool
-
-    /**
-    * 判断两个 PhoneNumberType 是否不相等
-    *
-    * @param that 传入的另外一个 PhoneNumberType
-    *
-    * @return 返回两个 PhoneNumberType 是否相等，若相等，返回 true，反之，返回 false
-    */
-    public operator func != (that: PhoneNumberType): Bool
-
-    /**
-    * 转成字符串
-    *
-    * @return 返回 String 类型
-    */
-    public func toString(): String
-
-    /**
-    * hashcode 方法
-    *
-    * @return 返回 Int64 类型
-    */
-    public func hashCode(): Int64
-```
-
 enum MatchType
 
 ```cangjie
@@ -3356,29 +3341,6 @@ enum ValidationResult
     public func toString(): String
 ```
 
-##### 4.1.1.1 示例
-
-```cangjie
-from std import collection.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
-
-main() {
-    var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
-    var phoneNumber: PhoneNumber = phoneNumberUtil.parse("0086-25-95566", "CN")
-    var str = phoneNumberUtil.getNumberType(phoneNumber).toString()
-    println(str)
-    return 0
-}
-```
-
-执行结果如下：
-
-```shell
-FIXED_LINE
-```
-
 #### 4.2 实例提供
 提供指定国家/地区的有效示例
 
@@ -3414,6 +3376,14 @@ class PhoneNumberUtil
     * @since 0.35.6
     */
     public func getExampleNumberForType (regionCode: String, PhoneNumberType: PhoneNumberType): Option<PhoneNumber>
+
+    /*
+     * 获取国家电话号码
+     *
+     * 返回值是 Int64 类型
+     *
+     */
+    public func getNationalNumbers(): Int64
 ```
 
 ##### 4.2.1.1 示例
@@ -3533,6 +3503,40 @@ class PhoneNumberUtil
     public func findNumbers(text: String, defaultRegion: String): Iterable<PhoneNumberMatch>
 ```
 
+##### 4.3.1.1 示例
+
+```cangjie
+from std import collection.*
+from phonenumber import libphonenumber.inter.*
+from phonenumber import libphonenumber.data.*
+from phonenumber import libphonenumber.*
+
+main() {
+    var phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var zipPreceding: String = "hello 仓颉, i am.0086687652"
+    var iterator: Iterator<PhoneNumberMatch> = phoneUtil.findNumbers(zipPreceding, "CN").iterator()
+    while (true) {
+        match (iterator.next()) {
+            case Some(v) => 
+                var number1 = v.getNumber()
+                println(number1.getNationalNumbers())
+                break
+            case None => println("None...")
+                break
+        }
+    }
+    return 0
+}
+```
+
+执行结果如下：
+
+```shell
+None...
+```
+
+##### 4.3.2 内部接口
+
 class PhoneNumberMatch
 
 ```cangjie
@@ -3645,36 +3649,4 @@ enum State
     * @return 返回 String 类型
     */
     public func toString(): String
-```
-
-##### 4.3.1.1 示例
-
-```cangjie
-from std import collection.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
-
-main() {
-    var phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
-    var zipPreceding: String = "hello 仓颉, i am.0086687652"
-    var iterator: Iterator<PhoneNumberMatch> = phoneUtil.findNumbers(zipPreceding, "CN").iterator()
-    while (true) {
-        match (iterator.next()) {
-            case Some(v) => 
-                var number1 = v.getNumber()
-                println(number1.getNationalNumbers())
-                break
-            case None => println("None...")
-                break
-        }
-    }
-    return 0
-}
-```
-
-执行结果如下：
-
-```shell
-None...
 ```
