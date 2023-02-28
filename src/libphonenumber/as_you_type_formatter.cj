@@ -235,12 +235,16 @@ public class AsYouTypeFormatter {
         return currentOutput
     }
 
-    private func inputDigitWithOptionToRememberPosition (nextChars: Char, rememberPosition: Bool): String {
-        var nextChar: Char = nextChars
-        accruedInput.append(nextChar)
+    private func extractAccruedInput(rememberPosition: Bool, accruedInput: StringBuilder) {
         if (rememberPosition) {
             originalPosition = Int32(accruedInput.size)
         }
+    }
+
+    private func inputDigitWithOptionToRememberPosition (nextChars: Char, rememberPosition: Bool): String {
+        var nextChar: Char = nextChars
+        accruedInput.append(nextChar)
+        extractAccruedInput(rememberPosition, accruedInput)
         if (!isDigitOrLeadingPlusSign(nextChar)) {
             ableToFormat = false
             inputHasFormatting = true
