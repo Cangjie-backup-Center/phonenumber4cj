@@ -202,6 +202,14 @@ class DefaultMetadataDependenciesProvider
     public func getAlternateFormatsMetadataFileNameProvider(): PhoneMetadataFileNameProvider
 
     /**
+    * 获取 getAlternateFormatsMetadataSource
+    *
+    * 返回值是 FormattingMetadataSource 类对象
+    *
+    */
+    public func getAlternateFormatsMetadataSource(): FormattingMetadataSource
+
+    /**
     * 获取 getCarrierDataDirectory
     *
     * 返回值是 String 字符串
@@ -772,9 +780,11 @@ public open class PhonemetadataNumberFormat {
     /*
      * 获取长度
      *
+     * 参数 index - Int32 类型的数据
+     *
      * 返回 Int32 类型的数据
      */
-    public func getPossibleLengthCount(): Int32
+    public func getPossibleLength(index: Int32): Option<Int32>
 
     /*
      * 添加长度
@@ -2165,6 +2175,14 @@ class PhoneNumber
      *
      */
     public func hasNationalNumbers(): Bool
+
+    /*
+     * 获取国家电话号码
+     *
+     * 返回值是 Bool 类型
+     *
+     */
+    public func getNationalNumbers(): Bool
 
     /*
      * 设置国家电话号码
