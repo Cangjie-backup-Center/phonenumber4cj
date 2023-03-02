@@ -32,7 +32,7 @@ public open class PhoneNumberUtil {
 
     private static let GEO_MOBILE_COUNTRIES_WITHOUT_MOBILE_AREA_CODES: HashSet<Int32> = HashSet<Int32>([86])
 
-    private static let GEO_MOBILE_COUNTRIES: HashSet<Int32> = HashSet<Int32>([52, 54, 55, 62])
+    private static let GEO_MOBILE_COUNTRIES: HashSet<Int32> = HashSet<Int32>([52, 54, 55, 62, 86])
 
     static let PLUS_SIGN: Char = '+'
 
@@ -547,6 +547,13 @@ public open class PhoneNumberUtil {
         }
     }
 
+    public static func getCountryMobileToken(countryCallingCode: Int32): String {
+        if (MOBILE_TOKEN_MAPPINGS.contains(countryCallingCode)) {
+            return MOBILE_TOKEN_MAPPINGS.get(countryCallingCode).getOrThrow()
+        }
+        return ""
+    }
+
     public open func formatOutOfCountryKeepingAlphaChars(number: PhoneNumber, regionCallingFrom: String): String {
         var rawInput: String = number.getRawInputs()
         if (rawInput.size == 0) {
@@ -781,6 +788,10 @@ public open class PhoneNumberUtil {
         }
         var nationalSignificantNumber: String = getNationalSignificantNumber(number)
         return getNumberTypeHelper(nationalSignificantNumber, metadata) != PhoneNumberType.UNKNOWN
+    }
+
+    public func isNumberGeographical(phoneNumberType: PhoneNumberType, countryCallingCode: Int32): Bool {
+        return phoneNumberType == PhoneNumberType.FIXED_LINE || phoneNumberType == PhoneNumberType.FIXED_LINE_OR_MOBILE || (GEO_MOBILE_COUNTRIES.contains(countryCallingCode) && phoneNumberType == PhoneNumberType.MOBILE)
     }
 
     public open func getNumberType(number: PhoneNumber): PhoneNumberType {
@@ -1134,6 +1145,11 @@ public open class PhoneNumberUtil {
 
     static func formattingRuleHasFirstGroupOnly(nationalPrefixFormattingRule: String): Bool {
         return (nationalPrefixFormattingRule.size == 0) || (findRes(FIRST_GROUP_ONLY_PREFIX_PATTERN.matcher(nationalPrefixFormattingRule).fullMatch()))
+    }
+
+    public func getRegionCodesForCountryCode(countryCallingCode: Int32): ArrayList<String> {
+        let regionCodes: ArrayList<String> = countryCallingCodeToRegionCodeMap.get(countryCallingCode).getOrThrow()
+        return regionCodes
     }
 
     static func findRes(matchData: Option<MatchData>): Bool {

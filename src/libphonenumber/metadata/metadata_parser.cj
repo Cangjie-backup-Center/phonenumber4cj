@@ -1,6 +1,7 @@
 package libphonenumber.metadata
 
 import libphonenumber.inter.*
+from std import io.*
 
 public class MetadataParser {
 

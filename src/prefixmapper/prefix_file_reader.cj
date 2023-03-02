@@ -26,6 +26,9 @@ public class PrefixFileReader {
     private let DEFAULT_CARRIER_PATH_US: Array<String> = [PrefixReaderFilePath.RESOURCES, PrefixReaderFilePath.US , PrefixReaderFilePath.CARRIER_US_EN]
     private let DEFAULT_CARRIER_PATH_ZH_EN: Array<String> = [PrefixReaderFilePath.RESOURCES, PrefixReaderFilePath.ZH , PrefixReaderFilePath.CARRIER_ZH_EN]
     private let DEFAULT_CARRIER_PATH_ZH_CN: Array<String> = [PrefixReaderFilePath.RESOURCES, PrefixReaderFilePath.ZH , PrefixReaderFilePath.CARRIER_ZH_CN]
+    private let DEFAULT_GEO_PATH_US: Array<String> = [PrefixReaderFilePath.RESOURCES, PrefixReaderFilePath.US , PrefixReaderFilePath.GEO_US_EN]
+    private let DEFAULT_GEO_PATH_ZH_EN: Array<String> = [PrefixReaderFilePath.RESOURCES, PrefixReaderFilePath.ZH , PrefixReaderFilePath.GEO_ZH_EN]
+    private let DEFAULT_GEO_PATH_ZH_CN: Array<String> = [PrefixReaderFilePath.RESOURCES, PrefixReaderFilePath.ZH , PrefixReaderFilePath.GEO_ZH_CN]
     private var phonePrefixDataDirectoryUser: String = ""
 
     public init(phonePrefixDataDirectoryUser: String) {
@@ -46,7 +49,7 @@ public class PrefixFileReader {
             }
             readArrs = File.readFrom(eventDataPath)
             metadata = unsafe{ String.fromUtf8Unchecked(readArrs) }
-            return findRes(phonePrefix, metadata, nationalNumber)
+            return findCarrierRes(phonePrefix, metadata, nationalNumber)
         } else {
             if (phonePrefix == 1) {
                 arrs = DEFAULT_CARRIER_PATH_US
@@ -62,7 +65,41 @@ public class PrefixFileReader {
             }
             readArrs = File.readFrom(eventDataPath)
             metadata = unsafe{ String.fromUtf8Unchecked(readArrs) }
-            return findRes(phonePrefix, metadata, nationalNumber)
+            return findCarrierRes(phonePrefix, metadata, nationalNumber)
+        }
+    }
+
+    public func getGeoDescriptionForNumber(number: PhoneNumber, language: String, script: String, region: String): String {
+        let phonePrefix: Int64 = getPrefixForNumber(number)
+        let nationalNumber: String = number.getNationalNumbers().toString()
+        var eventDataPath: Path = getFilePath()
+        var arrs: Array<String> = []
+        var readArrs: Array<UInt8> = []
+        var metadata: String = ""
+        if (!phonePrefixDataDirectoryUser.isEmpty()) {
+            arrs = phonePrefixDataDirectoryUser.split('/')
+            for (dir in arrs where dir != "") {
+                eventDataPath = eventDataPath.join(dir)
+            }
+            readArrs = File.readFrom(eventDataPath)
+            metadata = unsafe{ String.fromUtf8Unchecked(readArrs) }
+            return findGeoRes(phonePrefix, metadata, nationalNumber)
+        } else {
+            if (phonePrefix == 1) {
+                arrs = DEFAULT_GEO_PATH_US
+            } else if (phonePrefix == 86) {
+                if (language == "en") {
+                    arrs = DEFAULT_GEO_PATH_ZH_EN
+                } else if (language == "zh") {
+                    arrs = DEFAULT_GEO_PATH_ZH_CN
+                }
+            }
+            for (dir in arrs where dir != "") {
+                eventDataPath = eventDataPath.join(dir)
+            }
+            readArrs = File.readFrom(eventDataPath)
+            metadata = unsafe{ String.fromUtf8Unchecked(readArrs) }
+            return findGeoRes(phonePrefix, metadata, nationalNumber)
         }
     }
 
@@ -71,7 +108,43 @@ public class PrefixFileReader {
         return countryCallingCode
     }
 
-    private func findRes(phonePrefix: Int64, metadata: String, nationalNumber: String): String {
+    private func findGeoRes(phonePrefix: Int64, metadata: String, nationalNumber: String): String {
+        var res: String = ""
+        if (phonePrefix == 1) {
+            if (nationalNumber.size != 10) {
+                return res
+            }
+            var maxBit: Int64 = 6
+            while (maxBit > 0) {
+                match (metadata.indexOf(nationalNumber[..maxBit])) {
+                    case Some(v) =>
+                        res = sliceRes(metadata, v)
+                        break
+                    case None => 
+                        maxBit -= 1
+                }
+            }
+            return res
+        } else if (phonePrefix == 86) {
+            if (nationalNumber.size != 11) {
+                return res
+            }
+            var maxBit: Int64 = 7
+            while (maxBit > 0) {
+                match (metadata.indexOf(nationalNumber[..maxBit])) {
+                    case Some(v) =>
+                        res =  sliceRes(metadata, v)
+                        break
+                    case None => 
+                        maxBit -= 1
+                }
+            }
+            return res
+        }
+        return res
+    }
+
+    private func findCarrierRes(phonePrefix: Int64, metadata: String, nationalNumber: String): String {
         var res: String = ""
         if (phonePrefix == 1) {
             if (nationalNumber.size != 10) {

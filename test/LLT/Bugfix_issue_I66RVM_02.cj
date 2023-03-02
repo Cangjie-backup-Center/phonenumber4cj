@@ -7,14 +7,14 @@ from phonenumber import libphonenumber.*
 
 main() {
     var phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
-    var zipPreceding: String = "文18717619089"
-    var iterator: Iterator<PhoneNumberMatch> = phoneUtil.findNumbers(zipPreceding, "CN").iterator()
+    var zipPreceding: String = "cangjie1hh中文hhhhh,800-375-5283..."
+    var iterator: Iterator<PhoneNumberMatch> = phoneUtil.findNumbers(zipPreceding, "US").iterator()
     while (true) {
         match (iterator.next()) {
             case Some(v) => 
                 var number1 = v.getNumber()
                 println(number1.getNationalNumbers())
-                if (number1.getNationalNumbers() != 18717619089) { return 1 }
+                if (number1.getNationalNumbers() != 8003755283) { return 1 }
                 break
             case None => println("None...")
                 return 1
