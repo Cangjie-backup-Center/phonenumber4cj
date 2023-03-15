@@ -4,12 +4,13 @@ from std import collection.*
 from phonenumber import libphonenumber.inter.*
 from phonenumber import libphonenumber.data.*
 from phonenumber import libphonenumber.*
+import secodeFuzz.*
 
 
 func call_fuzz(string:String){
     let ph: PhonemetadataNumberFormat = PhonemetadataNumberFormat()
-    println(string)
     ph.setFormat(string)
+    return
 }
 
 func unboundTest():Unit{
