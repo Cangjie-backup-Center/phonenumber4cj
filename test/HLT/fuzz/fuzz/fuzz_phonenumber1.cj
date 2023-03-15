@@ -1,15 +1,16 @@
 //3rd_party_lib:phonenumber/build/phonenumber
 
 from std import collection.*
+import secodeFuzz.*
 from phonenumber import libphonenumber.inter.*
 from phonenumber import libphonenumber.data.*
 from phonenumber import libphonenumber.*
 
 
-func call_fuzz(int64:InT64){
+func call_fuzz(int64:Int64){
     let Phonenumber: PhoneNumber = PhoneNumber()
-    println(int64)
     Phonenumber.setNationalNumbers(int64)
+    return
 }
 
 func unboundTest():Unit{

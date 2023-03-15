@@ -1,6 +1,7 @@
 //3rd_party_lib:phonenumber/build/phonenumber
 
 from std import collection.*
+import secodeFuzz.*
 from phonenumber import libphonenumber.inter.*
 from phonenumber import libphonenumber.data.*
 from phonenumber import libphonenumber.*
@@ -8,8 +9,8 @@ from phonenumber import libphonenumber.*
 
 func call_fuzz(string:String){
     let Phonenumber: PhoneNumber = PhoneNumber()
-    println(string)
     Phonenumber.setRawInputs(string)
+    return
 }
 
 func unboundTest():Unit{

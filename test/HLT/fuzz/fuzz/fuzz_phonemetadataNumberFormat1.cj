@@ -12,9 +12,10 @@ from std import collection.ArrayList
 
 
 func call_fuzz(string:String){
+
     let ph: PhonemetadataNumberFormat = PhonemetadataNumberFormat()
-    println(string)
     ph.setPattern(string)
+    return
 }
  
 func unboundTest():Unit{
