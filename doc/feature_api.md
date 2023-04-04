@@ -3668,3 +3668,195 @@ enum State
     */
     public func toString(): String
 ```
+
+### 5 提供地理位置、时区、运营商相关信息查询功能
+
+前置条件：需要提前将运营商、地理及时区元数据准备完毕 
+场景：
+1.提供电话号码的运营商信息查询功能
+2.提供电话号码的地理信息和时区信息查询功能
+约束：数据范围局限于生成的电话号码元数据内
+依赖：NA
+性能： NA
+可靠性： NA
+
+#### 5.1 提供电话号码的运营商信息查询功能
+构造一个 PhoneNumber 类，设置国家代码及相应的电话号码信息，然后构造一个 PhoneNumberToCarrierMapper 类，根据传入的电话号码及语言等相关信息查询该电话号所属运营商
+
+##### 5.1.1 主要接口
+
+class PhoneNumberToCarrierMapper
+
+```cangjie
+
+    /**
+    * 获取 PhoneNumberToCarrierMapper 实例的静态方法
+    *
+    *
+    * @return 返回 Option 类型，若实例为空，则创建新实例；反之，返回已有实例
+    */
+    public static func getInstance(): Option<PhoneNumberToCarrierMapper>
+
+    /**
+    * 根据有效的电话号码信息，获取其运营商内容
+    *
+    * @param number 传入 PhoneNumber 对象
+    * @param languageCode 传入 Language 对象
+    *
+    * @return 返回运营商信息
+    */
+    public func getNameForValidNumber(number: PhoneNumber, languageCode: Language): String
+
+    /**
+    * 根据传入的电话号码信息，获取其运营商内容
+    *
+    * @param number 传入 PhoneNumber 对象
+    * @param languageCode 传入 Language 对象
+    *
+    * @return 返回运营商信息
+    */
+    public func getNameForNumber(number: PhoneNumber, languageCode: Language): String
+
+    /**
+    * 在“安全”的情况下获取传入的电话号码的运营商名称。如果号码有效，地区无效，则被认为是安全的
+    *
+    * @param number 传入 PhoneNumber 对象
+    * @param languageCode 传入 Language 对象
+    *
+    * @return 返回运营商信息
+    */
+    public func getSafeDisplayName(number: PhoneNumber, languageCode: Language): String
+
+```
+
+##### 5.1.2 内部接口
+
+class PhoneNumberUtil
+
+```cangjie
+
+    /*
+     * 判断所提供的区域是否支持移动号码可携性
+     *
+     * @param 传入区域代码
+     *
+     * @return 若具有可携性，返回 true；反之，为 false
+     */
+    public func isMobileNumberPortableRegion(regionCode: String): Bool
+
+```
+
+class DefaultMetadataDependenciesProvider 
+
+```cangjie
+
+    /*
+     * 获取运营商元数据文件夹路径
+     *
+     *
+     * @return 返回 String 字符串
+     */
+    public func getCarrierDataDirectory(): String
+
+    /*
+     * 获取地理位置元数据文件夹路径
+     *
+     *
+     * @return 返回 String 字符串
+     */
+    public func getGeocodingDataDirectory(): String
+
+```
+
+class PrefixFileReader
+
+```cangjie
+
+    /*
+     * PrefixFileReader 的有参构造器
+     *
+     * @param phonePrefixDataDirectory - 元数据所在目录路径
+     *
+     */
+    public init(phonePrefixDataDirectory: String)
+
+    /*
+     * 获取电话号码前缀信息
+     *
+     * @param number 传入 PhoneNumber 对象
+     *
+     * @return 返回电话号码前缀
+     */
+    public func getPrefixForNumber(number: PhoneNumber): Int64
+
+    /*
+     * 根据电话号码获取运营商描述信息
+     *
+     * @param number 传入 PhoneNumber 对象
+     * @param language 传入 语言内容
+     * @param script 传入自定义信息
+     * @param region 传入区域信息
+     *
+     * @return 返回电话号码前缀
+     */
+    public func getCarrierDescriptionForNumber(number: PhoneNumber, language: String, script: String, region: String): String
+
+```
+
+enum Language
+
+```cangjie
+
+public enum Language {
+
+    English |
+    Chinese |
+    China |
+    US
+
+    /*
+     * 获取国家信息
+     *
+     * @return 返回获取到的国家
+     *
+     */
+    public func getCountry(): String
+
+
+    /*
+     * 获取语言信息
+     *
+     * @return 返回获取到的语言
+     *
+     */
+    public func getLanguage(): String
+
+    /*
+     * 判断两个对象是否相等
+     *
+     * @param that - 传入的另一个对象
+     *
+     * @return 返回两个对象是否相等，若相等，则为 true;反之，为 false
+     */
+    public operator func ==(that: Language): Bool
+
+    /*
+     * 判断两个对象是否不相等
+     *
+     * @param - 传入的另一个对象
+     *
+     * @return 返回两个对象是否相等，若相等，则为 true;反之，为 false
+     */
+    public operator func !=(that: Language): Bool
+
+    /*
+     * 转字符串方法
+     *
+     *
+     * @return 返回字符串内容
+     */
+    public func toString(): String
+
+}
+
+```
