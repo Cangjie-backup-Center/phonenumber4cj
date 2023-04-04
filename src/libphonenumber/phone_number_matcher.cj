@@ -1,5 +1,4 @@
 package libphonenumber
-from std import regex.*
 from std import collection.*
 from std import unicode.*
 
@@ -31,8 +30,8 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
     //private static let REGEX: Regex = Regex("(?:" + leadClass + punctuation + ")" + leadLimit + digitSequence + "(?:" + punctuation + digitSequence + ")" + blockLimit
         //+ "(?:" + PhoneNumberUtil.EXTN_PATTERNS_FOR_MATCHING + ")?")
     private static let REGEX: Regex = Regex("[0-9\\-]+")
-    private static let MATCHING_BRACKETS: Regex = Regex("(?:[" + openingParens + "])?" + "(?:" + nonParens + "+" + "[" + closingParens + "])?"
-        + nonParens + "+" + "(?:[" + openingParens + "]" + nonParens + "+[" + closingParens + "])" + bracketPairLimit + nonParens + "*")
+    private static let MATCHING_BRACKETS: Regex = Regex("(?:[" + openingParens + "])?" + "(?:" + nonParens + "+" + "[" + closingParens + "])?" +
+    nonParens + "+" + "(?:[" + openingParens + "]" + nonParens + "+[" + closingParens + "])" + bracketPairLimit + nonParens + "*")
     private var state: State = State.NOT_READY
     private var lastMatch: Option<PhoneNumberMatch> = Option<PhoneNumberMatch>.None
 
@@ -99,21 +98,23 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
         var mc: Matcher = REGEX.matcher(text)
         var i: Int64 = Int64(index)
         var mcMatch = mc.find(i)
-        while (maxTries > 0 && findRes(mcMatch)) {
-            var start: Int64 = mcMatch.getOrThrow().matchPosition().start
-            var end: Int64 = mcMatch.getOrThrow().matchPosition().end
-            var candidate: String = String.fromUtf8(text.toUtf8Array()[start..end])
-            candidate = trimAfterFirstMatch(PhoneNumberUtil.SECOND_NUMBER_START_PATTERN, candidate)
-            var m: Option<PhoneNumberMatch> = extractMatch(candidate, start)
-            if (let Some(v) = m) {
-                return m
+        while (maxTries > 0) {
+            if (findRes(mcMatch)) {
+                var start: Int64 = mcMatch.getOrThrow().matchPosition().start
+                var end: Int64 = mcMatch.getOrThrow().matchPosition().end
+                var candidate: String = String.fromUtf8(text.toUtf8Array()[start..end])
+                candidate = trimAfterFirstMatch(PhoneNumberUtil.SECOND_NUMBER_START_PATTERN, candidate)
+                var m: Option<PhoneNumberMatch> = extractMatch(candidate, start)
+                if (let Some(v) = m) {
+                    return m
+                }
+                i = start + candidate.size
+                maxTries = maxTries - 1
+                if (i == text.size) {
+                    break
+                }
+                mcMatch = mc.find(i)
             }
-            i = start + candidate.size
-            maxTries = maxTries - 1
-            if (i == text.size) {
-                break
-            }
-            mcMatch = mc.find(i)
         }
         return Option<PhoneNumberMatch>.None
     }

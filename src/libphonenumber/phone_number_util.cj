@@ -1,7 +1,6 @@
 package libphonenumber
 
 from std import io.*
-from std import collection.*
 from std import regex.*
 from std import sync.*
 from std import log.*
@@ -128,30 +127,30 @@ public open class PhoneNumberUtil {
         let ambiguousExtLabels: String = "(?:[xｘ#＃~～]/|int/|ｉｎｔ)"
         let ambiguousSeparator: String = "[- ]+"
         let rfcExtn: String = RFC3966_EXTN_PREFIX + extnDigits(extLimitAfterExplicitLabel)
-        let explicitExtn: String = possibleSeparatorsBetweenNumberAndExtLabel + explicitExtLabels
-                                    + possibleCharsAfterExtLabel + extnDigits(extLimitAfterExplicitLabel)
-                                    + optionalExtnSuffix
-        let ambiguousExtn: String = possibleSeparatorsBetweenNumberAndExtLabel + ambiguousExtLabels
-                                    + possibleCharsAfterExtLabel 
-                                    + extnDigits(extLimitAfterAmbiguousChar)
-                                    + optionalExtnSuffix
+        let explicitExtn: String = possibleSeparatorsBetweenNumberAndExtLabel + explicitExtLabels +
+                                    possibleCharsAfterExtLabel + extnDigits(extLimitAfterExplicitLabel) +
+                                    optionalExtnSuffix
+        let ambiguousExtn: String = possibleSeparatorsBetweenNumberAndExtLabel + ambiguousExtLabels +
+                                    possibleCharsAfterExtLabel + 
+                                    extnDigits(extLimitAfterAmbiguousChar) +
+                                    optionalExtnSuffix
         let americanStyleExtnWithSuffix: String = ambiguousSeparator + extnDigits(extLimitWhenNotSure) + "#"
-        let extensionPattern: String = rfcExtn + "/|"
-                                    + explicitExtn + "/|"
-                                    + ambiguousExtn + "/|"
-                                    + americanStyleExtnWithSuffix
+        let extensionPattern: String = rfcExtn + "/|" +
+                                    explicitExtn + "/|" +
+                                    ambiguousExtn + "/|" +
+                                    americanStyleExtnWithSuffix
         if (forParsing) {
             let possibleSeparatorsNumberExtLabelNoComma: String = "[  \\t]*"
             let autoDiallingAndExtLabelsFound: String = "(?:,{2}/|;)"
-            let autoDiallingExtn: String = possibleSeparatorsNumberExtLabelNoComma
-                                            + autoDiallingAndExtLabelsFound
-                                            + possibleCharsAfterExtLabel
-                                            + extnDigits(extLimitAfterLikelyLabel)
-                                            + optionalExtnSuffix
-            let onlyCommasExtn: String = possibleSeparatorsNumberExtLabelNoComma
-                                            + "(?:,)+" + possibleCharsAfterExtLabel 
-                                            + extnDigits(extLimitAfterAmbiguousChar)
-                                            + optionalExtnSuffix
+            let autoDiallingExtn: String = possibleSeparatorsNumberExtLabelNoComma +
+                                            autoDiallingAndExtLabelsFound +
+                                            possibleCharsAfterExtLabel +
+                                            extnDigits(extLimitAfterLikelyLabel) +
+                                            optionalExtnSuffix
+            let onlyCommasExtn: String = possibleSeparatorsNumberExtLabelNoComma +
+                                            "(?:,)+" + possibleCharsAfterExtLabel +
+                                            extnDigits(extLimitAfterAmbiguousChar) +
+                                            optionalExtnSuffix
             return extensionPattern + "/|" + autoDiallingExtn + "/|" + onlyCommasExtn
         }
         return extensionPattern
@@ -204,8 +203,8 @@ public open class PhoneNumberUtil {
         }
 
         if (supportedRegions.remove(REGION_CODE_FOR_NON_GEO_ENTITY)) {
-            logger.log(LogLevel.WARN, "invalid metadata (country calling code was mapped to the non-geo "
-          + "entity as well as specific region(s))")
+            logger.log(LogLevel.WARN, "invalid metadata (country calling code was mapped to the non-geo " +
+            "entity as well as specific region(s))")
         }
         
         let opt = countryCallingCodeToRegionCodeMap.get(NANPA_COUNTRY_CODE)
@@ -472,23 +471,29 @@ public open class PhoneNumberUtil {
                 }else { formattedNumber = "" }
             } else if (countryCallingCode == NANPA_COUNTRY_CODE) {
                 var regionMetadata: PhonemetadataPhoneMetadata = getMetadataForRegion(regionCallingFrom)
-                if (canBeInternationallyDialled(numberNoExt) && testNumberLength(getNationalSignificantNumber(numberNoExt), regionMetadata) != ValidationResult.TOO_SHORT) {
-                    formattedNumber = format(numberNoExt, PhoneNumberFormat.INTERNATIONAL)
+                if (canBeInternationallyDialled(numberNoExt)) {
+                    if (testNumberLength(getNationalSignificantNumber(numberNoExt), regionMetadata) != ValidationResult.TOO_SHORT) {
+                        formattedNumber = format(numberNoExt, PhoneNumberFormat.INTERNATIONAL)
+                    }
                 } else {
                     formattedNumber = format(numberNoExt, PhoneNumberFormat.NATIONAL)
                 }
             } else {
-                if ((regionCode.equals(REGION_CODE_FOR_NON_GEO_ENTITY) || ((regionCode.equals("MX") || regionCode.equals("CL") || regionCode.equals("UZ")) && isFixedLineOrMobile)) && canBeInternationallyDialled(numberNoExt)) {
-                    formattedNumber = format(numberNoExt, PhoneNumberFormat.INTERNATIONAL)
+                if ((regionCode.equals(REGION_CODE_FOR_NON_GEO_ENTITY) || ((regionCode.equals("MX") || regionCode.equals("CL") || regionCode.equals("UZ")) && isFixedLineOrMobile))) {
+                    if (canBeInternationallyDialled(numberNoExt)) {
+                        formattedNumber = format(numberNoExt, PhoneNumberFormat.INTERNATIONAL)
+                    }
                 } else {
                     formattedNumber = format(numberNoExt, PhoneNumberFormat.NATIONAL)
                 }
             }
-        } else if (isValidNumber && canBeInternationallyDialled(numberNoExt)) {
-            if (withFormatting) {
-                return format(numberNoExt, PhoneNumberFormat.INTERNATIONAL)
-            } else {
-                return format(numberNoExt, PhoneNumberFormat.E164)
+        } else if (isValidNumber) {
+            if (canBeInternationallyDialled(numberNoExt)) {
+                if (withFormatting) {
+                    return format(numberNoExt, PhoneNumberFormat.INTERNATIONAL)
+                } else {
+                    return format(numberNoExt, PhoneNumberFormat.E164)
+                }
             }
         }
         if (withFormatting) {
@@ -567,16 +572,18 @@ public open class PhoneNumberUtil {
             if (isNANPACountry(regionCallingFrom)) {
                 return countryCode.toString() + " " + rawInput
             }
-        } else if (metadataForRegionCallingFrom != PhonemetadataPhoneMetadata() && countryCode == getCountryCodeForValidRegion(regionCallingFrom)) {
-            var formattingPattern: Option<PhonemetadataNumberFormat> = chooseFormattingPatternForNumber(metadataForRegionCallingFrom.getNumberFormatList(), nationalNumber)
-            if (formattingPattern == Option<PhonemetadataNumberFormat>.None) {
-              return rawInput
+        } else if (metadataForRegionCallingFrom != PhonemetadataPhoneMetadata()) {
+            if (countryCode == getCountryCodeForValidRegion(regionCallingFrom)) {
+                var formattingPattern: Option<PhonemetadataNumberFormat> = chooseFormattingPatternForNumber(metadataForRegionCallingFrom.getNumberFormatList(), nationalNumber)
+                if (formattingPattern == Option<PhonemetadataNumberFormat>.None) {
+                    return rawInput
+                }
+                var newFormat: NumberFormatBuilder = PhonemetadataNumberFormat.newBuilder()
+                newFormat.mergeFrom(formattingPattern.getOrThrow())
+                newFormat.setPattern("(\\d+)(.*)")
+                newFormat.setFormat("$1$2")
+                return formatNsnUsingPattern(rawInput, newFormat.build(), PhoneNumberFormat.NATIONAL)
             }
-            var newFormat: NumberFormatBuilder = PhonemetadataNumberFormat.newBuilder()
-            newFormat.mergeFrom(formattingPattern.getOrThrow())
-            newFormat.setPattern("(\\d+)(.*)")
-            newFormat.setFormat("$1$2")
-            return formatNsnUsingPattern(rawInput, newFormat.build(), PhoneNumberFormat.NATIONAL);
         }
         var internationalPrefixForFormatting: String = ""
         if (metadataForRegionCallingFrom != PhonemetadataPhoneMetadata()) {
@@ -647,14 +654,22 @@ public open class PhoneNumberUtil {
         }
     }
 
-    open func chooseFormattingPatternForNumber(availableFormats: ArrayList<PhonemetadataNumberFormat>,
+    protected open func chooseFormattingPatternForNumber(availableFormats: ArrayList<PhonemetadataNumberFormat>,
         nationalNumber: String): Option<PhonemetadataNumberFormat> {
         for (numFormat in availableFormats) {
             var size: Int32 = numFormat.getLeadingDigitsPatternCount()
-            if (size == 0 || lookingAt(regexCache.getPatternForRegex(numFormat.getLeadingDigitsPattern(size - 1).getOrThrow()).matcher(nationalNumber).matchStart())) {
+            if (size == 0) {
                 var m: Matcher = regexCache.getPatternForRegex(numFormat.getPattern()).matcher(nationalNumber)
                 if (matchesFullMatch(m)) {
                   return numFormat
+                }
+            }
+            if (size != 0) {
+                if (lookingAt(regexCache.getPatternForRegex(numFormat.getLeadingDigitsPattern(size - 1).getOrThrow()).matcher(nationalNumber).matchStart())) {
+                    var m: Matcher = regexCache.getPatternForRegex(numFormat.getPattern()).matcher(nationalNumber)
+                    if (matchesFullMatch(m)) {
+                    return numFormat
+                    }
                 }
             }
         }
@@ -668,7 +683,7 @@ public open class PhoneNumberUtil {
         }
     }
 
-    open func formatNsnUsingPattern(nationalNumber: String, formattingPattern: PhonemetadataNumberFormat,
+    protected open func formatNsnUsingPattern(nationalNumber: String, formattingPattern: PhonemetadataNumberFormat,
         numberFormat: PhoneNumberFormat): String {
         return formatNsnUsingPattern(nationalNumber, formattingPattern, numberFormat, Option<String>.None)
     }
@@ -731,7 +746,7 @@ public open class PhoneNumberUtil {
         }
     }
 
-    open func getNumberDescByType(metadata: PhonemetadataPhoneMetadata, types: PhoneNumberType): PhonemetadataPhoneNumberDesc {
+    protected open func getNumberDescByType(metadata: PhonemetadataPhoneMetadata, types: PhoneNumberType): PhonemetadataPhoneNumberDesc {
         match (types) {
             case PREMIUM_RATE => return metadata.getPremiumRate().getOrThrow()
             case TOLL_FREE => return metadata.getTollFree().getOrThrow()
@@ -759,8 +774,10 @@ public open class PhoneNumberUtil {
     public func isValidNumberForRegion(number: PhoneNumber, regionCode: String): Bool {
         var countryCode: Int64 = number.getCountryCodes()
         var metadata: PhonemetadataPhoneMetadata = getMetadataForRegionOrCallingCode(Int32(countryCode), regionCode)
-        if ((!REGION_CODE_FOR_NON_GEO_ENTITY.equals(regionCode) && countryCode != Int64(getCountryCodeForValidRegion(regionCode)))) {
-            return false
+        if ((!REGION_CODE_FOR_NON_GEO_ENTITY.equals(regionCode))) {
+            if (countryCode != Int64(getCountryCodeForValidRegion(regionCode))) {
+                return false
+            }
         }
         var nationalSignificantNumber: String = getNationalSignificantNumber(number)
         return getNumberTypeHelper(nationalSignificantNumber, metadata) != PhoneNumberType.UNKNOWN
@@ -820,7 +837,7 @@ public open class PhoneNumberUtil {
         return PhoneNumberType.UNKNOWN
     }
 
-    open func getMetadataForRegion(regionCode: String): PhonemetadataPhoneMetadata {
+    protected open func getMetadataForRegion(regionCode: String): PhonemetadataPhoneMetadata {
         if (!isValidRegionCode(regionCode)) {
             return PhonemetadataPhoneMetadata()
         }
@@ -829,7 +846,7 @@ public open class PhoneNumberUtil {
         return phoneMetadata
     }
 
-    open func getMetadataForNonGeographicalRegion(countryCallingCode: Int32): PhonemetadataPhoneMetadata {
+    protected open func getMetadataForNonGeographicalRegion(countryCallingCode: Int32): PhonemetadataPhoneMetadata {
         if (!countryCodesForNonGeographicalRegion.contains(countryCallingCode)) {
             return PhonemetadataPhoneMetadata()
         }
@@ -844,7 +861,7 @@ public open class PhoneNumberUtil {
         }
     }
 
-    open func isNumberMatchingDesc(nationalNumber: String, numberDesc: PhonemetadataPhoneNumberDesc): Bool {
+    protected open func isNumberMatchingDesc(nationalNumber: String, numberDesc: PhonemetadataPhoneNumberDesc): Bool {
         var actualLength: Int64 = nationalNumber.size
         var possibleLengths: ArrayList<Int32> = numberDesc.getPossibleLengthList()
         if (possibleLengths.size > 0 && !possibleLengths.contains(Int32(actualLength))) {
@@ -992,7 +1009,7 @@ public open class PhoneNumberUtil {
         return ValidationResult.INVALID_LENGTH
     }
 
-    open func extractCountryCode(fullNumber: StringBuilder, nationalNumber: StringBuilder): Int32 {
+    protected open func extractCountryCode(fullNumber: StringBuilder, nationalNumber: StringBuilder): Int32 {
         let str: String = fullNumber.toString()
         if ((fullNumber.size != 0) || (str.charAt(0) != '0')) {
             var potentialCountryCode: Int32 = 0
@@ -1012,8 +1029,7 @@ public open class PhoneNumberUtil {
         }
     }
 
-    open func maybeExtractCountryCode(number: String, defaultRegionMetadata: ?PhonemetadataPhoneMetadata, 
-        nationalNumber: StringBuilder, keepRawInput: Bool, phoneNumber: PhoneNumber): Int32 {
+    protected open func maybeExtractCountryCode(number: String, defaultRegionMetadata: ?PhonemetadataPhoneMetadata, nationalNumber: StringBuilder, keepRawInput: Bool, phoneNumber: PhoneNumber): Int32 {
         if (number.size == 0) {
             return 0
         } else {
@@ -1047,9 +1063,16 @@ public open class PhoneNumberUtil {
                         var potentialNationalNumber: StringBuilder = StringBuilder(normalizedNumber.substring(defaultCountryCodeString.size))
                         var generalDesc: PhonemetadataPhoneNumberDesc = defaultRegionMetadata.getOrThrow().getGeneralDesc().getOrThrow()
                         maybeStripNationalPrefixAndCarrierCode(potentialNationalNumber, defaultRegionMetadata.getOrThrow(), StringBuilder())
-                        if ((!matcherApi.matchNationalNumber(normalizedNumber, generalDesc, false) 
-                            && matcherApi.matchNationalNumber(potentialNationalNumber.toString(), generalDesc, false))
-                            || testNumberLength(normalizedNumber, defaultRegionMetadata.getOrThrow()) == ValidationResult.TOO_LONG) {
+                        if ((!matcherApi.matchNationalNumber(normalizedNumber, generalDesc, false) &&
+                            matcherApi.matchNationalNumber(potentialNationalNumber.toString(), generalDesc, false))) {
+                            nationalNumber.append(potentialNationalNumber)
+                            if (keepRawInput) {
+                                phoneNumber.setCountryCodeSources(CountryCodeSource.FROM_NUMBER_WITHOUT_PLUS_SIGN)
+                            }
+                            phoneNumber.setCountryCodes(Int64(defaultCountryCode))
+                            return defaultCountryCode
+                        }
+                        if (testNumberLength(normalizedNumber, defaultRegionMetadata.getOrThrow()) == ValidationResult.TOO_LONG) {
                             nationalNumber.append(potentialNationalNumber)
                             if (keepRawInput) {
                                 phoneNumber.setCountryCodeSources(CountryCodeSource.FROM_NUMBER_WITHOUT_PLUS_SIGN)
@@ -1086,7 +1109,7 @@ public open class PhoneNumberUtil {
         return false
     }
 
-    open func maybeStripInternationalPrefixAndNormalize(number: StringBuilder, possibleIddPrefix: String): (CountryCodeSource, StringBuilder) {
+    protected open func maybeStripInternationalPrefixAndNormalize(number: StringBuilder, possibleIddPrefix: String): (CountryCodeSource, StringBuilder) {
         var strBuild: StringBuilder = StringBuilder()
         if (number.size == 0) {
             return (CountryCodeSource.FROM_DEFAULT_COUNTRY, strBuild)
@@ -1126,7 +1149,7 @@ public open class PhoneNumberUtil {
             case None => false
         }
     }
-    open func maybeStripNationalPrefixAndCarrierCode(number: StringBuilder, metadata: PhonemetadataPhoneMetadata,
+    protected open func maybeStripNationalPrefixAndCarrierCode(number: StringBuilder, metadata: PhonemetadataPhoneMetadata,
         carrierCode: StringBuilder): Bool {
         let numberLength: Int32 = Int32(number.size)
         let possibleNationalPrefix: String = metadata.getNationalPrefixForParsing()
@@ -1170,7 +1193,7 @@ public open class PhoneNumberUtil {
         return false
     }
 
-    open func maybeStripExtension(number: StringBuilder): (String, StringBuilder) {
+    protected open func maybeStripExtension(number: StringBuilder): (String, StringBuilder) {
         let m: Option<MatchData> = EXTN_PATTERN.matcher(number.toString()).find()
         match (m) {
             case Some(v) =>
@@ -1256,9 +1279,11 @@ public open class PhoneNumberUtil {
                                      "The string supplied did not seem to be a phone number.")
         }
 
-        if (checkRegion && !checkRegionForParsing(nationalNumber.toString(), defaultRegion)) {
-            throw NumberParseException(ErrorType.INVALID_COUNTRY_CODE,
-                                     "Missing or invalid default region.")
+        if (checkRegion) {
+            if (!checkRegionForParsing(nationalNumber.toString(), defaultRegion)) {
+                throw NumberParseException(ErrorType.INVALID_COUNTRY_CODE,
+                                        "Missing or invalid default region.")
+            }
         }
 
         if (keepRawInput) {
@@ -1319,8 +1344,8 @@ public open class PhoneNumberUtil {
             var potentialNationalNumber: StringBuilder = StringBuilder(normalizedNationalNumber.toString())
             maybeStripNationalPrefixAndCarrierCode(potentialNationalNumber, regionMetadata.getOrThrow(), carrierCode)
             var validationResult: ValidationResult = testNumberLength(potentialNationalNumber.toString(), regionMetadata.getOrThrow())
-            if (validationResult != ValidationResult.TOO_SHORT && validationResult != ValidationResult.IS_POSSIBLE_LOCAL_ONLY
-                                                                && validationResult != ValidationResult.INVALID_LENGTH)
+            if (validationResult != ValidationResult.TOO_SHORT && validationResult != ValidationResult.IS_POSSIBLE_LOCAL_ONLY &&
+                                                                  validationResult != ValidationResult.INVALID_LENGTH)
             {
                 normalizedNationalNumber = potentialNationalNumber
                 if (keepRawInput && carrierCode.toString().size > 0) {
@@ -1359,8 +1384,8 @@ public open class PhoneNumberUtil {
     private func isNationalNumberSuffixOfTheOther(firstNumber: PhoneNumber, secondNumber: PhoneNumber ): Bool {
         var firstNumberNationalNumber: String = "${firstNumber.getNationalNumbers()}"
         var secondNumberNationalNumber: String = "${secondNumber.getNationalNumbers()}"
-        return firstNumberNationalNumber.endsWith(secondNumberNationalNumber)
-            || secondNumberNationalNumber.endsWith(firstNumberNationalNumber)
+        return firstNumberNationalNumber.endsWith(secondNumberNationalNumber) ||
+               secondNumberNationalNumber.endsWith(firstNumberNationalNumber)
     }
 
     protected func isNumberMatch(firstNumberIn: PhoneNumber, secondNumberIn: PhoneNumber): MatchType {
@@ -1368,8 +1393,8 @@ public open class PhoneNumberUtil {
         let firstNumber: PhoneNumber = copyCoreFieldsOnly(firstNumberIn)
         let secondNumber: PhoneNumber = copyCoreFieldsOnly(secondNumberIn)
 
-        if (firstNumber.hasExtensions() && secondNumber.hasExtensions()
-            && !firstNumber.getExtensions().equals(secondNumber.getExtensions())) {
+        if (firstNumber.hasExtensions() && secondNumber.hasExtensions() && 
+            !firstNumber.getExtensions().equals(secondNumber.getExtensions())) {
             return MatchType.NO_MATCH
         }
 
@@ -1379,8 +1404,8 @@ public open class PhoneNumberUtil {
         if (firstNumberCountryCode != 0 && secondNumberCountryCode != 0) {
             if (firstNumber.exactlySameAs(secondNumber)) {
                 return MatchType.EXACT_MATCH
-            } else if (firstNumberCountryCode == secondNumberCountryCode
-            && isNationalNumberSuffixOfTheOther(firstNumber, secondNumber)) {
+            } else if (firstNumberCountryCode == secondNumberCountryCode &&
+                isNationalNumberSuffixOfTheOther(firstNumber, secondNumber)) {
                 return MatchType.SHORT_NSN_MATCH
         }
             return MatchType.NO_MATCH
@@ -1543,6 +1568,11 @@ public open class PhoneNumberUtil {
             logger.log(LogLevel.ERROR, e.toString())
         }
         return Option<PhoneNumber>.None
+    }
+
+    public func isMobileNumberPortableRegion(regionCode: String): Bool {
+        let metadata: PhonemetadataPhoneMetadata = getMetadataForRegion(regionCode)
+        return metadata.getMobileNumberPortableRegion()
     }
 
 }
@@ -1743,12 +1773,12 @@ class FindNumbersImpl<: Iterable<PhoneNumberMatch> {
 }
 
 abstract class Leniency {
-    func verify(number: PhoneNumber, candidate: String, util: PhoneNumberUtil): Bool
+    protected func verify(number: PhoneNumber, candidate: String, util: PhoneNumberUtil): Bool
 }
 
 class Valid <: Leniency {
 
-    func verify(number: PhoneNumber, candidate: String, util: PhoneNumberUtil): Bool {
+    protected func verify(number: PhoneNumber, candidate: String, util: PhoneNumberUtil): Bool {
 
         if(!util.isValidNumber(number) || !PhoneNumberMatcher.containsOnlyValidXChars(number, candidate, util)) {
             return false

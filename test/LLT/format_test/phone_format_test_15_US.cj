@@ -27,7 +27,7 @@ main() {
     DefaultMetadataDependenciesProvider.getInstance().getMetadataParser()
     )
     try {
-        sourceImp.getMetadataForNonGeographicalRegion(001)
+        sourceImp.getMetadataForNonGeographicalRegion(1)
     } catch(e: Exception) {
         if (e.toString() != "IllegalArgumentException: 1 calling code belongs to a geo entity") {
             return 1
