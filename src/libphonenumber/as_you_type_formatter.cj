@@ -107,18 +107,24 @@ public class AsYouTypeFormatter {
         }
         var times = 0
         for (format in formatList) {
-            if (extractedNationalPrefix.size > 0
-                && PhoneNumberUtil.formattingRuleHasFirstGroupOnly(format.getNationalPrefixFormattingRule())
-                && !format.getNationalPrefixOptionalWhenFormatting()
-                && !format.hasDomesticCarrierCodeFormattingRuleFunc()) {
-                times++
-                continue
-            } else if (extractedNationalPrefix.size == 0
-                && !isCompleteNumber
-                && !PhoneNumberUtil.formattingRuleHasFirstGroupOnly(format.getNationalPrefixFormattingRule())
-                && !format.getNationalPrefixOptionalWhenFormatting()) {
-                times++
-                continue
+            if (extractedNationalPrefix.size > 0) {
+                if (PhoneNumberUtil.formattingRuleHasFirstGroupOnly(format.getNationalPrefixFormattingRule())) {
+                    if (!format.getNationalPrefixOptionalWhenFormatting()) {
+                        if (!format.hasDomesticCarrierCodeFormattingRuleFunc()) {
+                            times++
+                            continue
+                        }
+                    }
+                }
+            } else if (extractedNationalPrefix.size == 0) {
+                if (!isCompleteNumber) {
+                    if (!PhoneNumberUtil.formattingRuleHasFirstGroupOnly(format.getNationalPrefixFormattingRule())) {
+                        if (!format.getNationalPrefixOptionalWhenFormatting()) {
+                            times++
+                            continue
+                        }
+                    }
+                }
             }
             if (findRes(ELIGIBLE_FORMAT_PATTERN.matcher(format.getFormat()).find())) {
                 possibleFormats.append(format)
@@ -413,8 +419,8 @@ public class AsYouTypeFormatter {
     }
 
     private func isNanpaNumberWithNationalPrefix (): Bool {
-        return (currentMetadata.getCountryCode() == 1) && (nationalNumber.toString().charAt(0) == '1')
-            && (nationalNumber.toString().charAt(1) != '0') && (nationalNumber.toString().charAt(1) != '1')
+        return (currentMetadata.getCountryCode() == 1) && (nationalNumber.toString().charAt(0) == '1') &&
+               (nationalNumber.toString().charAt(1) != '0') && (nationalNumber.toString().charAt(1) != '1')
     }
 
     private func removeNationalPrefixFromNationalNumber (): String {
