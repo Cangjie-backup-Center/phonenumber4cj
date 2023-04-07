@@ -16,6 +16,7 @@ main() {
     let v1: ValidationResult = ValidationResult.IS_POSSIBLE
     v1.toString()
     p1.hashCode()
+    p1.toString()
     if (p1 != p2) {
         return 0
     }

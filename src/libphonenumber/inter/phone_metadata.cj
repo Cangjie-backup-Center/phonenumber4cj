@@ -1,7 +1,6 @@
 package libphonenumber.inter
 
 from std import io.*
-from std import collection.*
 from std import convert.*
 
 public open class PhonemetadataNumberFormat <: Equatable<PhonemetadataNumberFormat> {

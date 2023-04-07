@@ -1,7 +1,5 @@
 package libphonenumber.metadata
 
-import libphonenumber.inter.*
-
 public class FormattingMetadataSourceImpl <: FormattingMetadataSource {
     private let phoneMetadataFileNameProvider: PhoneMetadataFileNameProvider
     private let bootstrappingGuard: MetadataBootstrappingGuard<MapBackedMetadataContainer<Int32>>

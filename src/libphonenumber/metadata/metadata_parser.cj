@@ -1,9 +1,5 @@
 package libphonenumber.metadata
 
-from std import io.*
-from std import collection.*
-import libphonenumber.inter.*
-
 public class MetadataParser {
 
     private var strictMode: Bool

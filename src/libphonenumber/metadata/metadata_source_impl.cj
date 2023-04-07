@@ -1,6 +1,5 @@
 package libphonenumber.metadata
 
-import libphonenumber.inter.*
 import libphonenumber.internal.*
 
 public class MetadataSourceImpl <: MetadataSource {

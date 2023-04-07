@@ -1,6 +1,5 @@
 package libphonenumber.internal
 
-from std import regex.*
 import libphonenumber.inter.*
 
 public class RegexBasedMatcher <: MatcherApi {

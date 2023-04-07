@@ -1,7 +1,5 @@
 package libphonenumber.internal
 
-from std import collection.*
-
 public class GeoEntityUtility {
     public static let REGION_CODE_FOR_NON_GEO_ENTITIES: String = "001"
 

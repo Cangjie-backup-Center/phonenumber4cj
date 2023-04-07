@@ -5,7 +5,10 @@
   "description": "nothing here",
   "version": "0.0.4",
   "requires": {},
-  "package_requires": {},
+  "package_requires": {
+    "path_option": [],
+    "package_option": {}
+  },
   "foreign_requires": {},
   "output_type": "dynamic",
   "command_option": "-O2",
