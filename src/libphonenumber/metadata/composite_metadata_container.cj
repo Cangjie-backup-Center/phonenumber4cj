@@ -1,6 +1,7 @@
 package libphonenumber.metadata
 
 public class CompositeMetadataContainer <: MetadataContainer {
+    
     private let metadataByCountryCode: MapBackedMetadataContainer<Int32> = 
         MapBackedMetadataContainer<Int32>.byCountryCallingCode()
     private let metadataByRegionCode: MapBackedMetadataContainer<String> = 
