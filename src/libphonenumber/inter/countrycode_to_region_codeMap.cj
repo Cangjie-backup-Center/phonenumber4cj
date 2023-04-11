@@ -1,7 +1,5 @@
 package libphonenumber.inter
 
-from std import collection.*
-
 public class CountryCodeToRegionCodeMap {
 
     public static func getCountryCodeToRegionCodeMap(): HashMap<Int32, ArrayList<String>> {

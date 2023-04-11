@@ -1,8 +1,5 @@
 package libphonenumber.metadata
 
-from std import io.*
-import libphonenumber.inter.*
-
 public class CompositeMetadataContainer <: MetadataContainer {
     private let metadataByCountryCode: MapBackedMetadataContainer<Int32> = 
         MapBackedMetadataContainer<Int32>.byCountryCallingCode()

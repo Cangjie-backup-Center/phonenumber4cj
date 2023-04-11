@@ -2,8 +2,6 @@ package libphonenumber.metadata
 
 from std import sync.*
 from encoding import json.*
-from std import io.*
-from std import collection.*
 
 public class BlockingMetadataBootstrappingGuard<T> <: MetadataBootstrappingGuard<T> where T <: MetadataContainer {
 

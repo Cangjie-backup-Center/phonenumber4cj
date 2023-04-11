@@ -1,7 +1,5 @@
 package libphonenumber.metadata
 
-import libphonenumber.inter.*
-
 public class RegionMetadataSourceImpl <: RegionMetadataSource {
     private let phoneMetadataFileNameProvider: PhoneMetadataFileNameProvider
     private let bootstrappingGuard: MetadataBootstrappingGuard<MapBackedMetadataContainer<String>>

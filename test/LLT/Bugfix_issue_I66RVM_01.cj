@@ -7,7 +7,7 @@ from phonenumber import libphonenumber.*
 
 main() {
     var phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
-    var zipPreceding: String = "文18717619089"
+    var zipPreceding: String = "仓颉测试一下hhhhh一下hh,中文18717619089中文"
     var iterator: Iterator<PhoneNumberMatch> = phoneUtil.findNumbers(zipPreceding, "CN").iterator()
     while (true) {
         match (iterator.next()) {

@@ -1,7 +1,6 @@
 package libphonenumber.metadata
 
 from std import regex.*
-import libphonenumber.inter.*
 
 public class MultiFileModeFileNameProvider <: PhoneMetadataFileNameProvider {
     private var phoneMetadataFileNamePrefix: HashMap<String, ArrayList<String>>
