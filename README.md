@@ -6,7 +6,7 @@
 <img alt="" src="https://img.shields.io/badge/release-v0.0.4-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjc-v0.38.2-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjcov-90.0%25-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjcov-88.9%25-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/project-open-brightgreen" style="display: inline-block;" />
 </p>
 
@@ -42,9 +42,7 @@
 │   ├── feature_api.md
 ├── src
 │   └── carrier
-│       ├── data
-│   └── geocoder
-│       ├── data
+│       ├── phone_number_to_carrier_mapper.cj
 │   └── libphonenumber
 │       ├── data
 │           ├── phone_number_metadata.cj
@@ -84,7 +82,7 @@
 │       ├── phone_number_matcher.cj
 │       ├── phone_number_util.cj
 │   └── prefixmapper
-│       ├── phone_prefixmap_storage_strategy.cj
+│       ├── prefix_file_reader.cj
 └── test   
     ├── HLT
     ├── LLT
@@ -93,6 +91,7 @@
 ├── gitee_gate.cfg
 ├── LICENSE
 ├── module.json
+├── phonenumber_build.sh
 ├── README.md
 ├── README.OpenSource
 ```
@@ -511,6 +510,38 @@ main() {
 
 ```shell
 None...
+```
+
+#### 根据电话号码查询运营商信息功能示例
+
+```cangjie
+// EXEC: cjc %import-path %L %l %f
+// EXEC: export CJSTACKSIZE=10mb && ./main
+
+from phonenumber import carrier.*
+from phonenumber import prefixmapper.*
+from phonenumber import libphonenumber.inter.*
+
+main() {
+    var phone: PhoneNumber = PhoneNumber()
+    phone.setCountryCodes(86).setNationalNumbers(13967195351)
+    var p: PhoneNumberToCarrierMapper = PhoneNumberToCarrierMapper.getInstance().getOrThrow()
+    let res: String = p.getNameForNumber(phone, Language.Chinese)
+    let res2: String = p.getNameForNumber(phone, Language.English)
+    if (!res.isEmpty()) {
+        println(res)
+    }
+    println(res2)
+    0
+}
+
+```
+
+执行结果如下：
+
+```shell
+中国移动
+China Mobile
 ```
 
 ## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=3%/> 参与贡献

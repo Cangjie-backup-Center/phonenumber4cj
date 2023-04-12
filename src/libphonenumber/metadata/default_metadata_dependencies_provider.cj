@@ -72,7 +72,7 @@ public class DefaultMetadataDependenciesProvider {
                 }
                 let paths: Array<String> = str.split(":")
                 for (path in paths where path.contains("build")) {
-                    return "${path}"
+                    return path
                 }
                 return ""
             case None => return ""
@@ -87,7 +87,7 @@ public class DefaultMetadataDependenciesProvider {
                 }
                 let paths: Array<String> = str.split(":")
                 for (path in paths where path.contains("build")) {
-                    return "${path}"
+                    return path
                 }
                 return ""
             case None => return ""
