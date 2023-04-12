@@ -1,5 +1,7 @@
 package libphonenumber.metadata
 
+import libphonenumber.inter.*
+
 public class MetadataParser {
 
     private var strictMode: Bool

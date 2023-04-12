@@ -1,8 +1,8 @@
 package libphonenumber.metadata
 
-from std import io.*
-from std import collection.*
-import libphonenumber.inter.*
+from std import fs.*
+from std import os.*
+from std import os.posix.*
 import libphonenumber.data.*
 
 public class DefaultMetadataDependenciesProvider {
@@ -65,10 +65,32 @@ public class DefaultMetadataDependenciesProvider {
     }
 
     public func getCarrierDataDirectory(): String {
-        return ""
+        match(getEnv("LD_LIBRARY_PATH")) {
+            case Some(str) =>
+                if (str.isEmpty() && str.size < 0 && !str.contains(":")) {
+                    return ""
+                }
+                let paths: Array<String> = str.split(":")
+                for (path in paths where path.contains("build")) {
+                    return "${path}"
+                }
+                return ""
+            case None => return ""
+        }
     }
 
     public func getGeocodingDataDirectory(): String {
-        return ""
+        match(getEnv("LD_LIBRARY_PATH")) {
+            case Some(str) =>
+                if (str.isEmpty() && str.size < 0 && !str.contains(":")) {
+                    return ""
+                }
+                let paths: Array<String> = str.split(":")
+                for (path in paths where path.contains("build")) {
+                    return "${path}"
+                }
+                return ""
+            case None => return ""
+        }
     }
 }

@@ -1,5 +1,7 @@
 package libphonenumber.metadata
 
+from std import collection.*
+
 public class MapBackedMetadataContainer<T> <: MetadataContainer where T <: Hashable & Equatable<T> {
     static func byRegionCode(): MapBackedMetadataContainer<String> {
         return MapBackedMetadataContainer<String>(KeyProviderImpString())
