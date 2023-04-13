@@ -10,8 +10,9 @@ main() {
     phone.setCountryCodes(86).setNationalNumbers(13967195351)
     var p: PhoneNumberToCarrierMapper = PhoneNumberToCarrierMapper.getInstance().getOrThrow()
     let res: String = p.getSafeDisplayName(phone, Language.Chinese)
+    println(res)
     if (!res.isEmpty()) {
-        println(res)
+        return 0
     }
-    0
+    return 1
 }
