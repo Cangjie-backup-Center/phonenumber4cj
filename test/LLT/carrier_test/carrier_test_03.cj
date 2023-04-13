@@ -11,7 +11,7 @@ main() {
     var p: PhoneNumberToCarrierMapper = PhoneNumberToCarrierMapper.getInstance().getOrThrow()
     let res: String = p.getNameForNumber(phone, Language.English)
     if (res.isEmpty()) {
-        println("查询的电话号码不正确")
+        return 0
     }
-    0
+    return 1
 }

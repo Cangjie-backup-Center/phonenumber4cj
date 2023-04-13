@@ -7,9 +7,9 @@ from phonenumber import libphonenumber.inter.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()
-    phone.setCountryCodes(1).setNationalNumbers(3128030095)
+    phone.setCountryCodes(86).setNationalNumbers(63201509589)
     var p: PhoneNumberToCarrierMapper = PhoneNumberToCarrierMapper.getInstance().getOrThrow()
-    let res: String = p.getNameForNumber(phone, Language.English)
+    let res: String = p.getNameForValidNumber(phone, Language.Chinese)
     if (!res.isEmpty()) {
         return 0
     }
