@@ -3729,6 +3729,34 @@ class PhoneNumberToCarrierMapper
 
 ```
 
+##### 5.1.1.1 示例
+
+```cangjie
+from phonenumber import carrier.*
+from phonenumber import prefixmapper.*
+from phonenumber import libphonenumber.inter.*
+
+main() {
+    var phone: PhoneNumber = PhoneNumber()
+    phone.setCountryCodes(86).setNationalNumbers(13967195351)
+    var p: PhoneNumberToCarrierMapper = PhoneNumberToCarrierMapper.getInstance().getOrThrow()
+    let res: String = p.getNameForNumber(phone, Language.Chinese)
+    let res2: String = p.getNameForNumber(phone, Language.English)
+    if (!res.isEmpty()) {
+        println(res)
+    }
+    println(res2)
+    0
+}
+```
+
+执行结果如下：
+
+```shell
+中国移动
+China Mobile
+```
+
 ##### 5.1.2 内部接口
 
 class PhoneNumberUtil

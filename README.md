@@ -514,10 +514,7 @@ None...
 
 #### 根据电话号码查询运营商信息功能示例
 
-```cangjie
-// EXEC: cjc %import-path %L %l %f
-// EXEC: export CJSTACKSIZE=10mb && ./main
-
+```cangjies
 from phonenumber import carrier.*
 from phonenumber import prefixmapper.*
 from phonenumber import libphonenumber.inter.*
