@@ -45,7 +45,11 @@ public class PhoneNumberToCarrierMapper {
     }
 
     public func getSafeDisplayName(number: PhoneNumber, languageCode: Language): String {
-        if (phoneUtil.isMobileNumberPortableRegion(phoneUtil.getRegionCodeForNumber(number).getOrThrow())) {
+        let opt = match(phoneUtil.getRegionCodeForNumber(number)) {
+            case Some(v) => v
+            case None => ""
+        }
+        if (phoneUtil.isMobileNumberPortableRegion(opt)) {
             return ""
         }
         return getNameForNumber(number, languageCode)
