@@ -19,15 +19,18 @@ public class PrefixFileReader {
 
     public func getCarrierDescriptionForNumber(number: PhoneNumber, language: String, script: String, region: String): String {
         var res: String = ""
+        var numberStr = number.getNationalNumbers().toString()
         let phonePrefix = getPrefixForNumber(number)
         if (phonePrefix == 1) {
+            if (numberStr.size != 10) {
+                return res
+            }
             let f: Path = Path(phonePrefixDataDirectory + "/resources/1/1_en_carrier.txt")
             let arr: Array<UInt8> = File.readFrom(f)
             let metadata: String = unsafe{ String.fromUtf8Unchecked(arr) }
-            let str: String = "${number.getNationalNumbers()}"
             var maxBit: Int64 = 7
             while (maxBit > 0) {
-                match (metadata.indexOf(str[..maxBit])) {
+                match (metadata.indexOf(numberStr[..maxBit])) {
                     case Some(v) =>
                         res = sliceRes(metadata, v)
                         break
@@ -37,6 +40,9 @@ public class PrefixFileReader {
             }
             return res
         } else if (phonePrefix == 86) {
+            if (numberStr.size != 11) {
+                return res
+            }
             var filePath: String = phonePrefixDataDirectory
             if (language == "en") {
                 filePath = phonePrefixDataDirectory + "/resources/86/86_en_carrier.txt"
@@ -46,10 +52,9 @@ public class PrefixFileReader {
             let f: Path = Path(filePath)
             let arr: Array<UInt8> = File.readFrom(f)
             let metadata: String = unsafe{ String.fromUtf8Unchecked(arr) }
-            let str: String = "${number.getNationalNumbers()}"
             var maxBit: Int64 = 4
             while (maxBit > 0) {
-                match (metadata.indexOf(str[..maxBit])) {
+                match (metadata.indexOf(numberStr[..maxBit])) {
                     case Some(v) =>
                         res =  sliceRes(metadata, v)
                         break
