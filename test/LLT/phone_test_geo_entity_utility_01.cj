@@ -13,8 +13,6 @@ main() {
     dmd.getShortNumberMetadataFileNameProvider()
     dmd.getAlternateFormatsMetadataSource()
     dmd.getShortNumberMetadataSource()
-    dmd.getCarrierDataDirectory()
-    dmd.getGeocodingDataDirectory()
     if (b) {
         return 0
     }

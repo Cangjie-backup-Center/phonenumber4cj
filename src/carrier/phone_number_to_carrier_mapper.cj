@@ -22,7 +22,7 @@ public class PhoneNumberToCarrierMapper {
         synchronized(lock) {
             match (instance) {
                 case None => 
-                    instance = PhoneNumberToCarrierMapper(DefaultMetadataDependenciesProvider.getInstance().getCarrierDataDirectory())
+                    instance = PhoneNumberToCarrierMapper("")
                 case _ => ()
             }
         }
