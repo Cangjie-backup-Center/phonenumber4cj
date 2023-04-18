@@ -11,9 +11,10 @@ main() {
     var p: PhoneNumberToCarrierMapper = PhoneNumberToCarrierMapper.getInstance().getOrThrow()
     let res: String = p.getNameForNumber(phone, Language.Chinese)
     let res2: String = p.getNameForNumber(phone, Language.English)
-    if (!res.isEmpty()) {
-        println(res)
+    if (res.isEmpty()) {
+        return 1
     }
+    println(res)
     println(res2)
-    0
+    return 0
 }
