@@ -64,33 +64,4 @@ public class DefaultMetadataDependenciesProvider {
         return alternateFormatsMetadataSource
     }
 
-    public func getCarrierDataDirectory(): String {
-        match(getEnv("LD_LIBRARY_PATH")) {
-            case Some(str) =>
-                if (str.isEmpty() && str.size < 0 && !str.contains(":")) {
-                    return ""
-                }
-                let paths: Array<String> = str.split(":")
-                for (path in paths where path.contains("build")) {
-                    return path
-                }
-                return ""
-            case None => return ""
-        }
-    }
-
-    public func getGeocodingDataDirectory(): String {
-        match(getEnv("LD_LIBRARY_PATH")) {
-            case Some(str) =>
-                if (str.isEmpty() && str.size < 0 && !str.contains(":")) {
-                    return ""
-                }
-                let paths: Array<String> = str.split(":")
-                for (path in paths where path.contains("build")) {
-                    return path
-                }
-                return ""
-            case None => return ""
-        }
-    }
 }

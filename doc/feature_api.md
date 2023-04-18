@@ -3774,28 +3774,6 @@ class PhoneNumberUtil
 
 ```
 
-class DefaultMetadataDependenciesProvider 
-
-```cangjie
-
-    /*
-     * 获取运营商元数据文件夹路径
-     *
-     *
-     * @return 返回 String 字符串
-     */
-    public func getCarrierDataDirectory(): String
-
-    /*
-     * 获取地理位置元数据文件夹路径
-     *
-     *
-     * @return 返回 String 字符串
-     */
-    public func getGeocodingDataDirectory(): String
-
-```
-
 class PrefixFileReader
 
 ```cangjie
@@ -3807,15 +3785,6 @@ class PrefixFileReader
      *
      */
     public init(phonePrefixDataDirectory: String)
-
-    /*
-     * 获取电话号码前缀信息
-     *
-     * @param number 传入 PhoneNumber 对象
-     *
-     * @return 返回电话号码前缀
-     */
-    public func getPrefixForNumber(number: PhoneNumber): Int64
 
     /*
      * 根据电话号码获取运营商描述信息
