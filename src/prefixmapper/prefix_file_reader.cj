@@ -1,10 +1,20 @@
+/*
+ * Copyright (c) Cangjie Library Team 2023-2023. All rights reserved.
+ */
+
+/**
+ * @file The file declars the PrefixFileReader class.
+ */
+
 package prefixmapper
 
 from std import fs.*
 from std import os.*
 from std import os.posix.*
+from std import collection.*
 from encoding import json.*
 import libphonenumber.inter.*
+import libphonenumber.*
 
 func getFilePath(): Path {
     match(getEnv("LD_LIBRARY_PATH")) {
@@ -22,13 +32,13 @@ func getFilePath(): Path {
 }
 
 public class PrefixFileReader {
-
     private let DEFAULT_CARRIER_PATH_US: Array<String> = [PrefixReaderFilePath.RESOURCES, PrefixReaderFilePath.US , PrefixReaderFilePath.CARRIER_US_EN]
     private let DEFAULT_CARRIER_PATH_ZH_EN: Array<String> = [PrefixReaderFilePath.RESOURCES, PrefixReaderFilePath.ZH , PrefixReaderFilePath.CARRIER_ZH_EN]
     private let DEFAULT_CARRIER_PATH_ZH_CN: Array<String> = [PrefixReaderFilePath.RESOURCES, PrefixReaderFilePath.ZH , PrefixReaderFilePath.CARRIER_ZH_CN]
     private let DEFAULT_GEO_PATH_US: Array<String> = [PrefixReaderFilePath.RESOURCES, PrefixReaderFilePath.US , PrefixReaderFilePath.GEO_US_EN]
     private let DEFAULT_GEO_PATH_ZH_EN: Array<String> = [PrefixReaderFilePath.RESOURCES, PrefixReaderFilePath.ZH , PrefixReaderFilePath.GEO_ZH_EN]
     private let DEFAULT_GEO_PATH_ZH_CN: Array<String> = [PrefixReaderFilePath.RESOURCES, PrefixReaderFilePath.ZH , PrefixReaderFilePath.GEO_ZH_CN]
+    private let DEFAULT_TZ_PATH_ALL: Array<String> = [PrefixReaderFilePath.RESOURCES, PrefixReaderFilePath.TZ , PrefixReaderFilePath.TZ_ALL]
     private var phonePrefixDataDirectoryUser: String = ""
 
     public init(phonePrefixDataDirectoryUser: String) {
@@ -101,6 +111,60 @@ public class PrefixFileReader {
             metadata = unsafe{ String.fromUtf8Unchecked(readArrs) }
             return findGeoRes(phonePrefix, metadata, nationalNumber)
         }
+    }
+
+    public func lookupTimeZonesForNumber(number: PhoneNumber): ArrayList<String> {
+        var util: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+        let phonePrefix: String = number.getCountryCodes().toString() + util.getNationalSignificantNumber(number)
+        var eventDataPath: Path = getFilePath()
+        var arrs: Array<String> = []
+        var readArrs: Array<UInt8> = []
+        var data: String = ""
+        if (!phonePrefixDataDirectoryUser.isEmpty()) {
+            arrs = phonePrefixDataDirectoryUser.split('/')
+            for (dir in arrs where dir != "") {
+                eventDataPath = eventDataPath.join(dir)
+            }
+            readArrs = File.readFrom(eventDataPath)
+            data = unsafe{ String.fromUtf8Unchecked(readArrs) }
+            return findTzRes(phonePrefix, data, number)
+        } else {
+            arrs = DEFAULT_TZ_PATH_ALL
+            for (dir in arrs where dir != "") {
+                eventDataPath = eventDataPath.join(dir)
+            }
+            readArrs = File.readFrom(eventDataPath)
+            data = unsafe{ String.fromUtf8Unchecked(readArrs) }
+            return findTzRes(phonePrefix, data, number)
+        }
+
+    }
+
+    private func findTzRes(phonePrefix: String, metadata: String, number: PhoneNumber): ArrayList<String> {
+        var res: ArrayList<String> = ArrayList<String>()
+        var maxBit: Int64 = 0
+        if (number.getCountryCodes() == 1) {
+            maxBit = 7
+        } else if (number.getCountryCodes() == 86) {
+            maxBit = 3
+        }
+        while (maxBit > 0) {
+            match (metadata.indexOf("\n" + phonePrefix[..maxBit])) {
+                case Some(v) =>
+                    var s: String = sliceRes(metadata, v + 1)
+                    var count: Int64 = s.count('&')
+                    if (count > 0) {
+                        let arr: Array<String> = s.split('&')
+                        res.appendAll(arr)
+                    } else {
+                        res.append(s)
+                    }
+                    break
+                case None => 
+                    maxBit -= 1
+            }
+        }
+        return res
     }
 
     private func getPrefixForNumber(number: PhoneNumber): Int64 {
