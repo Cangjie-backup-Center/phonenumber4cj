@@ -6,7 +6,7 @@
 <img alt="" src="https://img.shields.io/badge/release-v0.0.4-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjc-v0.38.2-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjcov-88.9%25-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjcov-89.1%25-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/project-open-brightgreen" style="display: inline-block;" />
 </p>
 
@@ -43,6 +43,10 @@
 ├── src
 │   └── carrier
 │       ├── phone_number_to_carrier_mapper.cj
+│   └── geocoder
+│       ├── geocoding
+            ├── phone_number_offline_geocoder.cj
+        ├── phone_number_to_timezone_mapper.cj
 │   └── libphonenumber
 │       ├── data
 │           ├── phone_number_metadata.cj
@@ -82,7 +86,9 @@
 │       ├── phone_number_matcher.cj
 │       ├── phone_number_util.cj
 │   └── prefixmapper
+│       ├── language.cj
 │       ├── prefix_file_reader.cj
+│       ├── prefix_reader_file_path.cj
 └── test   
     ├── HLT
     ├── LLT
@@ -91,6 +97,7 @@
 ├── gitee_gate.cfg
 ├── LICENSE
 ├── module.json
+├── phonenumber_build.bat
 ├── phonenumber_build.sh
 ├── README.md
 ├── README.OpenSource
@@ -539,6 +546,66 @@ main() {
 ```shell
 中国移动
 China Mobile
+```
+
+#### 根据电话号码查询地理位置信息功能示例
+
+```cangjie
+from phonenumber import geocoder.geocoding.*
+from phonenumber import prefixmapper.*
+from phonenumber import libphonenumber.inter.*
+
+main() {
+    var phone: PhoneNumber = PhoneNumber()
+    phone.setCountryCodes(86).setNationalNumbers(15168316747)
+    var p: PhoneNumberOfflineGeocoder = PhoneNumberOfflineGeocoder.getInstance().getOrThrow()
+    let res: String = p.getDescriptionForNumber(phone, Language.China, "CN")
+    if (!res.isEmpty()) {
+        println(res)
+        return 0
+    }
+    return 1
+}
+
+
+```
+
+执行结果如下：
+
+```shell
+浙江省杭州市
+```
+
+#### 根据电话号码查询时区信息功能示例
+
+```cangjie
+from phonenumber import geocoder.*
+from phonenumber import prefixmapper.*
+from phonenumber import libphonenumber.inter.*
+from std import collection.*
+
+main() {
+    var phone: PhoneNumber = PhoneNumber()
+    phone.setCountryCodes(86).setNationalNumbers(15091069727)
+    var p: PhoneNumberToTimeZonesMapper = PhoneNumberToTimeZonesMapper.getInstance().getOrThrow()
+    let str: String = PhoneNumberToTimeZonesMapper.getUnknownTimeZone()
+    let arr: ArrayList<String> = p.getTimeZonesForGeographicalNumber(phone)
+    for (res in arr) {
+        if (res != "Etc/Unknown") {
+            println(res)
+            return 0
+        }
+    }
+    return 1
+}
+
+
+```
+
+执行结果如下：
+
+```shell
+Asia/Shanghai
 ```
 
 ## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=3%/> 参与贡献

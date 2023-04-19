@@ -3794,7 +3794,7 @@ class PrefixFileReader
      * @param script 传入自定义信息
      * @param region 传入区域信息
      *
-     * @return 返回电话号码前缀
+     * @return 返回运营商信息
      */
     public func getCarrierDescriptionForNumber(number: PhoneNumber, language: String, script: String, region: String): String
 
@@ -3857,3 +3857,237 @@ public enum Language {
 }
 
 ```
+
+#### 5.2 提供电话号码的地理位置信息查询功能
+构造一个 PhoneNumber 类，设置国家代码及相应的电话号码信息，然后构造一个 PhoneNumberOfflineGeocoder 类，根据传入的电话号码及语言等相关信息查询该电话号所属地理位置
+
+##### 5.2.1 主要接口
+
+```cangjie
+
+    /**
+    * 获取 PhoneNumberOfflineGeocoder 实例的静态方法
+    *
+    *
+    * @return 返回 Option 类型，若实例为空，则创建新实例；反之，返回已有实例
+    */
+    public static func getInstance(): Option<PhoneNumberOfflineGeocoder>
+
+    /**
+    * 根据有效的电话号码信息，获取其地理位置内容
+    *
+    * @param number 传入 PhoneNumber 对象
+    * @param languageCode 传入 Language 对象
+    *
+    * @return 返回地理位置信息
+    */
+    public func getDescriptionForValidNumber(number: PhoneNumber, languageCode: Language): String
+
+    /**
+    * 根据有效的电话号码信息与输入的区域代码，获取其地理位置
+    *
+    * @param number 传入 PhoneNumber 对象
+    * @param languageCode 传入 Language 对象
+    * @param userRegion 传入 区域代码
+    *
+    * @return 返回地理位置信息
+    */
+    public func getDescriptionForValidNumber(number: PhoneNumber, languageCode: Language, userRegion: String): String
+
+    /**
+    * 根据传入的电话号码信息，获取其地理位置内容
+    *
+    * @param number 传入 PhoneNumber 对象
+    * @param languageCode 传入 Language 对象
+    *
+    * @return 返回地理位置信息
+    */
+    public func getDescriptionForNumber(number: PhoneNumber, languageCode: Language): String
+
+    /**
+    * 根据传入的电话号码信息与输入的区域代码，获取其地理位置
+    *
+    * @param number 传入 PhoneNumber 对象
+    * @param languageCode 传入 Language 对象
+    * @param userRegion 传入 区域代码
+    *
+    * @return 返回地理位置信息
+    */
+    public func getDescriptionForNumber(number: PhoneNumber, languageCode: Language, userRegion: String): String
+
+```
+
+##### 5.2.1.1 示例
+
+```cangjie
+from phonenumber import geocoder.geocoding.*
+from phonenumber import prefixmapper.*
+from phonenumber import libphonenumber.inter.*
+
+main() {
+    var phone: PhoneNumber = PhoneNumber()
+    phone.setCountryCodes(86).setNationalNumbers(15168316747)
+    var p: PhoneNumberOfflineGeocoder = PhoneNumberOfflineGeocoder.getInstance().getOrThrow()
+    let res: String = p.getDescriptionForNumber(phone, Language.China, "CN")
+    if (!res.isEmpty()) {
+        println(res)
+        return 0
+    }
+    return 1
+}
+
+
+```
+
+执行结果如下：
+
+```shell
+浙江省杭州市
+```
+
+##### 5.2.2 内部接口
+
+class PhoneNumberUtil
+
+```cangjie
+
+    /*
+     * 返回提供的国家/地区呼叫代码的移动令牌，否则返回空字符串
+     *
+     * @param countryCallingCode 国家呼叫代码
+     *
+     * @return 给定国家/地区呼叫代码的移动令牌，作为字符串
+     */
+    public static func getCountryMobileToken(countryCallingCode: Int32): String
+
+    /*
+     * 测试电话号码是否具有地理关联
+     *
+     * @param phoneNumberType 电话号码类型
+     * @param countryCallingCode 国家呼叫代码
+     *
+     * @return 返回 Bool 类型
+     */
+    public func isNumberGeographical(phoneNumberType: PhoneNumberType, countryCallingCode: Int32): Bool
+
+    /*
+     * 返回包含与特定国家/地区呼叫代码匹配的区域代码的列表
+     *
+     * @param countryCallingCode 国家呼叫代码
+     *
+     * @return 返回 ArrayList<String> 集合
+     */
+    public func getRegionCodesForCountryCode(countryCallingCode: Int32): ArrayList<String>
+
+```
+
+class PrefixFileReader
+
+```cangjie
+
+    /*
+     * 根据电话号码获取地理位置信息
+     *
+     * @param number 传入 PhoneNumber 对象
+     * @param language 传入 语言内容
+     * @param script 传入自定义信息
+     * @param region 传入区域信息
+     *
+     * @return 返回地理位置信息
+     */
+    public func getCarrierDescriptionForNumber(number: PhoneNumber, language: String, script: String, region: String): String
+
+```
+
+#### 5.3 提供电话号码的时区信息查询功能
+构造一个 PhoneNumber 类，设置国家代码及相应的电话号码信息，然后构造一个 PhoneNumberToTimeZonesMapper 类，根据传入的电话号码及语言等相关信息查询该电话号所属时区
+
+##### 5.3.1 主要接口
+
+```cangjie
+
+    /**
+    * 获取 PhoneNumberToTimeZonesMapper 实例的静态方法
+    *
+    *
+    * @return 返回 Option 类型，若实例为空，则创建新实例；反之，返回已有实例
+    */
+    public static func getInstance(): Option<PhoneNumberToTimeZonesMapper>
+
+    /**
+    * 提供可地理定位的电话号码并且号码有效性已经检查，从而获取其时区信息
+    *
+    * @param number 传入 PhoneNumber 对象
+    *
+    * @return 返回时区信息
+    */
+    public func getTimeZonesForGeographicalNumber(number: PhoneNumber): ArrayList<String>
+
+    /**
+    * 根据电话号码信息，获取其时区信息
+    *
+    * @param number 传入 PhoneNumber 对象
+    *
+    * @return 返回时区信息
+    */
+    public func getTimeZonesForNumber(number: PhoneNumber): ArrayList<String>
+
+    /**
+    * 获取未知时区信息
+    *
+    *
+    * @return 未知时区信息
+    */
+    public static func getUnknownTimeZone(): String
+
+```
+
+##### 5.3.1.1 示例
+
+```cangjie
+from phonenumber import geocoder.*
+from phonenumber import prefixmapper.*
+from phonenumber import libphonenumber.inter.*
+from std import collection.*
+
+main() {
+    var phone: PhoneNumber = PhoneNumber()
+    phone.setCountryCodes(86).setNationalNumbers(15091069727)
+    var p: PhoneNumberToTimeZonesMapper = PhoneNumberToTimeZonesMapper.getInstance().getOrThrow()
+    let str: String = PhoneNumberToTimeZonesMapper.getUnknownTimeZone()
+    let arr: ArrayList<String> = p.getTimeZonesForGeographicalNumber(phone)
+    for (res in arr) {
+        if (res != "Etc/Unknown") {
+            println(res)
+            return 0
+        }
+    }
+    return 1
+}
+
+
+```
+
+执行结果如下：
+
+```shell
+Asia/Shanghai
+```
+
+##### 5.3.2 内部接口
+
+class PrefixFileReader
+
+```cangjie
+
+    /*
+     * 根据电话号码获取时区信息
+     *
+     * @param number 传入 PhoneNumber 对象
+     *
+     * @return 返回时区信息列表
+     */
+    public func lookupTimeZonesForNumber(number: PhoneNumber): ArrayList<String>
+
+```
+

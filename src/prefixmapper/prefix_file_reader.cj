@@ -69,6 +69,8 @@ public class PrefixFileReader {
                 } else if (language == "zh") {
                     arrs = DEFAULT_CARRIER_PATH_ZH_CN
                 }
+            } else {
+                return ""
             }
             for (dir in arrs where dir != "") {
                 eventDataPath = eventDataPath.join(dir)
@@ -103,6 +105,8 @@ public class PrefixFileReader {
                 } else if (language == "zh") {
                     arrs = DEFAULT_GEO_PATH_ZH_CN
                 }
+            } else {
+                return ""
             }
             for (dir in arrs where dir != "") {
                 eventDataPath = eventDataPath.join(dir)
@@ -174,13 +178,14 @@ public class PrefixFileReader {
 
     private func findGeoRes(phonePrefix: Int64, metadata: String, nationalNumber: String): String {
         var res: String = ""
+        var fullNumber: String = phonePrefix.toString() + nationalNumber
         if (phonePrefix == 1) {
             if (nationalNumber.size != 10) {
                 return res
             }
             var maxBit: Int64 = 6
             while (maxBit > 0) {
-                match (metadata.indexOf(nationalNumber[..maxBit])) {
+                match (metadata.indexOf(fullNumber[..maxBit])) {
                     case Some(v) =>
                         res = sliceRes(metadata, v)
                         break
@@ -195,7 +200,7 @@ public class PrefixFileReader {
             }
             var maxBit: Int64 = 7
             while (maxBit > 0) {
-                match (metadata.indexOf(nationalNumber[..maxBit])) {
+                match (metadata.indexOf(fullNumber[..maxBit])) {
                     case Some(v) =>
                         res =  sliceRes(metadata, v)
                         break
@@ -210,13 +215,14 @@ public class PrefixFileReader {
 
     private func findCarrierRes(phonePrefix: Int64, metadata: String, nationalNumber: String): String {
         var res: String = ""
+        var fullNumber: String = phonePrefix.toString() + nationalNumber
         if (phonePrefix == 1) {
             if (nationalNumber.size != 10) {
                 return res
             }
             var maxBit: Int64 = 7
             while (maxBit > 0) {
-                match (metadata.indexOf(nationalNumber[..maxBit])) {
+                match (metadata.indexOf(fullNumber[..maxBit])) {
                     case Some(v) =>
                         res = sliceRes(metadata, v)
                         break
@@ -231,7 +237,7 @@ public class PrefixFileReader {
             }
             var maxBit: Int64 = 4
             while (maxBit > 0) {
-                match (metadata.indexOf(nationalNumber[..maxBit])) {
+                match (metadata.indexOf(fullNumber[..maxBit])) {
                     case Some(v) =>
                         res =  sliceRes(metadata, v)
                         break
