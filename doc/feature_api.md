@@ -3995,7 +3995,7 @@ class PrefixFileReader
      *
      * @return 返回地理位置信息
      */
-    public func getCarrierDescriptionForNumber(number: PhoneNumber, language: String, script: String, region: String): String
+    public func getGeoDescriptionForNumber(number: PhoneNumber, language: String, script: String, region: String): String
 
 ```
 

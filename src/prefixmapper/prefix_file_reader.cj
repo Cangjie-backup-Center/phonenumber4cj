@@ -176,6 +176,7 @@ public class PrefixFileReader {
         return countryCallingCode
     }
 
+    // 函数中 maxBit 的含义为: 对 US 而言，地理的信息组成为 国家代码 + 号码前6位 即最大前缀和为 7；对 CH 而言，运营商的信息组成为 国家代码 + 号码前7位 即最大前缀和为 9。
     private func findGeoRes(phonePrefix: Int64, metadata: String, nationalNumber: String): String {
         var res: String = ""
         var fullNumber: String = phonePrefix.toString() + nationalNumber
@@ -183,7 +184,7 @@ public class PrefixFileReader {
             if (nationalNumber.size != 10) {
                 return res
             }
-            var maxBit: Int64 = 6
+            var maxBit: Int64 = 7
             while (maxBit > 0) {
                 match (metadata.indexOf(fullNumber[..maxBit])) {
                     case Some(v) =>
@@ -198,7 +199,7 @@ public class PrefixFileReader {
             if (nationalNumber.size != 11) {
                 return res
             }
-            var maxBit: Int64 = 7
+            var maxBit: Int64 = 9
             while (maxBit > 0) {
                 match (metadata.indexOf(fullNumber[..maxBit])) {
                     case Some(v) =>
@@ -213,6 +214,7 @@ public class PrefixFileReader {
         return res
     }
 
+    // 函数中 maxBit 的含义为: 对 US 而言，运营商的信息组成为 国家代码 + 号码前7位 即最大前缀和为 8；对 CH 而言，运营商的信息组成为 国家代码 + 号码前4位 即最大前缀和为 6。
     private func findCarrierRes(phonePrefix: Int64, metadata: String, nationalNumber: String): String {
         var res: String = ""
         var fullNumber: String = phonePrefix.toString() + nationalNumber
@@ -220,7 +222,7 @@ public class PrefixFileReader {
             if (nationalNumber.size != 10) {
                 return res
             }
-            var maxBit: Int64 = 7
+            var maxBit: Int64 = 8
             while (maxBit > 0) {
                 match (metadata.indexOf(fullNumber[..maxBit])) {
                     case Some(v) =>
@@ -235,7 +237,7 @@ public class PrefixFileReader {
             if (nationalNumber.size != 11) {
                 return res
             }
-            var maxBit: Int64 = 4
+            var maxBit: Int64 = 6
             while (maxBit > 0) {
                 match (metadata.indexOf(fullNumber[..maxBit])) {
                     case Some(v) =>
