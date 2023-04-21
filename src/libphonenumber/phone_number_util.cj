@@ -1148,7 +1148,10 @@ public open class PhoneNumberUtil {
     }
 
     public func getRegionCodesForCountryCode(countryCallingCode: Int32): ArrayList<String> {
-        let regionCodes: ArrayList<String> = countryCallingCodeToRegionCodeMap.get(countryCallingCode).getOrThrow()
+        let regionCodes = match (countryCallingCodeToRegionCodeMap.get(countryCallingCode)) {
+            case Some(v) => v
+            case None => ArrayList<String>()
+        }
         return regionCodes
     }
 
