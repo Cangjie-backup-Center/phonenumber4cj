@@ -11,9 +11,8 @@ main() {
     var number: PhoneNumber = phonenumberUtil.parse("312-803009", "US")
     var p: PhoneNumberOfflineGeocoder = PhoneNumberOfflineGeocoder.getInstance().getOrThrow()
     let res: String = p.getDescriptionForValidNumber(number, Language.English)
-    if (res.isEmpty()) {
+    if (!res.isEmpty()) {
         return 0
     }
-    println(res)
     return 1
 }

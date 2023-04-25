@@ -10,8 +10,7 @@ main() {
     phone.setCountryCodes(1).setNationalNumbers(4156091789)
     var p: PhoneNumberToCarrierMapper = PhoneNumberToCarrierMapper.getInstance().getOrThrow()
     let res: String = p.getNameForValidNumber(phone, Language.US)
-    println(res)
-    if (!res.isEmpty()) {
+    if (res.isEmpty()) {
         return 0
     }
     return 1

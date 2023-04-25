@@ -45,9 +45,10 @@ public class PrefixFileReader {
         this.phonePrefixDataDirectoryUser = phonePrefixDataDirectoryUser
     }
 
-    public func getCarrierDescriptionForNumber(number: PhoneNumber, language: String, script: String, region: String): String {
+    public func getCarrierDescriptionForNumber(number: PhoneNumber, lan: Language, script: String, region: String): String {
         let phonePrefix: Int64 = getPrefixForNumber(number)
         let nationalNumber: String = number.getNationalNumbers().toString()
+        let language: String = lan.getLanguage()
         var eventDataPath: Path = getFilePath()
         var arrs: Array<String> = []
         var readArrs: Array<UInt8> = []
@@ -59,7 +60,7 @@ public class PrefixFileReader {
             }
             readArrs = File.readFrom(eventDataPath)
             metadata = unsafe{ String.fromUtf8Unchecked(readArrs) }
-            return findCarrierRes(phonePrefix, metadata, nationalNumber)
+            return findCarrierRes(phonePrefix, metadata, nationalNumber, language)
         } else {
             if (phonePrefix == 1) {
                 arrs = DEFAULT_CARRIER_PATH_US
@@ -77,13 +78,14 @@ public class PrefixFileReader {
             }
             readArrs = File.readFrom(eventDataPath)
             metadata = unsafe{ String.fromUtf8Unchecked(readArrs) }
-            return findCarrierRes(phonePrefix, metadata, nationalNumber)
+            return findCarrierRes(phonePrefix, metadata, nationalNumber, language)
         }
     }
 
-    public func getGeoDescriptionForNumber(number: PhoneNumber, language: String, script: String, region: String): String {
+    public func getGeoDescriptionForNumber(number: PhoneNumber, lan: Language, script: String, region: String): String {
         let phonePrefix: Int64 = getPrefixForNumber(number)
         let nationalNumber: String = number.getNationalNumbers().toString()
+        let language: String = lan.getLanguage()
         var eventDataPath: Path = getFilePath()
         var arrs: Array<String> = []
         var readArrs: Array<UInt8> = []
@@ -95,7 +97,7 @@ public class PrefixFileReader {
             }
             readArrs = File.readFrom(eventDataPath)
             metadata = unsafe{ String.fromUtf8Unchecked(readArrs) }
-            return findGeoRes(phonePrefix, metadata, nationalNumber)
+            return findGeoRes(phonePrefix, metadata, nationalNumber, language)
         } else {
             if (phonePrefix == 1) {
                 arrs = DEFAULT_GEO_PATH_US
@@ -113,7 +115,7 @@ public class PrefixFileReader {
             }
             readArrs = File.readFrom(eventDataPath)
             metadata = unsafe{ String.fromUtf8Unchecked(readArrs) }
-            return findGeoRes(phonePrefix, metadata, nationalNumber)
+            return findGeoRes(phonePrefix, metadata, nationalNumber, language)
         }
     }
 
@@ -153,7 +155,7 @@ public class PrefixFileReader {
             maxBit = 3
         }
         while (maxBit > 0) {
-            match (metadata.indexOf("\n" + phonePrefix[..maxBit])) {
+            match (metadata.indexOf("\n" + phonePrefix[..maxBit] + "|")) {
                 case Some(v) =>
                     var s: String = sliceRes(metadata, v + 1)
                     var count: Int64 = s.count('&')
@@ -176,19 +178,18 @@ public class PrefixFileReader {
         return countryCallingCode
     }
 
-    // 函数中 maxBit 的含义为: 对 US 而言，地理的信息组成为 国家代码 + 号码前6位 即最大前缀和为 7；对 CH 而言，运营商的信息组成为 国家代码 + 号码前7位 即最大前缀和为 9。
-    private func findGeoRes(phonePrefix: Int64, metadata: String, nationalNumber: String): String {
+    private func findGeoRes(phonePrefix: Int64, metadata: String, nationalNumber: String, language: String): String {
         var res: String = ""
         var fullNumber: String = phonePrefix.toString() + nationalNumber
-        if (phonePrefix == 1) {
-            if (nationalNumber.size != 10) {
+        var maxBit: Int64 = nationalNumber.size
+        if (phonePrefix == 1 && language == "en") {
+            if (nationalNumber.size < 0 && nationalNumber.size > 10) {
                 return res
             }
-            var maxBit: Int64 = 7
             while (maxBit > 0) {
-                match (metadata.indexOf(fullNumber[..maxBit])) {
+                match (metadata.indexOf("\n" + fullNumber[..maxBit] + "|")) {
                     case Some(v) =>
-                        res = sliceRes(metadata, v)
+                        res = sliceRes(metadata, v + 1)
                         break
                     case None => 
                         maxBit -= 1
@@ -196,14 +197,13 @@ public class PrefixFileReader {
             }
             return res
         } else if (phonePrefix == 86) {
-            if (nationalNumber.size != 11) {
+            if (nationalNumber.size < 0 && nationalNumber.size > 11) {
                 return res
             }
-            var maxBit: Int64 = 9
             while (maxBit > 0) {
-                match (metadata.indexOf(fullNumber[..maxBit])) {
+                match (metadata.indexOf("\n" + fullNumber[..maxBit] + "|")) {
                     case Some(v) =>
-                        res =  sliceRes(metadata, v)
+                        res =  sliceRes(metadata, v + 1)
                         break
                     case None => 
                         maxBit -= 1
@@ -214,19 +214,18 @@ public class PrefixFileReader {
         return res
     }
 
-    // 函数中 maxBit 的含义为: 对 US 而言，运营商的信息组成为 国家代码 + 号码前7位 即最大前缀和为 8；对 CH 而言，运营商的信息组成为 国家代码 + 号码前4位 即最大前缀和为 6。
-    private func findCarrierRes(phonePrefix: Int64, metadata: String, nationalNumber: String): String {
+    private func findCarrierRes(phonePrefix: Int64, metadata: String, nationalNumber: String, language: String): String {
         var res: String = ""
         var fullNumber: String = phonePrefix.toString() + nationalNumber
-        if (phonePrefix == 1) {
-            if (nationalNumber.size != 10) {
+        var maxBit: Int64 = nationalNumber.size
+        if (phonePrefix == 1 && language == "en") {
+            if (nationalNumber.size < 0 && nationalNumber.size > 10) {
                 return res
             }
-            var maxBit: Int64 = 8
             while (maxBit > 0) {
-                match (metadata.indexOf(fullNumber[..maxBit])) {
+                match (metadata.indexOf("\n" + fullNumber[..maxBit] + "|")) {
                     case Some(v) =>
-                        res = sliceRes(metadata, v)
+                        res = sliceRes(metadata, v + 1)
                         break
                     case None => 
                         maxBit -= 1
@@ -234,14 +233,13 @@ public class PrefixFileReader {
             }
             return res
         } else if (phonePrefix == 86) {
-            if (nationalNumber.size != 11) {
+            if (nationalNumber.size < 0 && nationalNumber.size > 11) {
                 return res
             }
-            var maxBit: Int64 = 6
             while (maxBit > 0) {
-                match (metadata.indexOf(fullNumber[..maxBit])) {
+                match (metadata.indexOf("\n" + fullNumber[..maxBit] + "|")) {
                     case Some(v) =>
-                        res =  sliceRes(metadata, v)
+                        res =  sliceRes(metadata, v + 1)
                         break
                     case None => 
                         maxBit -= 1

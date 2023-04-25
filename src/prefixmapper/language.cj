@@ -16,12 +16,21 @@ public enum Language {
         }
     }
 
-    public func getDisplayCountry(): String {
+    public func getDisplayCountryToCN(): String {
         return match (this) {
-            case English => "US"
+            case English => "China"
+            case US => "China"
             case Chinese => "中国"
             case China => "中国"
-            case US => "US"
+        }
+    }
+
+    public func getDisplayCountryToUS(): String {
+        return match (this) {
+            case English => "United States"
+            case US => "United States"
+            case Chinese => "美国"
+            case China => "美国"
         }
     }
 

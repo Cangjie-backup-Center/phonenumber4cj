@@ -12,7 +12,7 @@ main() {
     let res: String = p.getNameForNumber(phone, Language.English)
     println(res)
     if (!res.isEmpty()) {
-        return 0
+        return 1
     }
-    return 1
+    return 0
 }
