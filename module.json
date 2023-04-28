@@ -3,7 +3,7 @@
   "organization": "cangjie",
   "name": "phonenumber",
   "description": "nothing here",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "requires": {},
   "package_requires": {
     "path_option": [],

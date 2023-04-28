@@ -3796,7 +3796,7 @@ class PrefixFileReader
      *
      * @return 返回运营商信息
      */
-    public func getCarrierDescriptionForNumber(number: PhoneNumber, language: String, script: String, region: String): String
+    public func getCarrierDescriptionForNumber(number: PhoneNumber, lan: Language, script: String, region: String): String
 
 ```
 
@@ -3818,6 +3818,22 @@ public enum Language {
      *
      */
     public func getCountry(): String
+
+    /*
+     * 获取与中国相关的描述
+     *
+     * @return 返回获取到的描述信息
+     *
+     */
+    public func getDisplayCountryToCN(): String
+
+    /*
+     * 获取与美国相关的描述
+     *
+     * @return 返回获取到的描述信息
+     *
+     */
+    public func getDisplayCountryToUS(): String
 
 
     /*
@@ -3995,7 +4011,7 @@ class PrefixFileReader
      *
      * @return 返回地理位置信息
      */
-    public func getGeoDescriptionForNumber(number: PhoneNumber, language: String, script: String, region: String): String
+    public func getGeoDescriptionForNumber(number: PhoneNumber, lan: Language, script: String, region: String): String
 
 ```
 
