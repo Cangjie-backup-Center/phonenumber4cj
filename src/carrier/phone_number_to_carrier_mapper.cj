@@ -30,10 +30,9 @@ public class PhoneNumberToCarrierMapper {
     }
 
     public func getNameForValidNumber(number: PhoneNumber, languageCode: Language): String {
-        let langStr: String = languageCode.getLanguage()
         let scriptStr: String = ""
         let regionStr: String = languageCode.getCountry()
-        return prefixFileReader.getCarrierDescriptionForNumber(number, langStr, scriptStr, regionStr)
+        return prefixFileReader.getCarrierDescriptionForNumber(number, languageCode, scriptStr, regionStr)
     }
 
     public func getNameForNumber(number: PhoneNumber, languageCode: Language): String {

@@ -52,11 +52,16 @@ public class PhoneNumberOfflineGeocoder {
         if (regionCode.isEmpty() || regionCode.equals("ZZ") || regionCode.equals(PhoneNumberUtil.REGION_CODE_FOR_NON_GEO_ENTITY)) {
             return ""
         }
-        return language.getDisplayCountry()
+        if (regionCode == "CN") {
+            return language.getDisplayCountryToCN()
+        } else if (regionCode == "US") {
+            return language.getDisplayCountryToUS()
+        } else {
+            return ""
+        }
     }
 
     public func getDescriptionForValidNumber(number: PhoneNumber, languageCode: Language): String {
-        let langStr: String = languageCode.getLanguage()
         let scriptStr: String = ""
         let regionStr: String = languageCode.getCountry()
         var areaDescription: String = ""
@@ -71,9 +76,9 @@ public class PhoneNumberOfflineGeocoder {
             } catch (e: NumberParseException) {
                 copiedNumber = number
             }
-            areaDescription = prefixFileReader.getGeoDescriptionForNumber(copiedNumber, langStr, scriptStr, regionStr)
+            areaDescription = prefixFileReader.getGeoDescriptionForNumber(copiedNumber, languageCode, scriptStr, regionStr)
         } else {
-            areaDescription = prefixFileReader.getGeoDescriptionForNumber(number, langStr, scriptStr, regionStr)
+            areaDescription = prefixFileReader.getGeoDescriptionForNumber(number, languageCode, scriptStr, regionStr)
         }
         if (areaDescription.size > 0) {
             return areaDescription

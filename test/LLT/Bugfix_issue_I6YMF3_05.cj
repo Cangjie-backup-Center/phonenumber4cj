@@ -9,12 +9,9 @@ from phonenumber import libphonenumber.*
 
 main() {
     var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
-    var phonenumber=phonenumberUtil.parse("zz-15168316747", "CN")
-    try {
-        var reader: PrefixFileReader= PrefixFileReader("resources/86/86_en_geo.txt")
-        let res: String = reader.getGeoDescriptionForNumber(phonenumber,English,"nihao","CN")
-    } catch(e: FSException) {
-        println("元数据文件路径发生错误...")
-    }
+    var phoneNumber = phonenumberUtil.parse("18717619089", "CN")
+    var prefixFile: PrefixFileReader = PrefixFileReader("resources/86/86_en_geo.txt")
+    var getRegion: String = prefixFile.getGeoDescriptionForNumber(phoneNumber, English, "仓颉", "CN")
+    println(getRegion)
     return 0
 }

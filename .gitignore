@@ -8,3 +8,4 @@ module-resolve.json
 *.gcda
 *.gcno
 output/
+*.bc

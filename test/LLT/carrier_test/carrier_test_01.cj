@@ -10,14 +10,13 @@ main() {
     phone.setCountryCodes(1).setNationalNumbers(3128030095)
     var p: PhoneNumberToCarrierMapper = PhoneNumberToCarrierMapper.getInstance().getOrThrow()
     let res: String = p.getNameForNumber(phone, Language.US)
-    println(res)
     if (Language.English == Language.US) {
         println(Language.English.toString())
     }
     if (Language.English != Language.US) {
         println(Language.Chinese.toString())
     }
-    if (!res.isEmpty()) {
+    if (res.isEmpty()) {
         return 0
     }
     return 1
