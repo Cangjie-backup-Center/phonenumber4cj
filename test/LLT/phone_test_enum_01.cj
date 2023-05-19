@@ -1,6 +1,6 @@
 // EXEC: cjc %import-path %L %l %f
 // EXEC: export CJSTACKSIZE=10mb && ./main
-from phonenumber import libphonenumber.*
+from phonenumber4cj import libphonenumber.*
 
 main() {
     let p1: PhoneNumberType = PhoneNumberType.UNKNOWN

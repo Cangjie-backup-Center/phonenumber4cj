@@ -1,7 +1,7 @@
 // EXEC: cjc %import-path %L %l %f
 // EXEC: export CJSTACKSIZE=10mb && ./main
 
-from phonenumber import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.inter.*
 from std import io.*
 from std import collection.*
 from std import convert.*

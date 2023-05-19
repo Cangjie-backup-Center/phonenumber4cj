@@ -2,9 +2,9 @@
 // EXEC: export CJSTACKSIZE=10mb && ./main
 from std import collection.*
 from serialization import serialization.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
+from phonenumber4cj import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.data.*
+from phonenumber4cj import libphonenumber.*
 
 main() {
     var pn1: PhoneNumber = PhoneNumber()

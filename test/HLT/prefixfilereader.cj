@@ -1,14 +1,14 @@
-//3rd_party_lib:phonenumber/build/phonenumber
+//3rd_party_lib:phonenumber4cj/build/phonenumber4cj
 
 from std import collection.*
 from std import sync.*
 from std import regex.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
-from phonenumber import carrier.*
-from phonenumber import prefixmapper.*
-from phonenumber import libphonenumber.metadata.*
+from phonenumber4cj import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.data.*
+from phonenumber4cj import libphonenumber.*
+from phonenumber4cj import carrier.*
+from phonenumber4cj import prefixmapper.*
+from phonenumber4cj import libphonenumber.metadata.*
 
 
 

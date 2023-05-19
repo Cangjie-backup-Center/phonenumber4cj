@@ -1,9 +1,9 @@
 // EXEC: cjc %import-path %L %l %f
 // EXEC: export CJSTACKSIZE=10mb && ./main
 from std import collection.*
-from phonenumber import libphonenumber.internal.*
-from phonenumber import libphonenumber.metadata.*
-from phonenumber import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.internal.*
+from phonenumber4cj import libphonenumber.metadata.*
+from phonenumber4cj import libphonenumber.inter.*
 
 main() {
     var b: Bool = GeoEntityUtility.isGeoEntity(27)
