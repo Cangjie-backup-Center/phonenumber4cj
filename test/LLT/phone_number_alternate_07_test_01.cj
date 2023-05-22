@@ -1,8 +1,8 @@
 // EXEC: cjc %import-path %L %l %f
 // EXEC: export CJSTACKSIZE=10mb && ./main
 from std import collection.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
+from phonenumber4cj import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.data.*
 
 main() {
     var phoneMetadataCollection = PhonemetadataPhoneMetadataCollection()

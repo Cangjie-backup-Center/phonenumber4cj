@@ -1,10 +1,10 @@
-//3rd_party_lib:phonenumber/build/phonenumber
+//3rd_party_lib:phonenumber4cj/build/phonenumber4cj
 from std import collection.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
-from phonenumber import libphonenumber.metadata.*
-from phonenumber import libphonenumber.internal.*
+from phonenumber4cj import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.data.*
+from phonenumber4cj import libphonenumber.*
+from phonenumber4cj import libphonenumber.metadata.*
+from phonenumber4cj import libphonenumber.internal.*
 @Test
 public class phoneNumber_MetadataSourceImpl {
 

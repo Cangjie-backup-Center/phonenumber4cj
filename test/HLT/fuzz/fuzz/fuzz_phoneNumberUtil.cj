@@ -1,9 +1,9 @@
-//3rd_party_lib:phonenumber/build/phonenumber
+//3rd_party_lib:phonenumber4cj/build/phonenumber4cj
 
 from std import collection.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
+from phonenumber4cj import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.data.*
+from phonenumber4cj import libphonenumber.*
 import secodeFuzz.*
 from std import unittest.*
 from std import unittest.testmacro.*

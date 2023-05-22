@@ -1,9 +1,9 @@
 // EXEC: cjc %import-path %L %l %f
 // EXEC: export CJSTACKSIZE=10mb && ./main
 
-from phonenumber import geocoder.*
-from phonenumber import prefixmapper.*
-from phonenumber import libphonenumber.inter.*
+from phonenumber4cj import geocoder.*
+from phonenumber4cj import prefixmapper.*
+from phonenumber4cj import libphonenumber.inter.*
 from std import collection.*
 
 main() {

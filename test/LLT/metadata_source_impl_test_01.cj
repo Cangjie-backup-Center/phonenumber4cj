@@ -2,11 +2,11 @@
 // EXEC: export CJSTACKSIZE=10mb && ./main
 from std import collection.*
 from std import regex.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.metadata.*
-from phonenumber import libphonenumber.internal.*
-from phonenumber import libphonenumber.*
+from phonenumber4cj import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.data.*
+from phonenumber4cj import libphonenumber.metadata.*
+from phonenumber4cj import libphonenumber.internal.*
+from phonenumber4cj import libphonenumber.*
 
 main() {
     var load = DefaultMetadataDependenciesProvider.getInstance().getMetadataLoader()

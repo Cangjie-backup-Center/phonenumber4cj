@@ -1,10 +1,10 @@
-//3rd_party_lib:phonenumber/build/phonenumber
+//3rd_party_lib:phonenumber4cj/build/phonenumber4cj
 
 from std import collection.*
 import secodeFuzz.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
+from phonenumber4cj import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.data.*
+from phonenumber4cj import libphonenumber.*
 
 
 func call_fuzz(string:String){
