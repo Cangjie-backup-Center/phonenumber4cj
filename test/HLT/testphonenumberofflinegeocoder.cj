@@ -162,7 +162,7 @@ public class PhoneNumberOfflineGeocoderTest{
         println(ForValidNumber1)
         println(ForNumber)  
         println(ForNumber2)
-        @Assert(ForValidNumber,"Washington State")             //结果和标准库不一致          
+        @Assert(ForValidNumber,"Washington State")                    
         @Assert(ForValidNumber1,"United States")     
         @Assert(ForNumber,"Washington State")                     
         @Assert(ForNumber2,"United States") 
@@ -190,7 +190,7 @@ public class PhoneNumberOfflineGeocoderTest{
     }
 
 
-   
+  
     @TestCase
     func PhoneNumberOfflineGeocoder_09(): Unit {
         var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -212,11 +212,10 @@ public class PhoneNumberOfflineGeocoderTest{
 
 
 
-
     @TestCase
     func PhoneNumberUtil_10(): Unit {
 
-        var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    
         var mobiletoken = PhoneNumberUtil.getCountryMobileToken(12)
         println(mobiletoken)
         @Assert(mobiletoken,"") 
@@ -227,7 +226,7 @@ public class PhoneNumberOfflineGeocoderTest{
     func PhoneNumberUtil_11(): Unit {
 
         var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
-        var phoneNumber1=phonenumberUtil.parse("+14255550100", "CN")
+        phonenumberUtil.parse("+14255550100", "CN")
         var getRegion = phonenumberUtil.getRegionCodesForCountryCode(12)
         var isNumber = phonenumberUtil.isNumberGeographical(PhoneNumberType.MOBILE,12)
         var mobiletoken = PhoneNumberUtil.getCountryMobileToken(12)
@@ -240,11 +239,12 @@ public class PhoneNumberOfflineGeocoderTest{
     }
 
 
+
     @TestCase
     func PhoneNumberUtil_12(): Unit {
 
         var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
-        var phoneNumber1=phonenumberUtil.parse("18717619089", "CN")
+        phonenumberUtil.parse("18717619089", "CN")
         var getRegion = phonenumberUtil.getRegionCodesForCountryCode(12)
         var isNumber = phonenumberUtil.isNumberGeographical(PhoneNumberType.MOBILE,12)
         var mobiletoken = PhoneNumberUtil.getCountryMobileToken(12)
@@ -313,9 +313,9 @@ public class PhoneNumberOfflineGeocoderTest{
         var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
         var phoneNumber1=phonenumberUtil.parse("18717619089", "CN")
         var PrefixFile:PrefixFileReader=PrefixFileReader("nihao")
-        var getRegion = PrefixFile.getGeoDescriptionForNumber(phoneNumber1,China,"cangjie","CN")             
+        PrefixFile.getGeoDescriptionForNumber(phoneNumber1,China,"cangjie","CN")             
         } catch (e: Exception) {
-            @Assert(e.toString(),"FSException: The file does not exist!")
+            @Assert(e.toString(),"FSException: The file does not exist or permission denied!")
         }
     }
 
@@ -369,7 +369,7 @@ public class PhoneNumberOfflineGeocoderTest{
         println(phoneNumbertocarriermapper.getNameForValidNumber(phoneNumber1,China))
         @Assert(phoneNumbertocarriermapper.getNameForValidNumber(phoneNumber1,China),"")   
     }
-
+ 
 
 //时区查询
 

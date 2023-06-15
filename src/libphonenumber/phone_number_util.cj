@@ -275,7 +275,7 @@ public open class PhoneNumberUtil {
     static func normalizeDigits(number: String, keepNonDigits: Bool): StringBuilder {
         var normalizedDigits: StringBuilder = StringBuilder()
         for (i in 0..number.size) {
-            let c: Char = number.charAt(i)
+            let c: Char = number[i]
             let digit: Bool = c.isAsciiNumber()
             if (digit != false) {
                 normalizedDigits.append(c)
@@ -294,7 +294,7 @@ public open class PhoneNumberUtil {
         removeNonMatches: Bool): String {
         var normalizedNumber: StringBuilder = StringBuilder()
         for (i in 0..number.size) {
-            let character: Char = number.charAt(i)
+            let character: Char = number[i]
             let newDigit: ?Char = normalizationReplacements.get(character.toAsciiUpperCase())
             match (newDigit) {
                 case Some(v) =>
@@ -1022,7 +1022,7 @@ public open class PhoneNumberUtil {
 
     protected open func extractCountryCode(fullNumber: StringBuilder, nationalNumber: StringBuilder): Int32 {
         let str: String = fullNumber.toString()
-        if ((fullNumber.size != 0) || (str.charAt(0) != '0')) {
+        if ((fullNumber.size != 0) || (str[0] != '0')) {
             var potentialCountryCode: Int32 = 0
             let numberLength: Int32 = Int32(fullNumber.size)
             for (i in 1..numberLength) {
@@ -1265,10 +1265,10 @@ public open class PhoneNumberUtil {
     }
 
     static func setItalianLeadingZerosForPhoneNumber(nationalNumber: String, phoneNumber: PhoneNumber): Unit {
-        if (nationalNumber.size > 1 && nationalNumber.charAt(0) == '0') {
+        if (nationalNumber.size > 1 && nationalNumber[0] == '0') {
             phoneNumber.setItalianLeadingZeros(true)
             var numberOfLeadingZeros: Int64 = 1
-            while (numberOfLeadingZeros < nationalNumber.size - 1 && nationalNumber.charAt(numberOfLeadingZeros) == '0') {
+            while (numberOfLeadingZeros < nationalNumber.size - 1 && nationalNumber[numberOfLeadingZeros] == '0') {
                 numberOfLeadingZeros ++
             }
 
@@ -1506,7 +1506,7 @@ public open class PhoneNumberUtil {
         if (indexOfPhoneContext >= 0 ) {
             var phoneContextStart: Int32 = indexOfPhoneContext + Int32(RFC3966_PHONE_CONTEXT.size)
             var phoneContextEnd: Int64
-            if (phoneContextStart < (Int32(numberToParse.size) - 1) && numberToParse.charAt(Int64(phoneContextStart)) == PLUS_SIGN) {
+            if (phoneContextStart < (Int32(numberToParse.size) - 1) && numberToParse[Int64(phoneContextStart)] == PLUS_SIGN) {
                 match (numberToParse.indexOf(';', Int64(phoneContextStart))){
                     case Some(x) => phoneContextEnd = x
                     case None => phoneContextEnd = -1

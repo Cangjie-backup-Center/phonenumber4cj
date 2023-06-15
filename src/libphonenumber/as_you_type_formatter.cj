@@ -367,7 +367,7 @@ public class AsYouTypeFormatter {
         var accruedInputIndex: Int32 = 0
         var currentOutputIndex: Int32 = 0
         while ( accruedInputIndex < positionToRemember && currentOutputIndex < Int32(currentOutput.size) ) {
-            if (accruedInputWithoutFormatting.toString().charAt(Int64(accruedInputIndex)) == currentOutput.charAt(Int64(currentOutputIndex))) {
+            if (accruedInputWithoutFormatting.toString()[Int64(accruedInputIndex)] == currentOutput[Int64(currentOutputIndex)]) {
                 accruedInputIndex++
             }
             currentOutputIndex++
@@ -377,7 +377,7 @@ public class AsYouTypeFormatter {
 
     private func appendNationalNumber (nationalNumber: String): String {
         var prefixBeforeNationalNumberLength: Int64 = prefixBeforeNationalNumber.size
-        if (shouldAddSpaceAfterNationalPrefix && prefixBeforeNationalNumberLength > 0 && prefixBeforeNationalNumber.toString().charAt(prefixBeforeNationalNumberLength - 1) != SEPARATOR_BEFORE_NATIONAL_NUMBER) {
+        if (shouldAddSpaceAfterNationalPrefix && prefixBeforeNationalNumberLength > 0 && prefixBeforeNationalNumber.toString()[prefixBeforeNationalNumberLength - 1] != SEPARATOR_BEFORE_NATIONAL_NUMBER) {
           return prefixBeforeNationalNumber.toString() + SEPARATOR_BEFORE_NATIONAL_NUMBER.toString() + nationalNumber.toString()
         } else {
             return prefixBeforeNationalNumber.toString() + nationalNumber.toString()
@@ -406,7 +406,7 @@ public class AsYouTypeFormatter {
         if (lengthOfNationalNumber > 0) {
             var tempNationalNumber: String = ""
             for (i in 0..lengthOfNationalNumber) {
-              tempNationalNumber = inputDigitHelper(nationalNumber.toString().charAt(i))
+              tempNationalNumber = inputDigitHelper(nationalNumber.toString()[i])
             }
             if (ableToFormat) {
                 return appendNationalNumber(tempNationalNumber)
@@ -419,8 +419,8 @@ public class AsYouTypeFormatter {
     }
 
     private func isNanpaNumberWithNationalPrefix (): Bool {
-        return (currentMetadata.getCountryCode() == 1) && (nationalNumber.toString().charAt(0) == '1') &&
-               (nationalNumber.toString().charAt(1) != '0') && (nationalNumber.toString().charAt(1) != '1')
+        return (currentMetadata.getCountryCode() == 1) && (nationalNumber.toString()[0] == '1') &&
+               (nationalNumber.toString()[1] != '0') && (nationalNumber.toString()[1] != '1')
     }
 
     private func removeNationalPrefixFromNationalNumber (): String {
@@ -454,7 +454,7 @@ public class AsYouTypeFormatter {
             nationalNumber.append(accruedInputWithoutFormatting.toString().substring(startOfCountryCallingCode))
             prefixBeforeNationalNumber = StringBuilder(Char(0), 0)
             prefixBeforeNationalNumber.append(accruedInputWithoutFormatting.toString().substring(0, startOfCountryCallingCode))
-            if (accruedInputWithoutFormatting.toString().charAt(0) != PhoneNumberUtil.PLUS_SIGN) {
+            if (accruedInputWithoutFormatting.toString()[0] != PhoneNumberUtil.PLUS_SIGN) {
               prefixBeforeNationalNumber.append(SEPARATOR_BEFORE_NATIONAL_NUMBER)
             }
             return true
