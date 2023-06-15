@@ -195,14 +195,14 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
                 match (LEAD_CLASS.matcher(candidate).matchStart()) {
                     case Some(v) => ()
                     case None =>
-                        var previousChar: Char = text.charAt(offset - 1)
+                        var previousChar: Char = text[offset - 1]
                         if (isInvalidPunctuationSymbol(previousChar) || isLatinLetter(previousChar)) {
                             return Option<PhoneNumberMatch>.None
                         }
                 }
                 var lastCharIndex: Int64 = offset + candidate.size
                 if (lastCharIndex < text.size) {
-                    var nextChar: Char = text.charAt(lastCharIndex)
+                    var nextChar: Char = text[lastCharIndex]
                     if (isInvalidPunctuationSymbol(nextChar) || isLatinLetter(nextChar)) {
                         return Option<PhoneNumberMatch>.None
                     }
@@ -246,9 +246,9 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
         
         var index: Int32 = 0
         for (index in 0..candidate.size -1) {
-            var charAtIndex: Char = candidate.charAt(index)
+            var charAtIndex: Char = candidate[index]
             if (charAtIndex == 'x' || charAtIndex == 'X') {
-                var charAtNextIndex: Char = candidate.charAt(index + 1)
+                var charAtNextIndex: Char = candidate[index + 1]
                 if (charAtNextIndex == 'x' || charAtNextIndex == 'X') {
                     var indexes = index + 1
                     if (util.isNumberMatch(number, candidate.substring(indexes)) != MatchType.NSN_MATCH) {

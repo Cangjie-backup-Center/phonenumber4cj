@@ -257,7 +257,7 @@ public class PrefixFileReader {
         var final: Int64 = 0
         var res: String = ""
         while(true) {
-            let c: Char = metadata.charAt(index)
+            let c: Char = metadata[index]
             if (c == '|') {
                 begin = index
             }

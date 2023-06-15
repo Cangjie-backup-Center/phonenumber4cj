@@ -1,5 +1,5 @@
 {
-  "cjc_version": "0.38.2",
+  "cjc_version": "0.39.3",
   "organization": "cangjie",
   "name": "phonenumber4cj",
   "description": "nothing here",
@@ -14,6 +14,5 @@
   "command_option": "-O2",
   "condition_option": {},
   "link_option": "",
-  "cross_compile_configuration": {},
   "package_configuration": {}
 }
