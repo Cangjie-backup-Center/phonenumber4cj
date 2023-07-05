@@ -18,6 +18,8 @@ public class RegionMetadataSourceImpl <: RegionMetadataSource {
     }
 
     public func getMetadataForRegion(regionCode: String): PhonemetadataPhoneMetadata {
+        var str = ""
+        str = regionCode
         return PhonemetadataPhoneMetadata()
     }
 }

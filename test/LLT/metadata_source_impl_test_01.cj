@@ -21,7 +21,7 @@ main() {
             return 1
         }
     }
-    var block = BlockingMetadataBootstrappingGuard<CompositeMetadataContainer>(load, parse, CompositeMetadataContainer())
+    BlockingMetadataBootstrappingGuard<CompositeMetadataContainer>(load, parse, CompositeMetadataContainer())
     var block2 = BlockingMetadataBootstrappingGuard<CompositeMetadataContainer>(load, MetadataParser.newStrictParser(), CompositeMetadataContainer())
     try {
         block2.getOrBootstrap(ArrayList<String>())

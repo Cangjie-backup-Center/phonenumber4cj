@@ -10,7 +10,7 @@ main() {
     var phoneNumber2: PhoneNumber = phoneNumberUtil.parse("[18717619089]", "CN")
     showPhoneNumber(phoneNumber2)
     try {
-        var phoneNumber: PhoneNumber = phoneNumberUtil.parse("18717619089", "")
+        phoneNumberUtil.parse("18717619089", "")
     } catch(e: NumberParseException) {
         return 0
     }

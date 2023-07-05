@@ -110,8 +110,9 @@ public open class PhonemetadataNumberFormat <: Equatable<PhonemetadataNumberForm
         setPattern(objectInput.next().getOrThrow())
         setFormat(objectInput.next().getOrThrow())
         var leadingDigitsPatternSize: Int32 = Int32.parse(objectInput.next().getOrThrow())
-        for (i in 0..leadingDigitsPatternSize) {
+        while (leadingDigitsPatternSize > 0) {
             leadingDigitsPattern_.append(objectInput.next().getOrThrow())
+            leadingDigitsPatternSize--
         }
         if (Bool.parse(objectInput.next().getOrThrow())) {
             setNationalPrefixFormattingRule(objectInput.next().getOrThrow())
@@ -256,12 +257,14 @@ public open class PhonemetadataPhoneNumberDesc <: Equatable<PhonemetadataPhoneNu
             setNationalNumberPattern(objectInput.next().getOrThrow())
         }
         var possibleLengthSize: Int64 = Int64.parse(objectInput.next().getOrThrow())
-        for (i in 0..possibleLengthSize) {
+        while (possibleLengthSize > 0) {
             possibleLength_.append(Int32.parse(objectInput.next().getOrThrow()))
+            possibleLengthSize--
         }
         var possibleLengthLocalOnlySize: Int32 = Int32.parse(objectInput.next().getOrThrow())
-        for (i in 0..possibleLengthLocalOnlySize) {
+        while (possibleLengthLocalOnlySize > 0) {
             possibleLengthLocalOnly_.append(Int32.parse(objectInput.next().getOrThrow()))
+            possibleLengthLocalOnlySize--
         }
         if (Bool.parse(objectInput.next().getOrThrow())) {
             setExampleNumber(objectInput.next().getOrThrow())
@@ -1019,21 +1022,20 @@ public open class PhonemetadataPhoneMetadata <: Equatable<PhonemetadataPhoneMeta
             setNationalPrefixTransformRule(objectInput.next().getOrThrow())
         }
         setSameMobileAndFixedLinePattern(Bool.parse(objectInput.next().getOrThrow()))
-
         var nationalFormatSize: Int32 = Int32.parse(objectInput.next().getOrThrow())
-        for (i in 0..Int64(nationalFormatSize)) {
+        while (nationalFormatSize > 0) {
             var numFormat: PhonemetadataNumberFormat = PhonemetadataNumberFormat()
             numFormat.readExternal(objectInput)
             numberFormat_.append(numFormat)
+            nationalFormatSize--
         }
-
         var intlNumberFormatSize: Int32 = Int32.parse(objectInput.next().getOrThrow())
-        for (i in 0..Int64(intlNumberFormatSize)) {
+        while (intlNumberFormatSize > 0) {
             var numFormat: PhonemetadataNumberFormat = PhonemetadataNumberFormat()
             numFormat.readExternal(objectInput)
             intlNumberFormat_.append(numFormat)
+            intlNumberFormatSize--
         }
-
         setMainCountryForCode(Bool.parse(objectInput.next().getOrThrow()))
         hasString = Bool.parse(objectInput.next().getOrThrow())
         if (hasString) {
@@ -1097,10 +1099,11 @@ public open class PhonemetadataPhoneMetadataCollection {
     public func readExternal(objectInput: ArrayList<String>): Unit {
         var data: Iterator<String> = objectInput.iterator()
         var size: Int32 = Int32.parse(data.next().getOrThrow())
-        for (i in 0..Int64(size)) {
+        while (size > 0) {
             var metadata: PhonemetadataPhoneMetadata = PhonemetadataPhoneMetadata()
             metadata.readExternal(data)
             metadata_.append(metadata)
+            size--
         }
     }
 

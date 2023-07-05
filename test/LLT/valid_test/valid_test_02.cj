@@ -9,7 +9,7 @@ from std import regex.*
 main() {
     try {
         var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
-        var phoneNumber: PhoneNumber = phoneNumberUtil.parse("0086_12317619089", "CN")
+        phoneNumberUtil.parse("0086_12317619089", "CN")
     } catch (e: Exception) {
         if (e.toString() != "Error type: NOT_A_NUMBER. The string supplied did not seem to be a phone number.") {
             return 1

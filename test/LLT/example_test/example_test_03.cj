@@ -13,8 +13,9 @@ main() {
     var str: String = "倉頡..頡..123456..."
     var num: Int64 = compileCn.matcher(str).allCount()
     println(num)
-    for ( i in 0..num ) {
+    while (num > 0) {
         str = compileCn.matcher(str).replace(".")
+        num--
     }
     println(str)
     var matcher: Option<MatchData> = compile.matcher(str).find(0)

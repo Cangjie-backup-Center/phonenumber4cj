@@ -52,8 +52,8 @@ func isViablePhoneNumbers(number: String): Int64 {
 }
 
 func findRes(matchData: Option<MatchData>): Bool {
-    return match (matchData) {
-        case Some(x) => true
-        case None => false
+    if (let None = matchData) {
+        return false
     }
+    return true
 }

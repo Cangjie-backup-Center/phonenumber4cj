@@ -229,7 +229,6 @@ public open class PhoneNumberUtil {
                         let matd: Option<MatchData> = mat.find()
                         match (matd) {
                             case Some(y) =>
-                                let s: String = y.matchStr()
                                 num = number[..y.matchPosition().start]
                             case None => ()
                         }
@@ -261,6 +260,7 @@ public open class PhoneNumberUtil {
         let opt: Option<MatchData> = m.fullMatch()
         match (opt) {
             case Some(v) =>
+                v.matchStr()
                 str = str.replace(str, normalizeHelper(str, ALPHA_PHONE_MAPPINGS, true))
             case None =>
                 str = str.replace(str, normalizeDigitsOnly(str))
@@ -541,10 +541,10 @@ public open class PhoneNumberUtil {
     }
 
     private func findAllResult(matchData: Option<Array<MatchData>>): Bool {
-        return match (matchData) {
-            case Some(x) => true
-            case None => false
+        if (let None = matchData) {
+            return false
         }
+        return true
     }
 
     public static func getCountryMobileToken(countryCallingCode: Int32): String {
@@ -619,7 +619,7 @@ public open class PhoneNumberUtil {
     public open func getNationalSignificantNumber(number: PhoneNumber): String {
         var nationalNumber: StringBuilder = StringBuilder()
         if (number.isItalianLeadingZeros() && number.getNumbersOfLeadingZeros() > 0) {
-          var zeros: Array<Char> = Array<Char>(number.getNumbersOfLeadingZeros(), { i => '0'})
+          var zeros: Array<Char> = Array<Char>(number.getNumbersOfLeadingZeros(), item: '0')
           nationalNumber.append(String(zeros))
         }
         nationalNumber.append(number.getNationalNumbers())
@@ -684,10 +684,10 @@ public open class PhoneNumberUtil {
     }
 
     private func matchesFullMatch(matchs: Matcher): Bool {
-        return match (matchs.fullMatch()) {
-            case Some(x) => true
-            case None => false
+        if (let None = matchs.fullMatch()) {
+            return false
         }
+        return true
     }
 
     protected open func formatNsnUsingPattern(nationalNumber: String, formattingPattern: PhonemetadataNumberFormat,
@@ -1047,7 +1047,7 @@ public open class PhoneNumberUtil {
             var fullNumber: StringBuilder = StringBuilder(number)
             var possibleCountryIddPrefix: String = "NonMatch"
             if (let Some(i) = defaultRegionMetadata) {
-                possibleCountryIddPrefix = defaultRegionMetadata.getOrThrow().getInternationalPrefix()
+                possibleCountryIddPrefix = i.getInternationalPrefix()
             }
             var countryCodeSource: (CountryCodeSource, StringBuilder) = maybeStripInternationalPrefixAndNormalize(fullNumber, possibleCountryIddPrefix)
             if (keepRawInput) {
@@ -1067,7 +1067,7 @@ public open class PhoneNumberUtil {
                 throw NumberParseException(ErrorType.INVALID_COUNTRY_CODE, "Country calling code supplied was not recognised.")
             } else {
                 if (let Some(i) = defaultRegionMetadata) {
-                    let defaultCountryCode: Int32 = defaultRegionMetadata.getOrThrow().getCountryCode()
+                    let defaultCountryCode: Int32 = i.getCountryCode()
                     let defaultCountryCodeString: String = "${defaultCountryCode}"
                     var normalizedNumber: String = fullNumber.toString()
                     if (normalizedNumber.startsWith(defaultCountryCodeString)) {
@@ -1156,17 +1156,17 @@ public open class PhoneNumberUtil {
     }
 
     static func findRes(matchData: Option<MatchData>): Bool {
-        return match (matchData) {
-            case Some(x) => true
-            case None => false
+        if (let None = matchData) {
+            return false
         }
+        return true
     }
 
     private func lookingAt(matchData: Option<MatchData>): Bool {
-        return match (matchData) {
-            case Some(x) => true
-            case None => false
+        if (let None = matchData) {
+            return false
         }
+        return true
     }
     protected open func maybeStripNationalPrefixAndCarrierCode(number: StringBuilder, metadata: PhonemetadataPhoneMetadata,
         carrierCode: StringBuilder): Bool {
@@ -1359,6 +1359,7 @@ public open class PhoneNumberUtil {
         }
 
         if (let Some(i) = regionMetadata) {
+            i.getCountryCode()
             var carrierCode: StringBuilder = StringBuilder()
             var potentialNationalNumber: StringBuilder = StringBuilder(normalizedNationalNumber.toString())
             maybeStripNationalPrefixAndCarrierCode(potentialNationalNumber, regionMetadata.getOrThrow(), carrierCode)
@@ -1799,7 +1800,10 @@ class Valid <: Leniency {
 
     protected func verify(number: PhoneNumber, candidate: String, util: PhoneNumberUtil): Bool {
 
-        if(!util.isValidNumber(number) || !PhoneNumberMatcher.containsOnlyValidXChars(number, candidate, util)) {
+        if(!util.isValidNumber(number)) {
+            return false
+        }
+        if(!PhoneNumberMatcher.containsOnlyValidXChars(number, candidate, util)) {
             return false
         }
         return PhoneNumberMatcher.isNationalPrefixPresentIfRequired(number, util)

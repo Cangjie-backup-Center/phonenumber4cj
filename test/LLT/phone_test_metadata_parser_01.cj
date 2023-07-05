@@ -8,7 +8,7 @@ from phonenumber4cj import libphonenumber.inter.*
 main() {
     var mp: MetadataParser = MetadataParser.newStrictParser()
     try {
-        let arrayList = mp.parse(ArrayList<String>())
+        mp.parse(ArrayList<String>())
     } catch(e: IllegalArgumentException) {
         e.toString()
     }

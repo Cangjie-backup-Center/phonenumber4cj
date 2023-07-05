@@ -91,10 +91,10 @@ public class AsYouTypeFormatter {
     }
 
     private func findRes(matchData: Option<MatchData>): Bool {
-        return match (matchData) {
-            case Some(x) => true
-            case None => false
+        if (let None = matchData) {
+            return false
         }
+        return true
     }
 
     private func getAvailableFormats (leadingDigits: String): Unit {
@@ -317,10 +317,6 @@ public class AsYouTypeFormatter {
         return attemptToChooseFormattingPattern()
     }
 
-    func getExtractedNationalPrefix (): String {
-        return extractedNationalPrefix
-    }
-
     private func ableToExtractLongerNdd (): Bool {
         if (extractedNationalPrefix.size > 0) {
           nationalNumber.insert(0, extractedNationalPrefix)
@@ -338,10 +334,10 @@ public class AsYouTypeFormatter {
     }
 
     private func matchRes(matchData: Option<MatchData>): Bool {
-        return match (matchData) {
-            case Some(x) => true
-            case None => false
+        if (let None = matchData) {
+            return false
         }
+        return true
     }
 
     func attemptToFormatAccruedDigits (): String {
