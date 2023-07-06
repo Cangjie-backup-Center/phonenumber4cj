@@ -263,6 +263,7 @@ public class phoneNumber_PhoneNumberUtil {
         @Assert(str,"011 86 ABC")
     }
 
+    //@Skip
     @TestCase
     func phoneNumber_PhoneNumberUtil_26(): Unit {
         var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()

@@ -33,16 +33,16 @@ public class RegexBasedMatcher <: MatcherApi {
     }
 
     static func lookingAt(matchData: Option<MatchData>): Bool {
-        return match (matchData) {
-            case Some(x) => true
-            case None => false
+        if (let None = matchData) {
+            return false
         }
+        return true
     }
 
     static func findAllResult(matchData: Option<Array<MatchData>>): Bool {
-        return match (matchData) {
-            case Some(x) => true
-            case None => false
+        if (let None = matchData) {
+            return false
         }
+        return true
     }
 }

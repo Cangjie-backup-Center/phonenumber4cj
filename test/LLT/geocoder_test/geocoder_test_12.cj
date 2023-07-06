@@ -12,7 +12,7 @@ main() {
     var phonenumber=phonenumberUtil.parse("zz-15168316747", "CN")
     try {
         var reader: PrefixFileReader= PrefixFileReader("resources/86/86_en_geo.txt")
-        let res: String = reader.getGeoDescriptionForNumber(phonenumber,English,"nihao","CN")
+        reader.getGeoDescriptionForNumber(phonenumber,English,"nihao","CN")
     } catch(e: FSException) {
         println("元数据文件路径发生错误...")
     }

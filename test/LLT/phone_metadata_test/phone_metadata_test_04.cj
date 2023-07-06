@@ -6,7 +6,7 @@ from phonenumber4cj import libphonenumber.data.*
 
 main() {
     var col: PhonemetadataPhoneMetadataCollection = PhonemetadataPhoneMetadataCollection()
-    var PhoneMetadataBuilder = PhonemetadataPhoneMetadataCollection.newBuilder()
+    PhonemetadataPhoneMetadataCollection.newBuilder()
     if (col.getMetadataCount() != 0) {
         return 1
     }

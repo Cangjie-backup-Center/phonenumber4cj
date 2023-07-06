@@ -317,8 +317,10 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
         var outputString: StringBuilder = StringBuilder()
         outputString.append("Country Code: ").append(countryCode);
         outputString.append(" National Number: ").append(nationalNumber)
-        if (hasItalianLeadingZeros() && isItalianLeadingZeros()) {
-            outputString.append(" Leading Zero(s): true")
+        if (hasItalianLeadingZeros()) {
+            if (isItalianLeadingZeros()) {
+                outputString.append(" Leading Zero(s): true")
+            }
         }
         if (hasNumbersOfLeadingZeros()) {
             outputString.append(" Number of leading zeros: ").append(numberOfLeadingZeros)

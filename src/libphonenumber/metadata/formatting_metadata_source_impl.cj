@@ -18,6 +18,8 @@ public class FormattingMetadataSourceImpl <: FormattingMetadataSource {
     }
 
     public func getFormattingMetadataForCountryCallingCode(countryCallingCode: Int32): PhonemetadataPhoneMetadata {
+        var i: Int32 = 0
+        i = countryCallingCode
         return PhonemetadataPhoneMetadata()
     }
 }

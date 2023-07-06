@@ -87,10 +87,10 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
     }
 
     static func findRes(matchData: Option<MatchData>): Bool {
-        return match (matchData) {
-            case Some(x) => true
-            case None => false
+        if (let None = matchData) {
+            return false
         }
+        return true
     }
 
     private func find(index: Int32): Option<PhoneNumberMatch> {
@@ -106,6 +106,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
                 candidate = trimAfterFirstMatch(PhoneNumberUtil.SECOND_NUMBER_START_PATTERN, candidate)
                 var m: Option<PhoneNumberMatch> = extractMatch(candidate, start)
                 if (let Some(v) = m) {
+                    v.toString()
                     return m
                 }
                 i = start + candidate.size
@@ -123,8 +124,9 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
         var tranStr = text
         var compileCn: Regex = Regex("[\u{4e00}-\u{9fa5}]")
         var num: Int64 = compileCn.matcher(text).allCount()
-        for ( i in 0..num ) {
+        while (num > 0) {
             tranStr = compileCn.matcher(tranStr).replace(".")
+            num --
         }
         return tranStr
     }
@@ -132,6 +134,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
     private func extractMatch(candidate: String, offset: Int64): Option<PhoneNumberMatch> {
         match (SLASH_SEPARATED_DATES.matcher(candidate).find()) {
             case Some(v) => 
+                v.matchStr()
                 return Option<PhoneNumberMatch>.None
             case None => ()
         }
@@ -139,8 +142,11 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
             case Some(v) => 
                 var followingText: String = text[(offset + candidate.size)..]
                 let m: Option<MatchData> = TIME_STAMPS_SUFFIX.matcher(followingText).matchStart()
+                v.matchStr()
                 match (m) {
-                    case Some(k) => return Option<PhoneNumberMatch>.None
+                    case Some(k) => 
+                        k.matchStr()
+                        return Option<PhoneNumberMatch>.None
                     case None => ()
                 }
             case None => ()
@@ -148,6 +154,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
         var m: Option<PhoneNumberMatch> = parseAndVerify(candidate, offset)
         match (m) {
             case Some(k) =>
+                k.toString()
                 return m
             case None => ()
         }
@@ -164,6 +171,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
                     var group: String = trimAfterFirstMatch(PhoneNumberUtil.UNWANTED_END_CHAR_PATTERN, candidate[..gMatch.getOrThrow().matchPosition().start])
                     var m: Option<PhoneNumberMatch> = parseAndVerify(group, offset)
                     if (let Some(v) = m) {
+                        v.toString()
                         return m
                     }
                     maxTries = maxTries -1
@@ -172,6 +180,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
                 var group: String = trimAfterFirstMatch(PhoneNumberUtil.UNWANTED_END_CHAR_PATTERN, gMatch.getOrThrow().matchStr(1))
                 var n: Option<PhoneNumberMatch> = parseAndVerify(group, (offset + gMatch.getOrThrow().matchPosition(1).start))
                 if (let Some(v) = n) {
+                    v.toString()
                     return n
                 }
                 maxTries = maxTries -1
@@ -183,27 +192,39 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
     private func parseAndVerify(candidate: String, offset: Int64): Option<PhoneNumberMatch> {
         try {
             match (MATCHING_BRACKETS.matcher(candidate).fullMatch()) {
-                case Some(v) => ()
+                case Some(v) => 
+                    v.matchStr()
+                    ()
                 case None =>
                     return Option<PhoneNumberMatch>.None
             }
             match (PUB_PAGES.matcher(candidate).find()) {
-                case Some(k) => return Option<PhoneNumberMatch>.None
+                case Some(k) => 
+                    k.matchStr()
+                    return Option<PhoneNumberMatch>.None
                 case None => ()
             }
             if (offset > 0) {
                 match (LEAD_CLASS.matcher(candidate).matchStart()) {
-                    case Some(v) => ()
+                    case Some(v) => 
+                        v.matchStr()
+                        ()
                     case None =>
                         var previousChar: Char = text[offset - 1]
-                        if (isInvalidPunctuationSymbol(previousChar) || isLatinLetter(previousChar)) {
+                        if (isInvalidPunctuationSymbol(previousChar)) {
+                            return Option<PhoneNumberMatch>.None
+                        }
+                        if (isLatinLetter(previousChar)) {
                             return Option<PhoneNumberMatch>.None
                         }
                 }
                 var lastCharIndex: Int64 = offset + candidate.size
                 if (lastCharIndex < text.size) {
                     var nextChar: Char = text[lastCharIndex]
-                    if (isInvalidPunctuationSymbol(nextChar) || isLatinLetter(nextChar)) {
+                    if (isInvalidPunctuationSymbol(nextChar)) {
+                        return Option<PhoneNumberMatch>.None
+                    }
+                    if (isLatinLetter(nextChar)) {
                         return Option<PhoneNumberMatch>.None
                     }
                 }
@@ -259,6 +280,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
                 }
             }
         }
+        index = 1
         return true
     }
 

@@ -51,6 +51,10 @@ public class PrefixFileReader {
         let language: String = lan.getLanguage()
         var eventDataPath: Path = getFilePath()
         var arrs: Array<String> = []
+        var scriptStr = ""
+        scriptStr = script
+        var regionStr = ""
+        regionStr = region
         var readArrs: Array<UInt8> = []
         var metadata: String = ""
         if (!phonePrefixDataDirectoryUser.isEmpty()) {
@@ -90,6 +94,10 @@ public class PrefixFileReader {
         var arrs: Array<String> = []
         var readArrs: Array<UInt8> = []
         var metadata: String = ""
+        var scriptStr = ""
+        scriptStr = script
+        var regionStr = ""
+        regionStr = region
         if (!phonePrefixDataDirectoryUser.isEmpty()) {
             arrs = phonePrefixDataDirectoryUser.split('/')
             for (dir in arrs where dir != "") {
