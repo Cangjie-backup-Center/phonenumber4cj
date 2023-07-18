@@ -126,7 +126,7 @@
     git clone https://gitee.com/HW-PLLab/testJekins
     ```
 
-    将 src 下 ci_test 放入 phonenumber 根目录下,执行：
+    将 src 下 ci_test 放入 phonenumber4cj 根目录下,执行：
 
     ```
     cpm clean
@@ -146,9 +146,9 @@
 
 ```cangjie
 from std import collection.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
+from phonenumber4cj import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.data.*
+from phonenumber4cj import libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -242,9 +242,9 @@ preferredDomesticCarrierCode ==>
 ```cangjie
 from std import collection.*
 from std import regex.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
+from phonenumber4cj import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.data.*
+from phonenumber4cj import libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -268,9 +268,9 @@ PhoneNumberFormat.RFC3966 ==> tel:+1-2530000
 
 ```cangjie
 from std import collection.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
+from phonenumber4cj import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.data.*
+from phonenumber4cj import libphonenumber.*
 from std import regex.*
 from std import os.*
 
@@ -305,9 +305,9 @@ false
 
 ```cangjie
 from std import collection.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
+from phonenumber4cj import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.data.*
+from phonenumber4cj import libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -330,10 +330,10 @@ FIXED_LINE
 ```cangjie
 from std import collection.*
 from std import regex.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.metadata.*
-from phonenumber import libphonenumber.*
+from phonenumber4cj import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.data.*
+from phonenumber4cj import libphonenumber.metadata.*
+from phonenumber4cj import libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -429,10 +429,10 @@ showExamplePhoneNumber ==> None
 ```cangjie
 from std import collection.*
 from std import regex.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.metadata.*
-from phonenumber import libphonenumber.*
+from phonenumber4cj import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.data.*
+from phonenumber4cj import libphonenumber.metadata.*
+from phonenumber4cj import libphonenumber.*
 
 main() {
     var asYouTypeFormatter = AsYouTypeFormatter("US")
@@ -493,9 +493,9 @@ main() {
 
 ```cangjie
 from std import collection.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
+from phonenumber4cj import libphonenumber.inter.*
+from phonenumber4cj import libphonenumber.data.*
+from phonenumber4cj import libphonenumber.*
 
 main() {
     var phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -525,9 +525,9 @@ None...
 #### 根据电话号码查询运营商信息功能示例
 
 ```cangjies
-from phonenumber import carrier.*
-from phonenumber import prefixmapper.*
-from phonenumber import libphonenumber.inter.*
+from phonenumber4cj import carrier.*
+from phonenumber4cj import prefixmapper.*
+from phonenumber4cj import libphonenumber.inter.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()
@@ -554,9 +554,9 @@ China Mobile
 #### 根据电话号码查询地理位置信息功能示例
 
 ```cangjie
-from phonenumber import geocoder.geocoding.*
-from phonenumber import prefixmapper.*
-from phonenumber import libphonenumber.inter.*
+from phonenumber4cj import geocoder.geocoding.*
+from phonenumber4cj import prefixmapper.*
+from phonenumber4cj import libphonenumber.inter.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()
@@ -582,9 +582,9 @@ main() {
 #### 根据电话号码查询时区信息功能示例
 
 ```cangjie
-from phonenumber import geocoder.*
-from phonenumber import prefixmapper.*
-from phonenumber import libphonenumber.inter.*
+from phonenumber4cj import geocoder.*
+from phonenumber4cj import prefixmapper.*
+from phonenumber4cj import libphonenumber.inter.*
 from std import collection.*
 
 main() {
