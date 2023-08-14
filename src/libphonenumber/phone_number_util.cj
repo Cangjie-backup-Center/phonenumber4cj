@@ -4,6 +4,8 @@ from std import io.*
 from std import regex.*
 from std import sync.*
 from std import log.*
+from std import sort.SortExtension
+from std import convert.Parsable
 import libphonenumber.internal.*
 import libphonenumber.metadata.*
 import libphonenumber.inter.*
