@@ -543,7 +543,7 @@ public open class PhoneNumberUtil {
     }
 
     private func findAllResult(matchData: Option<Array<MatchData>>): Bool {
-        if (let None = matchData) {
+        if (let None <- matchData) {
             return false
         }
         return true
@@ -686,7 +686,7 @@ public open class PhoneNumberUtil {
     }
 
     private func matchesFullMatch(matchs: Matcher): Bool {
-        if (let None = matchs.fullMatch()) {
+        if (let None <- matchs.fullMatch()) {
             return false
         }
         return true
@@ -869,7 +869,7 @@ public open class PhoneNumberUtil {
     }
 
     private static func ensureMetadataIsNonNull(phoneMetadata: ?PhonemetadataPhoneMetadata, message: String): Unit {
-        if (let None = phoneMetadata) {
+        if (let None <- phoneMetadata) {
             throw MissingMetadataException(message)
         }
     }
@@ -1048,7 +1048,7 @@ public open class PhoneNumberUtil {
         } else {
             var fullNumber: StringBuilder = StringBuilder(number)
             var possibleCountryIddPrefix: String = "NonMatch"
-            if (let Some(i) = defaultRegionMetadata) {
+            if (let Some(i) <- defaultRegionMetadata) {
                 possibleCountryIddPrefix = i.getInternationalPrefix()
             }
             var countryCodeSource: (CountryCodeSource, StringBuilder) = maybeStripInternationalPrefixAndNormalize(fullNumber, possibleCountryIddPrefix)
@@ -1068,7 +1068,7 @@ public open class PhoneNumberUtil {
                 }
                 throw NumberParseException(ErrorType.INVALID_COUNTRY_CODE, "Country calling code supplied was not recognised.")
             } else {
-                if (let Some(i) = defaultRegionMetadata) {
+                if (let Some(i) <- defaultRegionMetadata) {
                     let defaultCountryCode: Int32 = i.getCountryCode()
                     let defaultCountryCodeString: String = "${defaultCountryCode}"
                     var normalizedNumber: String = fullNumber.toString()
@@ -1158,14 +1158,14 @@ public open class PhoneNumberUtil {
     }
 
     static func findRes(matchData: Option<MatchData>): Bool {
-        if (let None = matchData) {
+        if (let None <- matchData) {
             return false
         }
         return true
     }
 
     private func lookingAt(matchData: Option<MatchData>): Bool {
-        if (let None = matchData) {
+        if (let None <- matchData) {
             return false
         }
         return true
@@ -1360,7 +1360,7 @@ public open class PhoneNumberUtil {
                                      "The string supplied is too short to be a phone number.")
         }
 
-        if (let Some(i) = regionMetadata) {
+        if (let Some(i) <- regionMetadata) {
             i.getCountryCode()
             var carrierCode: StringBuilder = StringBuilder()
             var potentialNationalNumber: StringBuilder = StringBuilder(normalizedNationalNumber.toString())

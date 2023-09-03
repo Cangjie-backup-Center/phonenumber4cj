@@ -52,7 +52,7 @@ func isViablePhoneNumbers(number: String): Int64 {
 }
 
 func findRes(matchData: Option<MatchData>): Bool {
-    if (let None = matchData) {
+    if (let None <- matchData) {
         return false
     }
     return true

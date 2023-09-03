@@ -91,7 +91,7 @@ public class AsYouTypeFormatter {
     }
 
     private func findRes(matchData: Option<MatchData>): Bool {
-        if (let None = matchData) {
+        if (let None <- matchData) {
             return false
         }
         return true
@@ -334,7 +334,7 @@ public class AsYouTypeFormatter {
     }
 
     private func matchRes(matchData: Option<MatchData>): Bool {
-        if (let None = matchData) {
+        if (let None <- matchData) {
             return false
         }
         return true
