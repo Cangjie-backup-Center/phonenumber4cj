@@ -10,7 +10,7 @@ public open class RegexCache {
 
     public open func getPatternForRegex(regex: String): Regex {
         var reg: ?Regex = cache.get(regex)
-        if (let None = reg) {
+        if (let None <- reg) {
             reg = Regex(regex)
             cache.put(regex, reg.getOrThrow())
         }

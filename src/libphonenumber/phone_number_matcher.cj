@@ -68,7 +68,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
     func hasNext(): Bool {
         if (state == State.NOT_READY) {
             lastMatch = find(searchIndex)
-            if (let None = lastMatch) {
+            if (let None <- lastMatch) {
                 state = State.DONE
             } else {
                 searchIndex = Int32(lastMatch.getOrThrow().getEnd())
@@ -87,7 +87,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
     }
 
     static func findRes(matchData: Option<MatchData>): Bool {
-        if (let None = matchData) {
+        if (let None <- matchData) {
             return false
         }
         return true
@@ -105,7 +105,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
                 var candidate: String = String.fromUtf8(text.toUtf8Array()[start..end])
                 candidate = trimAfterFirstMatch(PhoneNumberUtil.SECOND_NUMBER_START_PATTERN, candidate)
                 var m: Option<PhoneNumberMatch> = extractMatch(candidate, start)
-                if (let Some(v) = m) {
+                if (let Some(v) <- m) {
                     v.toString()
                     return m
                 }
@@ -170,7 +170,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
                 if (isFirstMatch) {
                     var group: String = trimAfterFirstMatch(PhoneNumberUtil.UNWANTED_END_CHAR_PATTERN, candidate[..gMatch.getOrThrow().matchPosition().start])
                     var m: Option<PhoneNumberMatch> = parseAndVerify(group, offset)
-                    if (let Some(v) = m) {
+                    if (let Some(v) <- m) {
                         v.toString()
                         return m
                     }
@@ -179,7 +179,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
                 }
                 var group: String = trimAfterFirstMatch(PhoneNumberUtil.UNWANTED_END_CHAR_PATTERN, gMatch.getOrThrow().matchStr(1))
                 var n: Option<PhoneNumberMatch> = parseAndVerify(group, (offset + gMatch.getOrThrow().matchPosition(1).start))
-                if (let Some(v) = n) {
+                if (let Some(v) <- n) {
                     v.toString()
                     return n
                 }

@@ -33,14 +33,14 @@ public class RegexBasedMatcher <: MatcherApi {
     }
 
     static func lookingAt(matchData: Option<MatchData>): Bool {
-        if (let None = matchData) {
+        if (let None <- matchData) {
             return false
         }
         return true
     }
 
     static func findAllResult(matchData: Option<Array<MatchData>>): Bool {
-        if (let None = matchData) {
+        if (let None <- matchData) {
             return false
         }
         return true
