@@ -116,27 +116,13 @@
 
 ## <img alt="" src="./doc/assets/readme-icon-compile.png" style="display: inline-block;" width=3%/> 使用说明
 
-### 编译
+## 使用说明
 
-1. <a id = "jump1">本项目编译运行方式<a>
+### 编译构建
 
--  <a id = "jump">引入 testJekins 包<a>
-
-    ```
-    git clone https://gitee.com/HW-PLLab/testJekins
-    ```
-
-    将 src 下 ci_test 放入 phonenumber4cj 根目录下,执行：
-
-    ```
-    cpm clean
-    cpm update
-    python3 ci_test/main.py build    ---> 编译
-    python3 ci_test/main.py test     ---> 执行 test/LLT 用例
-    ```
-    test/LLT 用例书写参考：https://gitee.com/HW-PLLab/cangjie-library-pages/wikis 的门禁测试脚本使用方式
-
-- 重复 [本项目编译运行方式的第二步](#jump)
+```shell
+cjpm build
+```
 
 ### 功能示例
 
