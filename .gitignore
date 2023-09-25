@@ -12,3 +12,7 @@ output/
 .cjpm-history
 log/
 module-lock.json
+report/
+test/report/
+test/tmp/
+tmp/

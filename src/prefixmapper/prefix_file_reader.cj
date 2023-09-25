@@ -23,7 +23,7 @@ func getFilePath(): Path {
                 throw NoneValueException("")
             }
             let paths: Array<String> = str.split(":")
-            for (path in paths where path.contains("build")) {
+            for (path in paths where path.contains("build/phonenumber4cj")) {
                 return Path(path)
             }
             throw NoneValueException("")
