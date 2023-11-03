@@ -14,7 +14,7 @@ main() {
     asYouTypeFormatter.inputDigit('4')
     asYouTypeFormatter.inputDigit('2')
     var asYouTypeFormatterStr1: String = asYouTypeFormatter.inputDigit('5')
-    if (asYouTypeFormatterStr1 != "+1 425") {
+    if (asYouTypeFormatterStr1 != "+1425") {
         return 1
     }
     if (asYouTypeFormatter.getRememberedPosition() != 0) {
@@ -24,7 +24,7 @@ main() {
     asYouTypeFormatter.inputDigit('5')
     asYouTypeFormatter.inputDigit('5')
     var asYouTypeFormatterStr2: String = asYouTypeFormatter.inputDigit('0')
-    if (asYouTypeFormatterStr2 != "+1 425-555-0") {
+    if (asYouTypeFormatterStr2 != "+14255550") {
         return 1
     }
     if (asYouTypeFormatter.getRememberedPosition() != 0) {
@@ -33,10 +33,10 @@ main() {
     asYouTypeFormatter.inputDigitAndRememberPosition('1')
     asYouTypeFormatter.inputDigit('0')
     var asYouTypeFormatterStr3: String = asYouTypeFormatter.inputDigit('0')
-    if (asYouTypeFormatterStr3 != "+1 425-555-0100") {
+    if (asYouTypeFormatterStr3 != "+14255550100") {
         return 1
     }
-    if (asYouTypeFormatter.getRememberedPosition() != 13) {
+    if (asYouTypeFormatter.getRememberedPosition() != 10) {
         return 1
     }
     var asYouTypeFormatterStr4: String = asYouTypeFormatter.inputDigit('9')

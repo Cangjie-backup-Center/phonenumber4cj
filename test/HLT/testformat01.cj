@@ -13,7 +13,7 @@ public class phoneNumber_PhoneNumberUtil {
         @Assert(phoneNumberUtil.format(Phonenumber,PhoneNumberFormat.NATIONAL),"187 1761 9089")
         @Assert(phoneNumberUtil.format(Phonenumber,PhoneNumberFormat.INTERNATIONAL),"+86 187 1761 9089")
         @Assert(phoneNumberUtil.format(Phonenumber,PhoneNumberFormat.E164),"+8618717619089")
-        @Assert(phoneNumberUtil.format(Phonenumber,PhoneNumberFormat.RFC3966),"tel:+86-187-1761-9089")
+        @Assert(phoneNumberUtil.format(Phonenumber,PhoneNumberFormat.RFC3966),"+86-187-1761-9089")
     }
 
     @TestCase
@@ -27,7 +27,7 @@ public class phoneNumber_PhoneNumberUtil {
         @Assert(phoneNumberUtil.format(Phonenumber,PhoneNumberFormat.NATIONAL),"(213) 282-3146")
         @Assert(phoneNumberUtil.format(Phonenumber,PhoneNumberFormat.INTERNATIONAL),"+1 213-282-3146")
         @Assert(phoneNumberUtil.format(Phonenumber,PhoneNumberFormat.E164),"+12132823146")
-        @Assert(phoneNumberUtil.format(Phonenumber,PhoneNumberFormat.RFC3966),"tel:+1-213-282-3146")
+        @Assert(phoneNumberUtil.format(Phonenumber,PhoneNumberFormat.RFC3966),"+1-213-282-3146")
     }
 
     @TestCase

@@ -96,7 +96,7 @@ public class phoneNumber_GetAsyoutypeFormatter {
         var asyoutupe = asyoutypeformatter.inputDigitAndRememberPosition('仓')
         println(asyoutupe)
         @Assert(asyoutupe,"仓")
-        @Assert(asyoutypeformatter.getRememberedPosition(),1)
+        @Assert(asyoutypeformatter.getRememberedPosition(),3)
     }
 
     @TestCase

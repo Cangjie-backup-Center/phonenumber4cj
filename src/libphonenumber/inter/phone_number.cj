@@ -269,13 +269,13 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
         }
         return (countryCode == other.countryCode && 
             nationalNumber == other.nationalNumber &&
-            extension.equals(other.extension) && 
+            extension == other.extension) && 
             italianLeadingZero == other.italianLeadingZero &&
             numberOfLeadingZeros == other.numberOfLeadingZeros &&
-            rawInput.equals(other.rawInput) &&
+            rawInput == other.rawInput &&
             countryCodeSource == other.countryCodeSource &&
-            preferredDomesticCarrierCode.equals(other.preferredDomesticCarrierCode) &&
-            hasPreferredDomesticCarrierCodes() == other.hasPreferredDomesticCarrierCodes())
+            preferredDomesticCarrierCode == other.preferredDomesticCarrierCode &&
+            hasPreferredDomesticCarrierCodes() == other.hasPreferredDomesticCarrierCodes()
     }
 
     /* 
@@ -315,24 +315,30 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
 
     public func toString(): String {
         var outputString: StringBuilder = StringBuilder()
-        outputString.append("Country Code: ").append(countryCode);
-        outputString.append(" National Number: ").append(nationalNumber)
+        outputString.append("Country Code: ")
+        outputString.append(countryCode)
+        outputString.append(" National Number: ")
+        outputString.append(nationalNumber)
         if (hasItalianLeadingZeros()) {
             if (isItalianLeadingZeros()) {
                 outputString.append(" Leading Zero(s): true")
             }
         }
         if (hasNumbersOfLeadingZeros()) {
-            outputString.append(" Number of leading zeros: ").append(numberOfLeadingZeros)
+            outputString.append(" Number of leading zeros: ")
+            outputString.append(numberOfLeadingZeros)
         }
         if (hasExtensions()) {
-            outputString.append(" Extension: ").append(extension)
+            outputString.append(" Extension: ")
+            outputString.append(extension)
         }
         if (hasCountryCodeSources()) {
-            outputString.append(" Country Code Source: ").append(countryCodeSource.toString())
+            outputString.append(" Country Code Source: ")
+            outputString.append(countryCodeSource.toString())
         }
         if (hasPreferredDomesticCarrierCodes()) {
-            outputString.append(" Preferred Domestic Carrier Code: ").append(preferredDomesticCarrierCode)
+            outputString.append(" Preferred Domestic Carrier Code: ")
+            outputString.append(preferredDomesticCarrierCode)
         }
         return outputString.toString()
     }

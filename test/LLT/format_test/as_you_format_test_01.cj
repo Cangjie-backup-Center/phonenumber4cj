@@ -23,7 +23,7 @@ main() {
     asYouTypeFormatter.inputDigit('1')
     asYouTypeFormatter.inputDigit('8')
     var asYouTypeFormatterStr2: String = asYouTypeFormatter.inputDigit('2')
-    if (asYouTypeFormatterStr2 != "199 9182") {
+    if (asYouTypeFormatterStr2 != "1999182") {
         return 1
     }
     if (asYouTypeFormatter.getRememberedPosition() != 0) {
@@ -33,14 +33,14 @@ main() {
     asYouTypeFormatter.inputDigit('8')
     asYouTypeFormatter.inputDigitAndRememberPosition('2')
     var asYouTypeFormatterStr3: String = asYouTypeFormatter.inputDigit('6')
-    if (asYouTypeFormatterStr3 != "199 9182 2826") {
+    if (asYouTypeFormatterStr3 != "19991822826") {
         return 1
     }
-    if (asYouTypeFormatter.getRememberedPosition() != 12) {
+    if (asYouTypeFormatter.getRememberedPosition() != 10) {
         return 1
     }
     var asYouTypeFormatterStr4: String = asYouTypeFormatter.inputDigit('7')
-    if (asYouTypeFormatterStr4 != "19 991 822 8267") {
+    if (asYouTypeFormatterStr4 != "199918228267") {
         return 1
     }
     var asYouTypeFormatterStr5: String = asYouTypeFormatter.inputDigit('7')

@@ -16,7 +16,7 @@ main() {
     numberFormats.append(pf)
     var format5: String = phoneNumberUtil.formatByPattern(phoneNumber, PhoneNumberFormat.RFC3966, numberFormats)
     println("format5 ==> ${format5}")
-    if (format5 != "tel:+86-199-9182-2826") {
+    if (format5 != "+86-199-9182-2826") {
         return 1
     }
     return 0

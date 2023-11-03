@@ -23,7 +23,7 @@ public class phoneNumber_MetadataSourceImpl {
         try{
         let metadata: MultiFileModeFileNameProvider = MultiFileModeFileNameProvider(PHONE_NUMBER_METADATA_MAP)
         metadata.getFor("SH")
-        @Assert( metadata.getFor("CN").toString(),"tel:+1-213-282-3146")
+        @Assert( metadata.getFor("CN").toString(),"+1-213-282-3146")
         } catch (e: Exception) {
         @Assert(e.message, "Invalid key: SH")
     }

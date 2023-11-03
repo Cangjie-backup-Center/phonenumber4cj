@@ -22,7 +22,7 @@ public class AsYouTypeFormatter {
     private static let ELIGIBLE_FORMAT_PATTERN: Regex = Regex("[" + PhoneNumberUtil.VALID_PUNCTUATION +  "]*" + "\\$1" + "[" + PhoneNumberUtil.VALID_PUNCTUATION + "]*(\\$\\d" + PhoneNumberUtil.VALID_PUNCTUATION + ")*")
     private static let NATIONAL_PREFIX_SEPARATORS_PATTERN: Regex = Regex("[- ]")
     private static let MIN_LEADING_DIGITS_LENGTH: Int32 = 3
-    private static let DIGIT_PLACEHOLDER: String = "\u{2008}"
+    private static let DIGIT_PLACEHOLDER: String = "\\s"
     private static let DIGIT_PATTERN: Regex = Regex("[" + DIGIT_PLACEHOLDER + "]")
     private var lastMatchPosition: Int32 = 0
     private var originalPosition: Int32 = 0
@@ -61,7 +61,7 @@ public class AsYouTypeFormatter {
                 case Some(it) =>
                     var numberFormat: PhonemetadataNumberFormat = it
                     var pattern: String = numberFormat.getPattern()
-                    if (currentFormattingPattern.equals(pattern)) {
+                    if (currentFormattingPattern == pattern) {
                         return false
                     }
                     if (createFormattingTemplate(numberFormat)) {
@@ -319,14 +319,15 @@ public class AsYouTypeFormatter {
 
     private func ableToExtractLongerNdd (): Bool {
         if (extractedNationalPrefix.size > 0) {
-          nationalNumber.insert(0, extractedNationalPrefix)
+          let opt = extractedNationalPrefix + nationalNumber.toString()
+          nationalNumber = StringBuilder(opt)
           var indexOfPreviousNdd: Int64 = match (prefixBeforeNationalNumber.toString().lastIndexOf(extractedNationalPrefix)) {
               case Some(x) => x
               case None => -1
           }
           prefixBeforeNationalNumber = StringBuilder(Char(0), indexOfPreviousNdd)
         }
-        return !(extractedNationalPrefix.equals(removeNationalPrefixFromNationalNumber()))
+        return extractedNationalPrefix != removeNationalPrefixFromNationalNumber()
     }
 
     private func isDigitOrLeadingPlusSign (nextChar: Char): Bool {
@@ -348,7 +349,7 @@ public class AsYouTypeFormatter {
                 var formattedNumber: String = m.replaceAll(numberFormat.getFormat())
                 var fullOutput: String = appendNationalNumber(formattedNumber)
                 var formattedNumberDigitsOnly: String = PhoneNumberUtil.normalizeDiallableCharsOnly(fullOutput)
-                if (formattedNumberDigitsOnly.equals(accruedInputWithoutFormatting.toString())) {
+                if (formattedNumberDigitsOnly == accruedInputWithoutFormatting.toString()) {
                   return fullOutput
                 }
             }
@@ -373,7 +374,7 @@ public class AsYouTypeFormatter {
 
     private func appendNationalNumber (nationalNumber: String): String {
         var prefixBeforeNationalNumberLength: Int64 = prefixBeforeNationalNumber.size
-        if (shouldAddSpaceAfterNationalPrefix && prefixBeforeNationalNumberLength > 0 && prefixBeforeNationalNumber.toString()[prefixBeforeNationalNumberLength - 1] != SEPARATOR_BEFORE_NATIONAL_NUMBER) {
+        if (shouldAddSpaceAfterNationalPrefix && prefixBeforeNationalNumberLength > 0 && Char(prefixBeforeNationalNumber.toString()[prefixBeforeNationalNumberLength - 1]) != SEPARATOR_BEFORE_NATIONAL_NUMBER) {
           return prefixBeforeNationalNumber.toString() + SEPARATOR_BEFORE_NATIONAL_NUMBER.toString() + nationalNumber.toString()
         } else {
             return prefixBeforeNationalNumber.toString() + nationalNumber.toString()
@@ -402,7 +403,7 @@ public class AsYouTypeFormatter {
         if (lengthOfNationalNumber > 0) {
             var tempNationalNumber: String = ""
             for (i in 0..lengthOfNationalNumber) {
-              tempNationalNumber = inputDigitHelper(nationalNumber.toString()[i])
+              tempNationalNumber = inputDigitHelper(Char(nationalNumber.toString()[i]))
             }
             if (ableToFormat) {
                 return appendNationalNumber(tempNationalNumber)
@@ -415,15 +416,16 @@ public class AsYouTypeFormatter {
     }
 
     private func isNanpaNumberWithNationalPrefix (): Bool {
-        return (currentMetadata.getCountryCode() == 1) && (nationalNumber.toString()[0] == '1') &&
-               (nationalNumber.toString()[1] != '0') && (nationalNumber.toString()[1] != '1')
+        return (currentMetadata.getCountryCode() == 1) && (Char(nationalNumber.toString()[0]) == '1') &&
+               (Char(nationalNumber.toString()[1]) != '0') && (Char(nationalNumber.toString()[1]) != '1')
     }
 
     private func removeNationalPrefixFromNationalNumber (): String {
         var startOfNationalNumber: Int64 = 0
         if (isNanpaNumberWithNationalPrefix()) {
             startOfNationalNumber = 1
-            prefixBeforeNationalNumber.append('1').append(SEPARATOR_BEFORE_NATIONAL_NUMBER)
+            prefixBeforeNationalNumber.append('1')
+            prefixBeforeNationalNumber.append(SEPARATOR_BEFORE_NATIONAL_NUMBER)
             isCompleteNumber = true
         } else if (currentMetadata.hasNationalPrefixForParsingFunc()) {
             var nationalPrefixForParsing: Regex = regexCache.getPatternForRegex(currentMetadata.getNationalPrefixForParsing())
@@ -431,26 +433,28 @@ public class AsYouTypeFormatter {
             if (matchRes(m.matchStart()) && m.find().getOrThrow().matchPosition().end > 0) {
                 isCompleteNumber = true
                 startOfNationalNumber = m.find().getOrThrow().matchPosition().end
-                prefixBeforeNationalNumber.append(nationalNumber.toString().substring(0, startOfNationalNumber))
+                prefixBeforeNationalNumber.append(nationalNumber.toString()[..startOfNationalNumber])
             }
         }
-        var nationalPrefix: String = nationalNumber.toString().substring(0, startOfNationalNumber)
-        nationalNumber.remove(Range<Int64>(0, startOfNationalNumber, 1, true, true, false))
+        var nationalPrefix: String = nationalNumber.toString()[..startOfNationalNumber]
+        let s = nationalNumber.toString()[startOfNationalNumber..]
+        nationalNumber.reset()
+        nationalNumber.append(s)
         return nationalPrefix
     }
 
     private func attemptToExtractIdd (): Bool {
-        var internationalPrefix: Regex = regexCache.getPatternForRegex("\\" + PhoneNumberUtil.PLUS_SIGN + "|" + currentMetadata.getInternationalPrefix())
+        var internationalPrefix: Regex = regexCache.getPatternForRegex("\\" + String(PhoneNumberUtil.PLUS_SIGN) + "|" + currentMetadata.getInternationalPrefix())
         var iddMatcher: Matcher = internationalPrefix.matcher(accruedInputWithoutFormatting.toString())
         var iddMatchStart: Option<MatchData> = iddMatcher.matchStart()
         if (matchRes(iddMatchStart)) {
             isCompleteNumber = true
             var startOfCountryCallingCode: Int64 = iddMatchStart.getOrThrow().matchPosition().end
             nationalNumber = StringBuilder(Char(0), 0)
-            nationalNumber.append(accruedInputWithoutFormatting.toString().substring(startOfCountryCallingCode))
+            nationalNumber.append(accruedInputWithoutFormatting.toString()[startOfCountryCallingCode..])
             prefixBeforeNationalNumber = StringBuilder(Char(0), 0)
-            prefixBeforeNationalNumber.append(accruedInputWithoutFormatting.toString().substring(0, startOfCountryCallingCode))
-            if (accruedInputWithoutFormatting.toString()[0] != PhoneNumberUtil.PLUS_SIGN) {
+            prefixBeforeNationalNumber.append(accruedInputWithoutFormatting.toString()[..startOfCountryCallingCode])
+            if (Char(accruedInputWithoutFormatting.toString()[0]) != PhoneNumberUtil.PLUS_SIGN) {
               prefixBeforeNationalNumber.append(SEPARATOR_BEFORE_NATIONAL_NUMBER)
             }
             return true
@@ -470,13 +474,14 @@ public class AsYouTypeFormatter {
         nationalNumber = StringBuilder(Char(0), 0)
         nationalNumber.append(numberWithoutCountryCallingCode)
         var newRegionCode: String = phoneUtil.getRegionCodeForCountryCode(countryCode)
-        if (PhoneNumberUtil.REGION_CODE_FOR_NON_GEO_ENTITY.equals(newRegionCode)) {
+        if (PhoneNumberUtil.REGION_CODE_FOR_NON_GEO_ENTITY == (newRegionCode)) {
             currentMetadata = phoneUtil.getMetadataForNonGeographicalRegion(countryCode)
-        } else if (! (newRegionCode.equals(defaultCountry))) {
+        } else if (newRegionCode != (defaultCountry)) {
             currentMetadata = getMetadataForRegion(newRegionCode)
         }
         var countryCodeString: String = countryCode.toString()
-        prefixBeforeNationalNumber.append(countryCodeString).append(SEPARATOR_BEFORE_NATIONAL_NUMBER)
+        prefixBeforeNationalNumber.append(countryCodeString)
+        prefixBeforeNationalNumber.append(SEPARATOR_BEFORE_NATIONAL_NUMBER)
         extractedNationalPrefix = ""
         return true
     }
@@ -506,10 +511,10 @@ public class AsYouTypeFormatter {
         var digiM: Option<MatchData> = digitMatcher.find(Int64(lastMatchPosition))
         if (matchRes(digiM)) {
             var tempTemplate: String = digitMatcher.replace(nextChar.toString(), 0)
-            var formattingTemplateStr = formattingTemplate.toString().replace(formattingTemplate.toString().substring(0, tempTemplate.size), tempTemplate)
+            var formattingTemplateStr = formattingTemplate.toString().replace(formattingTemplate.toString()[..tempTemplate.size], tempTemplate)
             formattingTemplate = StringBuilder(formattingTemplateStr)
             lastMatchPosition = Int32(digiM.getOrThrow().matchPosition().start)
-            return formattingTemplate.toString().substring(0, Int64(lastMatchPosition) + 1)
+            return formattingTemplate.toString()[..Int64(lastMatchPosition) + 1]
         } else {
             if (possibleFormats.size == 1) {
                 ableToFormat = false

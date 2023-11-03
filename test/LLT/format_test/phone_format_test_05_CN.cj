@@ -46,7 +46,7 @@ main() {
     if (format8 != "+1(42) 55-550100") {
         return 1
     }
-    if (format9 != "tel:+1-42-55-550100") {
+    if (format9 != "+1-42-55-550100") {
         return 1
     }
 

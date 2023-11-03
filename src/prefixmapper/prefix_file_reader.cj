@@ -58,7 +58,7 @@ public class PrefixFileReader {
         var readArrs: Array<UInt8> = []
         var metadata: String = ""
         if (!phonePrefixDataDirectoryUser.isEmpty()) {
-            arrs = phonePrefixDataDirectoryUser.split('/')
+            arrs = phonePrefixDataDirectoryUser.split("/")
             for (dir in arrs where dir != "") {
                 eventDataPath = eventDataPath.join(dir)
             }
@@ -99,7 +99,7 @@ public class PrefixFileReader {
         var regionStr = ""
         regionStr = region
         if (!phonePrefixDataDirectoryUser.isEmpty()) {
-            arrs = phonePrefixDataDirectoryUser.split('/')
+            arrs = phonePrefixDataDirectoryUser.split("/")
             for (dir in arrs where dir != "") {
                 eventDataPath = eventDataPath.join(dir)
             }
@@ -135,7 +135,7 @@ public class PrefixFileReader {
         var readArrs: Array<UInt8> = []
         var data: String = ""
         if (!phonePrefixDataDirectoryUser.isEmpty()) {
-            arrs = phonePrefixDataDirectoryUser.split('/')
+            arrs = phonePrefixDataDirectoryUser.split("/")
             for (dir in arrs where dir != "") {
                 eventDataPath = eventDataPath.join(dir)
             }
@@ -166,9 +166,9 @@ public class PrefixFileReader {
             match (metadata.indexOf("\n" + phonePrefix[..maxBit] + "|")) {
                 case Some(v) =>
                     var s: String = sliceRes(metadata, v + 1)
-                    var count: Int64 = s.count('&')
+                    var count: Int64 = s.count("&")
                     if (count > 0) {
-                        let arr: Array<String> = s.split('&')
+                        let arr: Array<String> = s.split("&")
                         res.appendAll(arr)
                     } else {
                         res.append(s)
@@ -265,7 +265,7 @@ public class PrefixFileReader {
         var final: Int64 = 0
         var res: String = ""
         while(true) {
-            let c: Char = metadata[index]
+            let c: Char = Char(metadata[index])
             if (c == '|') {
                 begin = index
             }

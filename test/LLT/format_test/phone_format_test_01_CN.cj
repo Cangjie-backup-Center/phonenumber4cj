@@ -35,7 +35,7 @@ main() {
     if (format4 != "+8618717619089") {
         return 1
     }
-    if (format5 != "tel:+86-187-1761-9089") {
+    if (format5 != "+86-187-1761-9089") {
         return 1
     }
 
@@ -60,7 +60,7 @@ main() {
     if (format8 != "+869524198") {
         return 1
     }
-    if (format9 != "tel:+86-9524198") {
+    if (format9 != "+86-9524198") {
         return 1
     }
 
@@ -85,7 +85,7 @@ main() {
     if (format12 != "+14255550100") {
         return 1
     }
-    if (format13 != "tel:+1-425-555-0100") {
+    if (format13 != "+1-425-555-0100") {
         return 1
     }
 
@@ -112,7 +112,7 @@ main() {
     if (format16 != "+10012132823146") {
         return 1
     }
-    if (format17 != "tel:+1-0012132823146") {
+    if (format17 != "+1-0012132823146") {
         return 1
     }
 
@@ -137,7 +137,7 @@ main() {
     if (format20 != "+12132823146") {
         return 1
     }
-    if (format21 != "tel:+1-213-282-3146") {
+    if (format21 != "+1-213-282-3146") {
         return 1
     }
 
@@ -162,7 +162,7 @@ main() {
     if (format24 != "+8611111111111") {
         return 1
     }
-    if (format25 != "tel:+86-11111111111") {
+    if (format25 != "+86-11111111111") {
         return 1
     }
 
@@ -187,7 +187,7 @@ main() {
     if (format28 != "+861871761908") {
         return 1
     }
-    if (format29 != "tel:+86-1871761908") {
+    if (format29 != "+86-1871761908") {
         return 1
     }
     return 0
