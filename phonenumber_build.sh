@@ -3,4 +3,4 @@
 cjpm clean
 cjpm build
 # cjpm build --coverage
-cp -r ./resources/ ./build/phonenumber4cj/
+cp -r ./resources/ ./build/release/phonenumber4cj/

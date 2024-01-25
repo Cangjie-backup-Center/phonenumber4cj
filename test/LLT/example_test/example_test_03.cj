@@ -9,7 +9,7 @@ from phonenumber4cj import libphonenumber.*
 
 main() {
     var compile: Regex = Regex("[0-9\\-]+")
-    var compileCn: Regex = Regex("[\u{4e00}-\u{9fa5}]")
+    var compileCn: Regex = Regex("[\u{4E00}-\u{9FA5}\u{8FBD}-\u{9FBB}\u{FA0E}-\u{FA29}]+")
     var str: String = "倉頡..頡..123456..."
     var num: Int64 = compileCn.matcher(str).allCount()
     println(num)

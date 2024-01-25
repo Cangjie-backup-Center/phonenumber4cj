@@ -38,7 +38,7 @@ public class PhoneNumberOfflineGeocoder {
             var regionWhereNumberIsValid: String = "ZZ"
         for (regionCode in regionCodes) {
             if (phoneUtil.isValidNumberForRegion(number, regionCode)) {
-                if (!regionWhereNumberIsValid.equals("ZZ")) {
+                if (regionWhereNumberIsValid != "ZZ") {
                     return ""
                 }
                 regionWhereNumberIsValid = regionCode
@@ -49,7 +49,7 @@ public class PhoneNumberOfflineGeocoder {
     }
 
     private func getRegionDisplayName(regionCode: String, language: Language): String {
-        if (regionCode.isEmpty() || regionCode.equals("ZZ") || regionCode.equals(PhoneNumberUtil.REGION_CODE_FOR_NON_GEO_ENTITY)) {
+        if (regionCode.isEmpty() || regionCode == "ZZ" || regionCode == PhoneNumberUtil.REGION_CODE_FOR_NON_GEO_ENTITY) {
             return ""
         }
         if (regionCode == "CN") {
@@ -67,8 +67,8 @@ public class PhoneNumberOfflineGeocoder {
         var areaDescription: String = ""
         let mobileToken: String = PhoneNumberUtil.getCountryMobileToken(Int32(number.getCountryCodes()))
         var nationalNumber: String = phoneUtil.getNationalSignificantNumber(number)
-        if (!mobileToken.equals("") && nationalNumber.startsWith(mobileToken)) {
-            nationalNumber = nationalNumber.substring(mobileToken.size)
+        if (mobileToken != "" && nationalNumber.startsWith(mobileToken)) {
+            nationalNumber = nationalNumber[mobileToken.size..]
             let region: String = phoneUtil.getRegionCodeForCountryCode(Int32(number.getCountryCodes()))
             var copiedNumber: PhoneNumber = PhoneNumber()
             try {
@@ -92,7 +92,7 @@ public class PhoneNumberOfflineGeocoder {
             case Some(v) => v
             case None => ""
         }
-        if (userRegion.equals(opt)) {
+        if (userRegion == opt) {
             return getDescriptionForValidNumber(number, languageCode)
         }
         return getRegionDisplayName(opt, languageCode)

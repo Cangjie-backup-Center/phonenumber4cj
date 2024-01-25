@@ -7,7 +7,6 @@ from phonenumber4cj import libphonenumber.*
 
 main() {
     var exception: NumberParseException = NumberParseException(ErrorType.TOO_LONG, "this is exception")
-    IllegalStateException()
     MissingMetadataException("this is missingMetadataException")
     println(exception.toString())
     println(exception.getErrorType().toString())

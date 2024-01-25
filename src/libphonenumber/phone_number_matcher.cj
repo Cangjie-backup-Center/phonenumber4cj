@@ -102,7 +102,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
             if (findRes(mcMatch)) {
                 var start: Int64 = mcMatch.getOrThrow().matchPosition().start
                 var end: Int64 = mcMatch.getOrThrow().matchPosition().end
-                var candidate: String = String.fromUtf8(text.toUtf8Array()[start..end])
+                var candidate: String = String.fromUtf8(text.toArray()[start..end])
                 candidate = trimAfterFirstMatch(PhoneNumberUtil.SECOND_NUMBER_START_PATTERN, candidate)
                 var m: Option<PhoneNumberMatch> = extractMatch(candidate, start)
                 if (let Some(v) <- m) {
@@ -120,9 +120,9 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
         return Option<PhoneNumberMatch>.None
     }
 
-    private func transCn (text: String): String {
+    private func transCn(text: String): String {
         var tranStr = text
-        var compileCn: Regex = Regex("[\u{4e00}-\u{9fa5}]")
+        var compileCn: Regex = Regex("[\u{4E00}-\u{9FA5}\u{8FBD}-\u{9FBB}\u{FA0E}-\u{FA29}]+")
         var num: Int64 = compileCn.matcher(text).allCount()
         while (num > 0) {
             tranStr = compileCn.matcher(tranStr).replace(".")
@@ -210,7 +210,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
                         v.matchStr()
                         ()
                     case None =>
-                        var previousChar: Char = text[offset - 1]
+                        var previousChar: Char = Char(text[offset - 1])
                         if (isInvalidPunctuationSymbol(previousChar)) {
                             return Option<PhoneNumberMatch>.None
                         }
@@ -220,7 +220,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
                 }
                 var lastCharIndex: Int64 = offset + candidate.size
                 if (lastCharIndex < text.size) {
-                    var nextChar: Char = text[lastCharIndex]
+                    var nextChar: Char = Char(text[lastCharIndex])
                     if (isInvalidPunctuationSymbol(nextChar)) {
                         return Option<PhoneNumberMatch>.None
                     }
@@ -267,15 +267,15 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
         
         var index: Int32 = 0
         for (index in 0..candidate.size -1) {
-            var charAtIndex: Char = candidate[index]
+            var charAtIndex: Char = Char(candidate[index])
             if (charAtIndex == 'x' || charAtIndex == 'X') {
-                var charAtNextIndex: Char = candidate[index + 1]
+                var charAtNextIndex: Char = Char(candidate[index + 1])
                 if (charAtNextIndex == 'x' || charAtNextIndex == 'X') {
                     var indexes = index + 1
-                    if (util.isNumberMatch(number, candidate.substring(indexes)) != MatchType.NSN_MATCH) {
+                    if (util.isNumberMatch(number, candidate[indexes..]) != MatchType.NSN_MATCH) {
                         return false
                     }
-                } else if (!PhoneNumberUtil.normalizeDigitsOnly(candidate.substring(index)).equals(number.getExtensions())) {
+                } else if (PhoneNumberUtil.normalizeDigitsOnly(candidate[index..]) != (number.getExtensions())) {
                     return false
                 }
             }

@@ -195,7 +195,7 @@ public open class PhoneNumberUtil {
             let opt = regionCodes.get(0)
             match (opt) {
                 case Some(v) => 
-                    if (regionCodes.size == 1 && REGION_CODE_FOR_NON_GEO_ENTITY.equals(v)) {
+                    if (regionCodes.size == 1 && REGION_CODE_FOR_NON_GEO_ENTITY == (v)) {
                         countryCodesForNonGeographicalRegion.put(k)
                     } else {
                         supportedRegions.putAll(regionCodes)
@@ -277,7 +277,7 @@ public open class PhoneNumberUtil {
     static func normalizeDigits(number: String, keepNonDigits: Bool): StringBuilder {
         var normalizedDigits: StringBuilder = StringBuilder()
         for (i in 0..number.size) {
-            let c: Char = number[i]
+            let c: Char = Char(number[i])
             let digit: Bool = c.isAsciiNumber()
             if (digit != false) {
                 normalizedDigits.append(c)
@@ -296,7 +296,7 @@ public open class PhoneNumberUtil {
         removeNonMatches: Bool): String {
         var normalizedNumber: StringBuilder = StringBuilder()
         for (i in 0..number.size) {
-            let character: Char = number[i]
+            let character: Char = Char(number[i])
             let newDigit: ?Char = normalizationReplacements.get(character.toAsciiUpperCase())
             match (newDigit) {
                 case Some(v) =>
@@ -437,7 +437,7 @@ public open class PhoneNumberUtil {
     }
 
     private func getMetadataForRegionOrCallingCode(countryCallingCode: Int32, regionCode: String): PhonemetadataPhoneMetadata {
-        if (REGION_CODE_FOR_NON_GEO_ENTITY.equals(regionCode)) {
+        if (REGION_CODE_FOR_NON_GEO_ENTITY == (regionCode)) {
             return getMetadataForNonGeographicalRegion(countryCallingCode)
         }
         return getMetadataForRegion(regionCode)
@@ -463,11 +463,11 @@ public open class PhoneNumberUtil {
         var regionCode: String = getRegionCodeForCountryCode(countryCallingCode)
         var numberType: PhoneNumberType = getNumberType(numberNoExt)
         var isValidNumber: Bool = (numberType != PhoneNumberType.UNKNOWN)
-        if (regionCallingFrom.equals(regionCode)) {
+        if (regionCallingFrom == (regionCode)) {
             var  isFixedLineOrMobile: Bool = (numberType == PhoneNumberType.FIXED_LINE) || (numberType == PhoneNumberType.MOBILE) || (numberType == PhoneNumberType.FIXED_LINE_OR_MOBILE)
-            if (regionCode.equals("CO") && numberType == PhoneNumberType.FIXED_LINE) {
+            if (regionCode == ("CO") && numberType == PhoneNumberType.FIXED_LINE) {
               formattedNumber = formatNationalNumberWithCarrierCode(numberNoExt, COLOMBIA_MOBILE_TO_FIXED_LINE_PREFIX)
-            } else if (regionCode.equals("BR") && isFixedLineOrMobile) {
+            } else if (regionCode == ("BR") && isFixedLineOrMobile) {
                 if (numberNoExt.getPreferredDomesticCarrierCodes().size > 0) {
                     formattedNumber = formatNationalNumberWithPreferredCarrierCode(numberNoExt, "")
                 }else { formattedNumber = "" }
@@ -481,7 +481,7 @@ public open class PhoneNumberUtil {
                     formattedNumber = format(numberNoExt, PhoneNumberFormat.NATIONAL)
                 }
             } else {
-                if ((regionCode.equals(REGION_CODE_FOR_NON_GEO_ENTITY) || ((regionCode.equals("MX") || regionCode.equals("CL") || regionCode.equals("UZ")) && isFixedLineOrMobile))) {
+                if ((regionCode == REGION_CODE_FOR_NON_GEO_ENTITY || ((regionCode == "MX" || regionCode == "CL" || regionCode == "UZ") && isFixedLineOrMobile))) {
                     if (canBeInternationallyDialled(numberNoExt)) {
                         formattedNumber = format(numberNoExt, PhoneNumberFormat.INTERNATIONAL)
                     }
@@ -535,7 +535,8 @@ public open class PhoneNumberUtil {
         var formattedNumber: StringBuilder = StringBuilder(formattedNationalNumber)
         maybeAppendFormattedExtension(number, metadataForRegion, PhoneNumberFormat.INTERNATIONAL,formattedNumber)
         if (internationalPrefixForFormatting.size > 0) {
-            formattedNumber.insert(0, " ").insert(0, countryCallingCode.toString()).insert(0, " ").insert(0, internationalPrefixForFormatting)
+            let opt = internationalPrefixForFormatting + " " + countryCallingCode.toString() + " " + formattedNumber.toString()
+            formattedNumber = StringBuilder(opt)
         } else {
             prefixNumberWithCountryCallingCode(countryCallingCode,PhoneNumberFormat.INTERNATIONAL,formattedNumber)
         }
@@ -568,12 +569,12 @@ public open class PhoneNumberUtil {
         rawInput = normalizeHelper(rawInput, ALL_PLUS_NUMBER_GROUPING_SYMBOLS, true)
         var nationalNumber: String = getNationalSignificantNumber(number)
         if (nationalNumber.size > 3) {
-          var firstNationalNumberDigit = match(rawInput.indexOf(nationalNumber.substring(0, 3))){
+          var firstNationalNumberDigit = match(rawInput.indexOf(nationalNumber[..3])){
               case Some(x) => x
               case None => -1
           }
           if (firstNationalNumberDigit != -1) {
-            rawInput = rawInput.substring(firstNationalNumberDigit)
+            rawInput = rawInput[firstNationalNumberDigit..]
           }
         }
         var metadataForRegionCallingFrom: PhonemetadataPhoneMetadata = getMetadataForRegion(regionCallingFrom)
@@ -608,7 +609,8 @@ public open class PhoneNumberUtil {
         var metadataForRegion: PhonemetadataPhoneMetadata = getMetadataForRegionOrCallingCode(countryCode, regionCode)
         maybeAppendFormattedExtension(number, metadataForRegion, PhoneNumberFormat.INTERNATIONAL, formattedNumber)
         if (internationalPrefixForFormatting.size > 0) {
-            formattedNumber.insert(0, " ").insert(0, countryCode.toString()).insert(0, " ").insert(0, internationalPrefixForFormatting)
+            let opt = internationalPrefixForFormatting + " " + countryCode.toString() + " " + formattedNumber.toString()
+            formattedNumber = StringBuilder(opt)
         } else {
             if (!isValidRegionCode(regionCallingFrom)) {
                 println("Trying to format number from invalid region " + regionCallingFrom + ". International formatting applied.")
@@ -631,13 +633,19 @@ public open class PhoneNumberUtil {
     private func prefixNumberWithCountryCallingCode(countryCallingCode: Int32, numberFormat: PhoneNumberFormat, formattedNumber: StringBuilder): Unit {
         match (numberFormat) {
             case E164 =>
-                formattedNumber.insert(0, countryCallingCode.toString()).insert(0, PLUS_SIGN)
+                let opt = String(PLUS_SIGN) + countryCallingCode.toString() + formattedNumber.toString()
+                formattedNumber.reset()
+                formattedNumber.append(opt)
                 return
             case INTERNATIONAL =>
-                formattedNumber.insert(0, " ").insert(0, countryCallingCode.toString()).insert(0, PLUS_SIGN)
+                let opt = String(PLUS_SIGN) + countryCallingCode.toString() + " " + formattedNumber.toString()
+                formattedNumber.reset()
+                formattedNumber.append(opt)
                 return
             case RFC3966 =>
-                formattedNumber.insert(0, "-").insert(0, countryCallingCode.toString()).insert(0, PLUS_SIGN).insert(0, RFC3966_PREFIX)
+                let opt = String(PLUS_SIGN) + countryCallingCode.toString() + "-" + formattedNumber.toString()
+                formattedNumber.reset()
+                formattedNumber.append(opt)
                 return
             case NATIONAL => return
         }
@@ -744,12 +752,15 @@ public open class PhoneNumberUtil {
         numberFormat: PhoneNumberFormat, formattedNumber: StringBuilder): Unit {
         if (number.hasExtensions() && number.getExtensions().size > 0) {
             if (numberFormat == PhoneNumberFormat.RFC3966) {
-                formattedNumber.append(RFC3966_EXTN_PREFIX).append(number.getExtensions())
+                formattedNumber.append(RFC3966_EXTN_PREFIX)
+                formattedNumber.append(number.getExtensions())
             } else {
                 if (metadata.hasPreferredExtnPrefixFunc()) {
-                    formattedNumber.append(metadata.getPreferredExtnPrefix()).append(number.getExtensions())
+                    formattedNumber.append(metadata.getPreferredExtnPrefix())
+                    formattedNumber.append(number.getExtensions())
                 } else {
-                    formattedNumber.append(DEFAULT_EXTN_PREFIX).append(number.getExtensions())
+                    formattedNumber.append(DEFAULT_EXTN_PREFIX)
+                    formattedNumber.append(number.getExtensions())
                 }
             }
         }
@@ -783,7 +794,7 @@ public open class PhoneNumberUtil {
     public func isValidNumberForRegion(number: PhoneNumber, regionCode: String): Bool {
         var countryCode: Int64 = number.getCountryCodes()
         var metadata: PhonemetadataPhoneMetadata = getMetadataForRegionOrCallingCode(Int32(countryCode), regionCode)
-        if ((!REGION_CODE_FOR_NON_GEO_ENTITY.equals(regionCode))) {
+        if ((REGION_CODE_FOR_NON_GEO_ENTITY != regionCode)) {
             if (countryCode != Int64(getCountryCodeForValidRegion(regionCode))) {
                 return false
             }
@@ -1024,14 +1035,14 @@ public open class PhoneNumberUtil {
 
     protected open func extractCountryCode(fullNumber: StringBuilder, nationalNumber: StringBuilder): Int32 {
         let str: String = fullNumber.toString()
-        if ((fullNumber.size != 0) || (str[0] != '0')) {
+        if ((fullNumber.size != 0) || (Char(str[0]) != '0')) {
             var potentialCountryCode: Int32 = 0
             let numberLength: Int32 = Int32(fullNumber.size)
             for (i in 1..numberLength) {
                 if (i <= 3) {
-                    potentialCountryCode = Int32.parse(str.substring(0, Int64(i)))
+                    potentialCountryCode = Int32.parse(str[..Int64(i)])
                     if (countryCallingCodeToRegionCodeMap.contains(potentialCountryCode)) {
-                        nationalNumber.append(str.substring(Int64(i)))
+                        nationalNumber.append(str[Int64(i)..])
                         return potentialCountryCode
                     }
                 }
@@ -1073,7 +1084,7 @@ public open class PhoneNumberUtil {
                     let defaultCountryCodeString: String = "${defaultCountryCode}"
                     var normalizedNumber: String = fullNumber.toString()
                     if (normalizedNumber.startsWith(defaultCountryCodeString)) {
-                        var potentialNationalNumber: StringBuilder = StringBuilder(normalizedNumber.substring(defaultCountryCodeString.size))
+                        var potentialNationalNumber: StringBuilder = StringBuilder(normalizedNumber[defaultCountryCodeString.size..])
                         var generalDesc: PhonemetadataPhoneNumberDesc = defaultRegionMetadata.getOrThrow().getGeneralDesc().getOrThrow()
                         maybeStripNationalPrefixAndCarrierCode(potentialNationalNumber, defaultRegionMetadata.getOrThrow(), StringBuilder())
                         if ((!matcherApi.matchNationalNumber(normalizedNumber, generalDesc, false) &&
@@ -1106,16 +1117,18 @@ public open class PhoneNumberUtil {
         match (m) {
             case Some(v) =>
                 var matchEnd = v.matchPosition().end
-                var digitMatcher: Option<MatchData>  = CAPTURING_DIGIT_PATTERN.matcher(number.toString().substring(matchEnd)).find()
+                var digitMatcher: Option<MatchData>  = CAPTURING_DIGIT_PATTERN.matcher(number.toString()[matchEnd..]).find()
                 match (digitMatcher) {
                     case Some(w) =>
                         var normalizedGroup: String = normalizeDigitsOnly(w.matchStr(1))
-                        if (normalizedGroup.equals("0")) {
+                        if (normalizedGroup == ("0")) {
                             return false
                         }
                     case None => ()
                 }
-                number.remove(Range<Int64>(0, matchEnd, 1, true, true, false))
+                let s = number.toString()[matchEnd..]
+                number.reset()
+                number.append(s)
                 return true
             case None => ()
         }
@@ -1130,7 +1143,9 @@ public open class PhoneNumberUtil {
             let m: Option<MatchData> = PLUS_CHARS_PATTERN.matcher(number.toString()).matchStart()
             match (m) {
                 case Some(v) =>
-                    number.remove(Range<Int64>(0, v.matchPosition().end, 1, true, true, false))
+                    let s = number.toString()[v.matchPosition().end..]
+                    number.reset()
+                    number.append(s)
                     strBuild = normalize(number)
                     return (CountryCodeSource.FROM_NUMBER_WITH_PLUS_SIGN, strBuild)
                 case None =>
@@ -1187,13 +1202,15 @@ public open class PhoneNumberUtil {
                 var numOfGroups: Int32 = Int32(prefixMatcher.allCount())
                 var transformRule: String = metadata.getNationalPrefixTransformRule()
                 if (transformRule.isEmpty() || transformRule.size == 0 || v.matchStr(Int64(numOfGroups)).isEmpty()) {
-                    if (isViableOriginalNumber && !matcherApi.matchNationalNumber(numberStr.substring(prefixMatcher.getString().size), generalDesc, false)) {
+                    if (isViableOriginalNumber && !matcherApi.matchNationalNumber(numberStr[prefixMatcher.getString().size..], generalDesc, false)) {
                         return false
                     }
-                    if (!carrierCode.isEmpty() && numOfGroups > 0 && !(v.matchStr(Int64(numOfGroups))).isEmpty()) {
+                    if (carrierCode.size > 0 && numOfGroups > 0 && !(v.matchStr(Int64(numOfGroups))).isEmpty()) {
                     carrierCode.append(v.matchStr(1))
                     }
-                    number.remove(0)
+                    let s = number.toString()[1..]
+                    number.reset()
+                    number.append(s)
                     return true
                 } else {
                     var transformedNumber: StringBuilder = StringBuilder(numberStr)
@@ -1203,7 +1220,7 @@ public open class PhoneNumberUtil {
                         return false
                     }
 
-                    if (!carrierCode.isEmpty() && numOfGroups > 1) {
+                    if (carrierCode.size > 0 && numOfGroups > 1) {
                         carrierCode.append(v.matchStr(1))
                     }
                     numberStr.replace(numberStr, transformedNumberStr)
@@ -1218,11 +1235,11 @@ public open class PhoneNumberUtil {
         let m: Option<MatchData> = EXTN_PATTERN.matcher(number.toString()).find()
         match (m) {
             case Some(v) =>
-                if (isViablePhoneNumber(number.toString().substring(0, v.matchPosition().start))) {
+                if (isViablePhoneNumber(number.toString()[..v.matchPosition().start])) {
                     for (i in 1..v.groupNumber()) {
                         if (!v.matchStr(i).isEmpty()){
                             var extension: String = v.matchStr(i)
-                            var numbers = StringBuilder(number.toString().substring(v.matchPosition().start, number.size))
+                            var numbers = StringBuilder(number.toString()[v.matchPosition().start..number.size])
                             return (extension, numbers)
                         }
                     }
@@ -1267,10 +1284,10 @@ public open class PhoneNumberUtil {
     }
 
     static func setItalianLeadingZerosForPhoneNumber(nationalNumber: String, phoneNumber: PhoneNumber): Unit {
-        if (nationalNumber.size > 1 && nationalNumber[0] == '0') {
+        if (nationalNumber.size > 1 && Char(nationalNumber[0]) == '0') {
             phoneNumber.setItalianLeadingZeros(true)
             var numberOfLeadingZeros: Int64 = 1
-            while (numberOfLeadingZeros < nationalNumber.size - 1 && nationalNumber[numberOfLeadingZeros] == '0') {
+            while (numberOfLeadingZeros < nationalNumber.size - 1 && Char(nationalNumber[numberOfLeadingZeros]) == '0') {
                 numberOfLeadingZeros ++
             }
 
@@ -1292,7 +1309,6 @@ public open class PhoneNumberUtil {
         } else if (Int32(numberToParse.size) > MAX_INPUT_STRING_LENGTH) {
             throw NumberParseException(ErrorType.TOO_LONG, "The string supplied was too long to parse.")
         }
-
         var nationalNumber: StringBuilder = StringBuilder()
         buildNationalNumberForParsing(numberToParse, nationalNumber)
         if (!isViablePhoneNumber(nationalNumber.toString())) {
@@ -1310,7 +1326,6 @@ public open class PhoneNumberUtil {
         if (keepRawInput) {
             phoneNumber.setRawInputs(numberToParse)
         }
-
         let extension: (String, StringBuilder) = maybeStripExtension(nationalNumber)
         if (extension[0].size > 0) {
             phoneNumber.setExtensions(extension[0])
@@ -1327,7 +1342,7 @@ public open class PhoneNumberUtil {
             match (opt) {
                 case Some(v) =>
                     if (e.getErrorType() == ErrorType.INVALID_COUNTRY_CODE && v.groupNumber() > 0) {
-                        countryCode = maybeExtractCountryCode(nationalNumbers.toString().substring(matcher.region().end),
+                        countryCode = maybeExtractCountryCode(nationalNumbers.toString()[matcher.region().end..],
                                                                 regionMetadata, normalizedNationalNumber,
                                                                 keepRawInput, phoneNumber)
                         if (countryCode == 0) {
@@ -1342,7 +1357,7 @@ public open class PhoneNumberUtil {
         }
         if (countryCode != 0) {
             var phoneNumberRegion: String = getRegionCodeForCountryCode(countryCode)
-            if (!phoneNumberRegion.equals(defaultRegion)) {
+            if (phoneNumberRegion != (defaultRegion)) {
                 regionMetadata = getMetadataForRegionOrCallingCode(countryCode, phoneNumberRegion)
             }
         } else {
@@ -1416,7 +1431,7 @@ public open class PhoneNumberUtil {
         let secondNumber: PhoneNumber = copyCoreFieldsOnly(secondNumberIn)
 
         if (firstNumber.hasExtensions() && secondNumber.hasExtensions() && 
-            !firstNumber.getExtensions().equals(secondNumber.getExtensions())) {
+            firstNumber.getExtensions() != (secondNumber.getExtensions())) {
             return MatchType.NO_MATCH
         }
 
@@ -1480,7 +1495,7 @@ public open class PhoneNumberUtil {
                 if (e.getErrorType() == ErrorType.INVALID_COUNTRY_CODE) {
                     var firstNumberRegion: String = getRegionCodeForCountryCode(Int32(firstNumber.getCountryCodes()))
                     try {
-                        if (!firstNumberRegion.equals(UNKNOWN_REGION)) {
+                        if (firstNumberRegion != (UNKNOWN_REGION)) {
                         var secondNumberWithFirstNumberRegion: PhoneNumber = parse(secondNumber, firstNumberRegion)
                         var matching: MatchType = isNumberMatch(firstNumber, secondNumberWithFirstNumberRegion)
                         if (matching == MatchType.EXACT_MATCH) {
@@ -1509,15 +1524,15 @@ public open class PhoneNumberUtil {
         if (indexOfPhoneContext >= 0 ) {
             var phoneContextStart: Int32 = indexOfPhoneContext + Int32(RFC3966_PHONE_CONTEXT.size)
             var phoneContextEnd: Int64
-            if (phoneContextStart < (Int32(numberToParse.size) - 1) && numberToParse[Int64(phoneContextStart)] == PLUS_SIGN) {
-                match (numberToParse.indexOf(';', Int64(phoneContextStart))){
+            if (phoneContextStart < (Int32(numberToParse.size) - 1) && Char(numberToParse[Int64(phoneContextStart)]) == PLUS_SIGN) {
+                match (numberToParse.indexOf(";", Int64(phoneContextStart))){
                     case Some(x) => phoneContextEnd = x
                     case None => phoneContextEnd = -1
                 }
                 if (phoneContextEnd > 0) {
-                    nationalNumber.append(numberToParse.substring(Int64(phoneContextStart), phoneContextEnd))
+                    nationalNumber.append(numberToParse[(Int64(phoneContextStart)..phoneContextEnd)])
                 } else {
-                    nationalNumber.append(numberToParse.substring(Int64(phoneContextStart)))
+                    nationalNumber.append(numberToParse[Int64(phoneContextStart)..])
                 }
             }
             var indexOfRfc3966Prefix: Int32
@@ -1541,7 +1556,9 @@ public open class PhoneNumberUtil {
             case None => indexOfIsdn = -1
         }
         if (indexOfIsdn > 0) {
-            nationalNumber.remove(Range<Int64>(indexOfIsdn, nationalNumber.size, 1, true, true, false))
+            let s: String = nationalNumber.toString()[..indexOfIsdn] + nationalNumber.toString()[nationalNumber.size..]
+            nationalNumber.reset()
+            nationalNumber.append(s)
         }
     }
 

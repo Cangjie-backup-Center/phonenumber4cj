@@ -16,3 +16,4 @@ report/
 test/report/
 test/tmp/
 tmp/
+.cached/
