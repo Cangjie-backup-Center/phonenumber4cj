@@ -17,3 +17,6 @@ test/report/
 test/tmp/
 tmp/
 .cached/
+.cache/
+cjpm.*
+target/
