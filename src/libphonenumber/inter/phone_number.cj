@@ -4,7 +4,6 @@ from serialization import serialization.*
 from std import collection.*
 
 public class PhoneNumber <: Serializable<PhoneNumber> {
-    private static let serialVersionUID: Int64 = 1
     private var hasCountryCode: Bool = false
     private var countryCode: Int64 = 0
     private var hasNationalNumber: Bool = false

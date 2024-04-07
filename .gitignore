@@ -18,5 +18,5 @@ test/tmp/
 tmp/
 .cached/
 .cache/
-cjpm.*
+cjpm.lock
 target/

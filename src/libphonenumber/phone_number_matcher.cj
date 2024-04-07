@@ -16,12 +16,6 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
     static let leadClassChars: String = openingParens + PhoneNumberUtil.PLUS_CHARS
     static let leadClass: String = "[" + leadClassChars + "]"
     static let bracketPairLimit: String = limits(0, 3)
-    static let leadLimit: String = limits(0, 2)
-    static let digitBlockLimit: Int32 = PhoneNumberUtil.MAX_LENGTH_FOR_NSN + PhoneNumberUtil.MAX_LENGTH_COUNTRY_CODE
-    static let blockLimit: String = limits(0, digitBlockLimit)
-    static let punctuationLimit: String = limits(0, 4)
-    static let digitSequence: String = "0-9\u{FF10}-\u{FF19}\u{0660}-\u{0669}\u{06F0}-\u{06F9}" + limits(1, digitBlockLimit)
-    static let punctuation: String = "[" + PhoneNumberUtil.VALID_PUNCTUATION + "]" + punctuationLimit
     private static let LEAD_CLASS: Regex = Regex(leadClass)
     private static let TIME_STAMPS: Regex = Regex("[12]\\d{3}[-/]?[01]\\d[-/]?[0-3]\\d +[0-2]\\d$")
     private static let TIME_STAMPS_SUFFIX: Regex = Regex(":[0-5]\\d")
