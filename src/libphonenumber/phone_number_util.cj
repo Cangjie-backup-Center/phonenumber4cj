@@ -14,13 +14,10 @@ public open class PhoneNumberUtil {
 
     private static let lock = ReentrantMutex()
 
-    static let REGEX_FLAGS: Int32 = 0x40 | 0x02
-
     private static let MIN_LENGTH_FOR_NSN: Int64 = 2
 
     static let MAX_LENGTH_FOR_NSN: Int32 = 17
 
-    static let MAX_LENGTH_COUNTRY_CODE: Int32 = 3
 
     private static let MAX_INPUT_STRING_LENGTH: Int32 = 250
 
@@ -31,8 +28,6 @@ public open class PhoneNumberUtil {
     private static let COLOMBIA_MOBILE_TO_FIXED_LINE_PREFIX: String = "3"
 
     private static let MOBILE_TOKEN_MAPPINGS: HashMap<Int32, String> = HashMap<Int32, String>([(54, "9")])
-
-    private static let GEO_MOBILE_COUNTRIES_WITHOUT_MOBILE_AREA_CODES: HashSet<Int32> = HashSet<Int32>([86])
 
     private static let GEO_MOBILE_COUNTRIES: HashSet<Int32> = HashSet<Int32>([52, 54, 55, 62, 86])
 
@@ -48,11 +43,6 @@ public open class PhoneNumberUtil {
     private static let DIALLABLE_CHAR_MAPPINGS: HashMap<Char, Char> = HashMap<Char, Char>(
         [('#', '#'), ('*', '*'), ('+', '+'), ('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'),
         ('6', '6'), ('7', '7'), ('8', '8'), ('9', '9')])
-
-    private static let ALPHA_MAPPINGS: HashMap<Char, Char> = HashMap<Char, Char>(
-        [('A', '2'), ('B', '2'), ('C', '2'), ('D', '3'), ('E', '3'), ('F', '3'), ('G', '4'), ('H', '4'), ('I', '4'),
-        ('J', '5'), ('K', '5'), ('L', '5'), ('M', '6'), ('N', '6'), ('O', '6'), ('P', '7'), ('Q', '7'), ('R', '7'),
-        ('S', '7'), ('T', '8'), ('U', '8'), ('V', '8'), ('W', '9'), ('X', '9'), ('Y', '9'), ('Z', '9')])
 
     private static let ALPHA_PHONE_MAPPINGS: HashMap<Char, Char> = HashMap<Char, Char>(
         [('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'), ('7', '7'), ('8', '8'),
@@ -110,8 +100,6 @@ public open class PhoneNumberUtil {
 
     private static let EXTN_PATTERNS_FOR_PARSING: String = createExtnPattern(true)
 
-    static let EXTN_PATTERNS_FOR_MATCHING: String = createExtnPattern(false)
-
     private static func extnDigits(maxLength: Int32): String {
         return "(" + DIGITS + "{1," + "${maxLength}" + "})"
     }
@@ -163,7 +151,6 @@ public open class PhoneNumberUtil {
     private static let VALID_PHONE_NUMBER_PATTERN: Regex = Regex(
         "${VALID_PHONE_NUMBER}(?:${EXTN_PATTERNS_FOR_PARSING})?", RegexOption().ignoreCase())
 
-    static let NON_DIGITS_PATTERN: Regex = Regex("(\\D+)")
 
     private static let FIRST_GROUP_PATTERN: Regex = Regex("(\\$\\d)")
 
