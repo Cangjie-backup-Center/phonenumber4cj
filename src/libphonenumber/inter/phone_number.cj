@@ -282,6 +282,7 @@ public class PhoneNumber <: Serializable<PhoneNumber> {
      * 通常被认为是等于它们显式设置的等价物，一般不检查是否有值
      * 唯一的例外是首选的国内运营商代码
      */
+    @OverflowWrapping
     public func hashCode(): Int64 {
         var hash: Int64 = 41
         hash = (53 * hash) + getCountryCodes()
