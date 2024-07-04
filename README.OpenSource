@@ -1,9 +1,9 @@
 [
     {
         "Name": " libphonenumber ",
-        "License": " Apache License ",
+        "License": " Apache-2.0 License ",
         "License File": " LICENSE ",
-        "Version Number": " v2.0 ",
+        "Version Number": " v8.12.36 ",
         "Owner": "google"
         "Upstream URL": "https://github.com/google/libphonenumber",
         "Description": " Google's common library for parsing, formatting, and validating international phone numbers."
