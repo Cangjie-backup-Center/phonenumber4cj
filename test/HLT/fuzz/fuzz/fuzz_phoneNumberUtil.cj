@@ -1,13 +1,13 @@
 //3rd_party_lib:phonenumber4cj/build/phonenumber4cj
 
-from std import collection.*
-from phonenumber4cj import libphonenumber.inter.*
-from phonenumber4cj import libphonenumber.data.*
-from phonenumber4cj import libphonenumber.*
+import std.collection.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.*
 import secodeFuzz.*
-from std import unittest.*
-from std import unittest.testmacro.*
-from std import collection.ArrayList
+import std.unittest.*
+import std.unittest.testmacro.*
+import std.collection.ArrayList
 
 func call_fuzz(string:String){
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()

@@ -2,9 +2,9 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-package libphonenumber.data
+package phonenumber4cj.libphonenumber.data
 
-from std import collection.*
+import std.collection.*
 
 public let PHONE_NUMBER_METADATA_CN: ArrayList<String> = ArrayList(
     ["1", "true", "true",

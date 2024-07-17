@@ -1,10 +1,10 @@
 // EXEC: cjc %import-path %L %l %f
 // EXEC: export CJSTACKSIZE=10mb && ./main
 
-from phonenumber4cj import geocoder.*
-from phonenumber4cj import prefixmapper.*
-from phonenumber4cj import libphonenumber.inter.*
-from std import collection.*
+import phonenumber4cj.geocoder.*
+import phonenumber4cj.prefixmapper.*
+import phonenumber4cj.libphonenumber.inter.*
+import std.collection.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()

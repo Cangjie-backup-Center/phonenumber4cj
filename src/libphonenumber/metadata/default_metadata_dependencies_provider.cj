@@ -2,12 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-package libphonenumber.metadata
-
-from std import fs.*
-from std import os.*
-from std import os.posix.*
-import libphonenumber.data.*
+package phonenumber4cj.libphonenumber.metadata
 
 public class DefaultMetadataDependenciesProvider {
     private static let INSTANCE: DefaultMetadataDependenciesProvider = DefaultMetadataDependenciesProvider()

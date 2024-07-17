@@ -6,15 +6,7 @@
  * @file The file declars the PrefixFileReader class.
  */
 
-package prefixmapper
-
-from std import fs.*
-from std import os.*
-from std import os.posix.*
-from std import collection.*
-from encoding import json.*
-import libphonenumber.inter.*
-import libphonenumber.*
+package phonenumber4cj.prefixmapper
 
 func getFilePath(): Path {
     match(getEnv("LD_LIBRARY_PATH")) {
@@ -265,11 +257,11 @@ public class PrefixFileReader {
         var final: Int64 = 0
         var res: String = ""
         while(true) {
-            let c: Char = Char(metadata[index])
-            if (c == '|') {
+            let c: Rune = Rune(metadata[index])
+            if (c == r'|') {
                 begin = index
             }
-            if (c == '\n') {
+            if (c == r'\n') {
                 final = index
                 break
             }

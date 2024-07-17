@@ -2,10 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-package libphonenumber.inter
-
-from serialization import serialization.*
-from std import collection.*
+package phonenumber4cj.libphonenumber.inter
 
 public class PhoneNumber <: Serializable<PhoneNumber> {
     private var hasCountryCode: Bool = false

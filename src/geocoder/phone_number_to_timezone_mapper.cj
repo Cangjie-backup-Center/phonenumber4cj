@@ -6,14 +6,14 @@
  * @file The file declars the PhoneNumberToTimeZonesMapper class.
  */
 
-package geocoder
+package phonenumber4cj.geocoder
 
-from std import collection.*
-from std import sync.*
-import libphonenumber.*
-import libphonenumber.metadata.*
-import libphonenumber.inter.*
-import prefixmapper.*
+import std.collection.*
+import std.sync.*
+import phonenumber4cj.libphonenumber.*
+import phonenumber4cj.libphonenumber.metadata.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.prefixmapper.*
 
 func loadUnKnownTimeZone(): ArrayList<String> {
     var arr: ArrayList<String> = ArrayList<String>(1)
