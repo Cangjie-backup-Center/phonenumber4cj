@@ -2,10 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-package libphonenumber.inter
-
-from std import io.*
-from std import convert.*
+package phonenumber4cj.libphonenumber.inter
 
 public open class PhonemetadataNumberFormat <: Equatable<PhonemetadataNumberFormat> {
     public init() {}

@@ -2,17 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-package libphonenumber
-
-from std import io.*
-from std import regex.*
-from std import sync.*
-from std import log.*
-from std import sort.SortExtension
-from std import convert.Parsable
-import libphonenumber.internal.*
-import libphonenumber.metadata.*
-import libphonenumber.inter.*
+package phonenumber4cj.libphonenumber
 
 public open class PhoneNumberUtil {
 
@@ -35,36 +25,36 @@ public open class PhoneNumberUtil {
 
     private static let GEO_MOBILE_COUNTRIES: HashSet<Int32> = HashSet<Int32>([52, 54, 55, 62, 86])
 
-    static let PLUS_SIGN: Char = '+'
+    static let PLUS_SIGN: Rune = '+'
 
-    private static let STAR_SIGN: Char = '*'
+    private static let STAR_SIGN: Rune = '*'
 
     private static let RFC3966_EXTN_PREFIX: String = ";ext="
     private static let RFC3966_PREFIX: String = "tel:"
     private static let RFC3966_PHONE_CONTEXT: String = ";phone-context="
     private static let RFC3966_ISDN_SUBADDRESS: String = ";isub="
 
-    private static let DIALLABLE_CHAR_MAPPINGS: HashMap<Char, Char> = HashMap<Char, Char>(
-        [('#', '#'), ('*', '*'), ('+', '+'), ('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'),
-        ('6', '6'), ('7', '7'), ('8', '8'), ('9', '9')])
+    private static let DIALLABLE_CHAR_MAPPINGS: HashMap<Rune, Rune> = HashMap<Rune, Rune>(
+        [(r'#', r'#'), (r'*', r'*'), (r'+', r'+'), (r'0', r'0'), (r'1', r'1'), (r'2', r'2'), (r'3', r'3'), (r'4', r'4'), (r'5', r'5'),
+        (r'6', r'6'), (r'7', r'7'), (r'8', r'8'), (r'9', r'9')])
 
-    private static let ALPHA_PHONE_MAPPINGS: HashMap<Char, Char> = HashMap<Char, Char>(
-        [('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'), ('7', '7'), ('8', '8'),
-        ('9', '9'), ('A', '2'), ('B', '2'), ('C', '2'), ('D', '3'), ('E', '3'), ('F', '3'), ('G', '4'), ('H', '4'),
-        ('I', '4'), ('J', '5'), ('K', '5'), ('L', '5'), ('M', '6'), ('N', '6'), ('O', '6'), ('P', '7'), ('Q', '7'),
-        ('R', '7'), ('S', '7'), ('T', '8'), ('U', '8'), ('V', '8'), ('W', '9'), ('X', '9'), ('Y', '9'), ('Z', '9')])
+    private static let ALPHA_PHONE_MAPPINGS: HashMap<Rune, Rune> = HashMap<Rune, Rune>(
+        [(r'0', r'0'), (r'1', r'1'), (r'2', r'2'), (r'3', r'3'), (r'4', r'4'), (r'5', r'5'), (r'6', r'6'), (r'7', r'7'), (r'8', r'8'),
+        (r'9', r'9'), (r'A', r'2'), (r'B', r'2'), (r'C', r'2'), (r'D', r'3'), (r'E', r'3'), (r'F', r'3'), (r'G', r'4'), (r'H', r'4'),
+        (r'I', r'4'), (r'J', r'5'), (r'K', r'5'), (r'L', r'5'), (r'M', r'6'), (r'N', r'6'), (r'O', r'6'), (r'P', r'7'), (r'Q', r'7'),
+        (r'R', r'7'), (r'S', r'7'), (r'T', r'8'), (r'U', r'8'), (r'V', r'8'), (r'W', r'9'), (r'X', r'9'), (r'Y', r'9'), (r'Z', r'9')])
 
-    private static let ALL_PLUS_NUMBER_GROUPING_SYMBOLS: HashMap<Char, Char> = HashMap<Char, Char>(
-        [('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'), ('7', '7'), ('8', '8'),
-        ('9', '9'), ('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'), ('E', 'E'), ('F', 'F'), ('G', 'G'), ('H', 'H'),
-        ('I', 'I'), ('J', 'J'), ('K', 'K'), ('L', 'L'), ('M', 'M'), ('N', 'N'), ('O', 'O'), ('P', 'P'), ('Q', 'Q'),
-        ('R', 'R'), ('S', 'S'), ('T', 'T'), ('U', 'U'), ('V', 'V'), ('W', 'W'), ('X', 'X'), ('Y', 'Y'), ('Z', 'Z'),
-        ('a', 'A'), ('b', 'B'), ('c', 'C'), ('d', 'D'), ('e', 'E'), ('f', 'F'), ('g', 'G'), ('h', 'H'), ('i', 'I'),
-        ('j', 'J'), ('k', 'K'), ('l', 'L'), ('m', 'M'), ('n', 'N'), ('o', 'O'), ('p', 'P'), ('q', 'Q'), ('r', 'R'),
-        ('s', 'S'), ('t', 'T'), ('u', 'U'), ('v', 'V'), ('w', 'W'), ('x', 'X'), ('y', 'Y'), ('z', 'Z'), ('-', '-'),
-        ('\u{FF0D}', '-'), ('\u{2010}', '-'), ('\u{2011}', '-'), ('\u{2012}', '-'), ('\u{2013}', '-'), ('\u{2014}', '-'),
-        ('\u{2015}', '-'), ('\u{2212}', '-'), ('/', '/'), ('\u{FF0F}', '/'), (' ', ' '), ('\u{3000}', ' '),
-        ('\u{2060}', ' '), ('.', '.'), ('\u{FF0E}', '.')])
+    private static let ALL_PLUS_NUMBER_GROUPING_SYMBOLS: HashMap<Rune, Rune> = HashMap<Rune, Rune>(
+        [(r'0', r'0'), (r'1', r'1'), (r'2', r'2'), (r'3', r'3'), (r'4', r'4'), (r'5', r'5'), (r'6', r'6'), (r'7', r'7'), (r'8', r'8'),
+        (r'9', r'9'), (r'A', r'A'), (r'B', r'B'), (r'C', r'C'), (r'D', r'D'), (r'E', r'E'), (r'F', r'F'), (r'G', r'G'), (r'H', r'H'),
+        (r'I', r'I'), (r'J', r'J'), (r'K', r'K'), (r'L', r'L'), (r'M', r'M'), (r'N', r'N'), (r'O', r'O'), (r'P', r'P'), (r'Q', r'Q'),
+        (r'R', r'R'), (r'S', r'S'), (r'T', r'T'), (r'U', r'U'), (r'V', r'V'), (r'W', r'W'), (r'X', r'X'), (r'Y', r'Y'), (r'Z', r'Z'),
+        (r'a', r'A'), (r'b', r'B'), (r'c', r'C'), (r'd', r'D'), (r'e', r'E'), (r'f', r'F'), (r'g', r'G'), (r'h', r'H'), (r'i', r'I'),
+        (r'j', r'J'), (r'k', r'K'), (r'l', r'L'), (r'm', r'M'), (r'n', r'N'), (r'o', r'O'), (r'p', r'P'), (r'q', r'Q'), (r'r', r'R'),
+        (r's', r'S'), (r't', r'T'), (r'u', r'U'), (r'v', r'V'), (r'w', r'W'), (r'x', r'X'), (r'y', r'Y'), (r'z', r'Z'), (r'-', r'-'),
+        (r'\u{FF0D}', r'-'), (r'\u{2010}', r'-'), (r'\u{2011}', r'-'), (r'\u{2012}', r'-'), (r'\u{2013}', r'-'), (r'\u{2014}', r'-'),
+        (r'\u{2015}', r'-'), (r'\u{2212}', r'-'), (r'/', r'/'), (r'\u{FF0F}', r'/'), (r' ', r' '), (r'\u{3000}', r' '),
+        (r'\u{2060}', r' '), (r'.', r'.'), (r'\u{FF0E}', r'.')])
 
     private static let SINGLE_INTERNATIONAL_PREFIX: Regex = Regex("[\\d]+(?:[~\u{2053}\u{223C}\u{FF5E}][\\d]+)?")
 
@@ -268,7 +258,7 @@ public open class PhoneNumberUtil {
     static func normalizeDigits(number: String, keepNonDigits: Bool): StringBuilder {
         var normalizedDigits: StringBuilder = StringBuilder()
         for (i in 0..number.size) {
-            let c: Char = Char(number[i])
+            let c: Rune = Rune(number[i])
             let digit: Bool = c.isAsciiNumber()
             if (digit != false) {
                 normalizedDigits.append(c)
@@ -283,12 +273,12 @@ public open class PhoneNumberUtil {
         return normalizeHelper(number, DIALLABLE_CHAR_MAPPINGS, true)
     }
 
-    private static func normalizeHelper(number: String, normalizationReplacements: HashMap<Char, Char>, 
+    private static func normalizeHelper(number: String, normalizationReplacements: HashMap<Rune, Rune>, 
         removeNonMatches: Bool): String {
         var normalizedNumber: StringBuilder = StringBuilder()
         for (i in 0..number.size) {
-            let character: Char = Char(number[i])
-            let newDigit: ?Char = normalizationReplacements.get(character.toAsciiUpperCase())
+            let character: Rune = Rune(number[i])
+            let newDigit: ?Rune = normalizationReplacements.get(character.toAsciiUpperCase())
             match (newDigit) {
                 case Some(v) =>
                     normalizedNumber.append(v)
@@ -614,7 +604,7 @@ public open class PhoneNumberUtil {
     public open func getNationalSignificantNumber(number: PhoneNumber): String {
         var nationalNumber: StringBuilder = StringBuilder()
         if (number.isItalianLeadingZeros() && number.getNumbersOfLeadingZeros() > 0) {
-          var zeros: Array<Char> = Array<Char>(number.getNumbersOfLeadingZeros(), item: '0')
+          var zeros: Array<Rune> = Array<Rune>(number.getNumbersOfLeadingZeros(), item: r'0')
           nationalNumber.append(String(zeros))
         }
         nationalNumber.append(number.getNationalNumbers())
@@ -1026,7 +1016,7 @@ public open class PhoneNumberUtil {
 
     protected open func extractCountryCode(fullNumber: StringBuilder, nationalNumber: StringBuilder): Int32 {
         let str: String = fullNumber.toString()
-        if ((fullNumber.size != 0) || (Char(str[0]) != '0')) {
+        if ((fullNumber.size != 0) || (Rune(str[0]) != r'0')) {
             var potentialCountryCode: Int32 = 0
             let numberLength: Int32 = Int32(fullNumber.size)
             for (i in 1..numberLength) {
@@ -1275,10 +1265,10 @@ public open class PhoneNumberUtil {
     }
 
     static func setItalianLeadingZerosForPhoneNumber(nationalNumber: String, phoneNumber: PhoneNumber): Unit {
-        if (nationalNumber.size > 1 && Char(nationalNumber[0]) == '0') {
+        if (nationalNumber.size > 1 && Rune(nationalNumber[0]) == r'0') {
             phoneNumber.setItalianLeadingZeros(true)
             var numberOfLeadingZeros: Int64 = 1
-            while (numberOfLeadingZeros < nationalNumber.size - 1 && Char(nationalNumber[numberOfLeadingZeros]) == '0') {
+            while (numberOfLeadingZeros < nationalNumber.size - 1 && Rune(nationalNumber[numberOfLeadingZeros]) == r'0') {
                 numberOfLeadingZeros ++
             }
 
@@ -1515,7 +1505,7 @@ public open class PhoneNumberUtil {
         if (indexOfPhoneContext >= 0 ) {
             var phoneContextStart: Int32 = indexOfPhoneContext + Int32(RFC3966_PHONE_CONTEXT.size)
             var phoneContextEnd: Int64
-            if (phoneContextStart < (Int32(numberToParse.size) - 1) && Char(numberToParse[Int64(phoneContextStart)]) == PLUS_SIGN) {
+            if (phoneContextStart < (Int32(numberToParse.size) - 1) && Rune(numberToParse[Int64(phoneContextStart)]) == PLUS_SIGN) {
                 match (numberToParse.indexOf(";", Int64(phoneContextStart))){
                     case Some(x) => phoneContextEnd = x
                     case None => phoneContextEnd = -1

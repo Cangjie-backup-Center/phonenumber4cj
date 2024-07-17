@@ -1,16 +1,16 @@
 //3rd_party_lib:phonenumber4cj/build/phonenumber4cj
 
-from std import collection.*
-from std import sync.*
-from std import regex.*
-from phonenumber4cj import libphonenumber.inter.*
-from phonenumber4cj import libphonenumber.data.*
-from phonenumber4cj import libphonenumber.*
-from phonenumber4cj import carrier.*
-from phonenumber4cj import prefixmapper.*
-from phonenumber4cj import libphonenumber.metadata.*
-from phonenumber4cj import geocoder.geocoding.*
-from phonenumber4cj import geocoder.*
+import std.collection.*
+import std.sync.*
+import std.regex.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.*
+import phonenumber4cj.carrier.*
+import phonenumber4cj.prefixmapper.*
+import phonenumber4cj.libphonenumber.metadata.*
+import phonenumber4cj.geocoder.geocoding.*
+import phonenumber4cj.geocoder.*
 
 
 

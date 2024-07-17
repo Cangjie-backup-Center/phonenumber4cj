@@ -1,9 +1,9 @@
 // EXEC: cjc %import-path %L %l %f
 // EXEC: export CJSTACKSIZE=10mb && ./main
-from std import collection.*
-from std import io.*
-from phonenumber4cj import libphonenumber.metadata.*
-from phonenumber4cj import libphonenumber.inter.*
+import std.collection.*
+import std.io.*
+import phonenumber4cj.libphonenumber.metadata.*
+import phonenumber4cj.libphonenumber.inter.*
 
 main() {
     var mp: MetadataParser = MetadataParser.newStrictParser()

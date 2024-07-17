@@ -1,9 +1,9 @@
 //3rd_party_lib:phonenumber4cj/build/phonenumber4cj
 
-from std import collection.*
-from phonenumber4cj import libphonenumber.inter.*
-from phonenumber4cj import libphonenumber.data.*
-from phonenumber4cj import libphonenumber.*
+import std.collection.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.*
 
 @Test
 public class phoneNumberutil_{

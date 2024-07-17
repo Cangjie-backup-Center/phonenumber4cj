@@ -2,7 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-package libphonenumber.internal
+package phonenumber4cj.libphonenumber.internal
 
 public class GeoEntityUtility {
     public static let REGION_CODE_FOR_NON_GEO_ENTITIES: String = "001"

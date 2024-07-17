@@ -1,11 +1,11 @@
 // EXEC: cjc %import-path %L %l %f
 // EXEC: export CJSTACKSIZE=10mb && ./main
 
-from std import fs.*
-from phonenumber4cj import carrier.*
-from phonenumber4cj import prefixmapper.*
-from phonenumber4cj import libphonenumber.inter.*
-from phonenumber4cj import libphonenumber.*
+import std.fs.*
+import phonenumber4cj.carrier.*
+import phonenumber4cj.prefixmapper.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.*
 
 main() {
     var phonenumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()

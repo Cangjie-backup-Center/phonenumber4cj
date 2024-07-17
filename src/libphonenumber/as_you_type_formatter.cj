@@ -2,10 +2,9 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-package libphonenumber
+package phonenumber4cj.libphonenumber
 
-from std import math.*
-
+import std.math.*
 public class AsYouTypeFormatter {
 
     private var currentOutput: String = ""
@@ -19,7 +18,7 @@ public class AsYouTypeFormatter {
     private var isExpectingCountryCallingCode: Bool = false
     private let phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
     private var defaultCountry: String = ""
-    private static let SEPARATOR_BEFORE_NATIONAL_NUMBER: Char = ' '
+    private static let SEPARATOR_BEFORE_NATIONAL_NUMBER: Rune = ' '
     private static let EMPTY_METADATA: PhonemetadataPhoneMetadata = PhonemetadataPhoneMetadata.newBuilder().setId("<ignored>").setInternationalPrefix("NA").build()
     private var defaultMetadata: PhonemetadataPhoneMetadata = PhonemetadataPhoneMetadata()
     private var currentMetadata: PhonemetadataPhoneMetadata = PhonemetadataPhoneMetadata()
@@ -152,7 +151,7 @@ public class AsYouTypeFormatter {
                         removeNum++
                         continue
                     }
-                    var lastLeadingDigitsPattern: Int32 = math.min(indexOfLeadingDigitsPattern, format.getLeadingDigitsPatternCount() - 1)
+                    var lastLeadingDigitsPattern: Int32 = min(indexOfLeadingDigitsPattern, format.getLeadingDigitsPatternCount() - 1)
                     var leadingDigitsPattern: Regex = regexCache.getPatternForRegex(format.getLeadingDigitsPattern(lastLeadingDigitsPattern).getOrThrow())
                     var m: Matcher = leadingDigitsPattern.matcher(leadingDigits)
                     if (!findRes(m.matchStart())) {
@@ -172,7 +171,7 @@ public class AsYouTypeFormatter {
 
     private func createFormattingTemplate (format: PhonemetadataNumberFormat): Bool {
         var numberPattern: String = format.getPattern()
-        formattingTemplate = StringBuilder(Char(0),0)
+        formattingTemplate = StringBuilder(Rune(0),0)
         var tempTemplate: String = getFormattingTemplate(numberPattern, format.getFormat())
         if (tempTemplate.size > 0) {
             formattingTemplate.append(tempTemplate)
@@ -214,15 +213,15 @@ public class AsYouTypeFormatter {
 
     public func clear (): Unit {
         currentOutput = ""
-        accruedInput = StringBuilder(Char(0), 0)
-        accruedInputWithoutFormatting = StringBuilder(Char(0), 0)
-        formattingTemplate = StringBuilder(Char(0), 0)
+        accruedInput = StringBuilder(Rune(0), 0)
+        accruedInputWithoutFormatting = StringBuilder(Rune(0), 0)
+        formattingTemplate = StringBuilder(Rune(0), 0)
         lastMatchPosition = 0
         currentFormattingPattern = ""
-        prefixBeforeNationalNumber = StringBuilder(Char(0), 0)
+        prefixBeforeNationalNumber = StringBuilder(Rune(0), 0)
         extractedNationalPrefix = ""
         ableToFormat = true
-        nationalNumber = StringBuilder(Char(0), 0)
+        nationalNumber = StringBuilder(Rune(0), 0)
         positionToRemember = 0
         isCompleteNumber = false
         possibleFormats.clear()
@@ -235,12 +234,12 @@ public class AsYouTypeFormatter {
         }
     }
 
-    public func inputDigit (nextChar: Char): String {
+    public func inputDigit (nextChar: Rune): String {
         currentOutput = inputDigitWithOptionToRememberPosition(nextChar, false)
         return currentOutput
     }
 
-    public func inputDigitAndRememberPosition (nextChar: Char): String {
+    public func inputDigitAndRememberPosition (nextChar: Rune): String {
         currentOutput = inputDigitWithOptionToRememberPosition(nextChar, true)
         return currentOutput
     }
@@ -251,8 +250,8 @@ public class AsYouTypeFormatter {
         }
     }
 
-    private func inputDigitWithOptionToRememberPosition (nextChars: Char, rememberPosition: Bool): String {
-        var nextChar: Char = nextChars
+    private func inputDigitWithOptionToRememberPosition (nextChars: Rune, rememberPosition: Bool): String {
+        var nextChar: Rune = nextChars
         accruedInput.append(nextChar)
         extractAccruedInput(rememberPosition, accruedInput)
         if (!isDigitOrLeadingPlusSign(nextChar)) {
@@ -316,7 +315,7 @@ public class AsYouTypeFormatter {
         isExpectingCountryCallingCode = false
         possibleFormats.clear()
         lastMatchPosition = 0
-        formattingTemplate = StringBuilder(Char(0), 0)
+        formattingTemplate = StringBuilder(Rune(0), 0)
         currentFormattingPattern = ""
         return attemptToChooseFormattingPattern()
     }
@@ -329,12 +328,12 @@ public class AsYouTypeFormatter {
               case Some(x) => x
               case None => -1
           }
-          prefixBeforeNationalNumber = StringBuilder(Char(0), indexOfPreviousNdd)
+          prefixBeforeNationalNumber = StringBuilder(Rune(0), indexOfPreviousNdd)
         }
         return extractedNationalPrefix != removeNationalPrefixFromNationalNumber()
     }
 
-    private func isDigitOrLeadingPlusSign (nextChar: Char): Bool {
+    private func isDigitOrLeadingPlusSign (nextChar: Rune): Bool {
         return nextChar.isAsciiNumber() || (accruedInput.size == 1 && matchRes(PhoneNumberUtil.PLUS_CHARS_PATTERN.matcher(nextChar.toString()).fullMatch()))
     }
 
@@ -378,7 +377,7 @@ public class AsYouTypeFormatter {
 
     private func appendNationalNumber (nationalNumber: String): String {
         var prefixBeforeNationalNumberLength: Int64 = prefixBeforeNationalNumber.size
-        if (shouldAddSpaceAfterNationalPrefix && prefixBeforeNationalNumberLength > 0 && Char(prefixBeforeNationalNumber.toString()[prefixBeforeNationalNumberLength - 1]) != SEPARATOR_BEFORE_NATIONAL_NUMBER) {
+        if (shouldAddSpaceAfterNationalPrefix && prefixBeforeNationalNumberLength > 0 && Rune(prefixBeforeNationalNumber.toString()[prefixBeforeNationalNumberLength - 1]) != SEPARATOR_BEFORE_NATIONAL_NUMBER) {
           return prefixBeforeNationalNumber.toString() + SEPARATOR_BEFORE_NATIONAL_NUMBER.toString() + nationalNumber.toString()
         } else {
             return prefixBeforeNationalNumber.toString() + nationalNumber.toString()
@@ -407,7 +406,7 @@ public class AsYouTypeFormatter {
         if (lengthOfNationalNumber > 0) {
             var tempNationalNumber: String = ""
             for (i in 0..lengthOfNationalNumber) {
-              tempNationalNumber = inputDigitHelper(Char(nationalNumber.toString()[i]))
+              tempNationalNumber = inputDigitHelper(Rune(nationalNumber.toString()[i]))
             }
             if (ableToFormat) {
                 return appendNationalNumber(tempNationalNumber)
@@ -420,15 +419,15 @@ public class AsYouTypeFormatter {
     }
 
     private func isNanpaNumberWithNationalPrefix (): Bool {
-        return (currentMetadata.getCountryCode() == 1) && (Char(nationalNumber.toString()[0]) == '1') &&
-               (Char(nationalNumber.toString()[1]) != '0') && (Char(nationalNumber.toString()[1]) != '1')
+        return (currentMetadata.getCountryCode() == 1) && (Rune(nationalNumber.toString()[0]) == r'1') &&
+               (Rune(nationalNumber.toString()[1]) != r'0') && (Rune(nationalNumber.toString()[1]) != r'1')
     }
 
     private func removeNationalPrefixFromNationalNumber (): String {
         var startOfNationalNumber: Int64 = 0
         if (isNanpaNumberWithNationalPrefix()) {
             startOfNationalNumber = 1
-            prefixBeforeNationalNumber.append('1')
+            prefixBeforeNationalNumber.append(r'1')
             prefixBeforeNationalNumber.append(SEPARATOR_BEFORE_NATIONAL_NUMBER)
             isCompleteNumber = true
         } else if (currentMetadata.hasNationalPrefixForParsingFunc()) {
@@ -454,11 +453,11 @@ public class AsYouTypeFormatter {
         if (matchRes(iddMatchStart)) {
             isCompleteNumber = true
             var startOfCountryCallingCode: Int64 = iddMatchStart.getOrThrow().matchPosition().end
-            nationalNumber = StringBuilder(Char(0), 0)
+            nationalNumber = StringBuilder(Rune(0), 0)
             nationalNumber.append(accruedInputWithoutFormatting.toString()[startOfCountryCallingCode..])
-            prefixBeforeNationalNumber = StringBuilder(Char(0), 0)
+            prefixBeforeNationalNumber = StringBuilder(Rune(0), 0)
             prefixBeforeNationalNumber.append(accruedInputWithoutFormatting.toString()[..startOfCountryCallingCode])
-            if (Char(accruedInputWithoutFormatting.toString()[0]) != PhoneNumberUtil.PLUS_SIGN) {
+            if (Rune(accruedInputWithoutFormatting.toString()[0]) != PhoneNumberUtil.PLUS_SIGN) {
               prefixBeforeNationalNumber.append(SEPARATOR_BEFORE_NATIONAL_NUMBER)
             }
             return true
@@ -475,7 +474,7 @@ public class AsYouTypeFormatter {
         if (countryCode == 0) {
             return false
         }
-        nationalNumber = StringBuilder(Char(0), 0)
+        nationalNumber = StringBuilder(Rune(0), 0)
         nationalNumber.append(numberWithoutCountryCallingCode)
         var newRegionCode: String = phoneUtil.getRegionCodeForCountryCode(countryCode)
         if (PhoneNumberUtil.REGION_CODE_FOR_NON_GEO_ENTITY == (newRegionCode)) {
@@ -490,8 +489,8 @@ public class AsYouTypeFormatter {
         return true
     }
 
-    private func normalizeAndAccrueDigitsAndPlusSign (nextChar: Char, rememberPosition: Bool): Char {
-        var normalizedChar: Char
+    private func normalizeAndAccrueDigitsAndPlusSign (nextChar: Rune, rememberPosition: Bool): Rune {
+        var normalizedChar: Rune
         if (nextChar == PhoneNumberUtil.PLUS_SIGN) {
             normalizedChar = nextChar
             accruedInputWithoutFormatting.append(nextChar)
@@ -499,7 +498,7 @@ public class AsYouTypeFormatter {
             if (nextChar.isAsciiNumber()){
                 normalizedChar = nextChar
             }else {
-                normalizedChar = Char(0)
+                normalizedChar = Rune(0)
             }
             accruedInputWithoutFormatting.append(normalizedChar)
             nationalNumber.append(normalizedChar)
@@ -510,7 +509,7 @@ public class AsYouTypeFormatter {
         return normalizedChar
     }
 
-    private func inputDigitHelper (nextChar: Char): String {
+    private func inputDigitHelper (nextChar: Rune): String {
         var digitMatcher: Matcher = DIGIT_PATTERN.matcher(formattingTemplate.toString())
         var digiM: Option<MatchData> = digitMatcher.find(Int64(lastMatchPosition))
         if (matchRes(digiM)) {

@@ -2,7 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-package prefixmapper
+package phonenumber4cj.prefixmapper
 
 public enum Language {
 

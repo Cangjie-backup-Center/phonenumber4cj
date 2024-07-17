@@ -2,9 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-package libphonenumber
-from std import collection.*
-from std import unicode.*
+package phonenumber4cj.libphonenumber
 
 class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
 
@@ -57,10 +55,6 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
             throw IllegalArgumentException()
         }
         return "{" + "${lower}" + "," + "${upper}" + "}"
-    }
-
-    public func iterator(): Iterator<PhoneNumberMatch> {
-        return this
     }
 
     func hasNext(): Bool {
@@ -208,7 +202,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
                         v.matchStr()
                         ()
                     case None =>
-                        var previousChar: Char = Char(text[offset - 1])
+                        var previousChar: Rune = Rune(text[offset - 1])
                         if (isInvalidPunctuationSymbol(previousChar)) {
                             return Option<PhoneNumberMatch>.None
                         }
@@ -218,7 +212,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
                 }
                 var lastCharIndex: Int64 = offset + candidate.size
                 if (lastCharIndex < text.size) {
-                    var nextChar: Char = Char(text[lastCharIndex])
+                    var nextChar: Rune = Rune(text[lastCharIndex])
                     if (isInvalidPunctuationSymbol(nextChar)) {
                         return Option<PhoneNumberMatch>.None
                     }
@@ -240,15 +234,15 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
         return Option<PhoneNumberMatch>.None
     }
 
-    static func isLatinLetter(letter: Char): Bool {
+    static func isLatinLetter(letter: Rune): Bool {
         if (!letter.isLetter()) {
             return false
         }
         return true
     }
 
-    private static func isInvalidPunctuationSymbol(character: Char): Bool {
-        return character == '%'
+    private static func isInvalidPunctuationSymbol(character: Rune): Bool {
+        return character == r'%'
     }
 
     private static func trimAfterFirstMatch(r: Regex, candidate: String): String {
@@ -265,10 +259,10 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
         
         var index: Int32 = 0
         for (index in 0..candidate.size -1) {
-            var charAtIndex: Char = Char(candidate[index])
-            if (charAtIndex == 'x' || charAtIndex == 'X') {
-                var charAtNextIndex: Char = Char(candidate[index + 1])
-                if (charAtNextIndex == 'x' || charAtNextIndex == 'X') {
+            var charAtIndex: Rune = Rune(candidate[index])
+            if (charAtIndex == r'x' || charAtIndex == r'X') {
+                var charAtNextIndex: Rune = Rune(candidate[index + 1])
+                if (charAtNextIndex == r'x' || charAtNextIndex == r'X') {
                     var indexes = index + 1
                     if (util.isNumberMatch(number, candidate[indexes..]) != MatchType.NSN_MATCH) {
                         return false

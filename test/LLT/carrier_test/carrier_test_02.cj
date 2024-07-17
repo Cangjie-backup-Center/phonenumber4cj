@@ -1,9 +1,9 @@
 // EXEC: cjc %import-path %L %l %f
 // EXEC: export CJSTACKSIZE=10mb && ./main
 
-from phonenumber4cj import carrier.*
-from phonenumber4cj import prefixmapper.*
-from phonenumber4cj import libphonenumber.inter.*
+import phonenumber4cj.carrier.*
+import phonenumber4cj.prefixmapper.*
+import phonenumber4cj.libphonenumber.inter.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()

@@ -2,9 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-package libphonenumber.metadata
-
-import libphonenumber.internal.*
+package phonenumber4cj.libphonenumber.metadata
 
 public class MetadataSourceImpl <: MetadataSource {
     private let phoneMetadataFileNameProvider: PhoneMetadataFileNameProvider

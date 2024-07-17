@@ -2,10 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-package libphonenumber.metadata
-
-from std import sync.*
-from encoding import json.*
+package phonenumber4cj.libphonenumber.metadata
 
 public class BlockingMetadataBootstrappingGuard<T> <: MetadataBootstrappingGuard<T> where T <: MetadataContainer {
 
