@@ -2462,10 +2462,10 @@ class PhoneNumber
 ##### 1.2.1.1 示例
 
 ```cangjie
-from std import collection.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
+import std.collection.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -2660,11 +2660,11 @@ class PhoneNumberUtil
 ##### 2.1.1.1 示例
 
 ```cangjie
-from std import collection.*
-from std import regex.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
+import std.collection.*
+import std.regex.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -2749,12 +2749,12 @@ class PhoneNumberUtil
 ##### 2.2.1.1 示例
 
 ```cangjie
-from std import collection.*
-from std import regex.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.metadata.*
-from phonenumber import libphonenumber.*
+import std.collection.*
+import std.regex.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.metadata.*
+import phonenumber4cj.libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -2856,12 +2856,12 @@ class PhoneNumberUtil
 ##### 3.1.1.1 示例
 
 ```cangjie
-from std import collection.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
-from std import regex.*
-from std import os.*
+import std.collection.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.*
+import std.regex.*
+import std.os.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -2973,10 +2973,10 @@ enum PhoneNumberType
 ##### 4.1.1.1 示例
 
 ```cangjie
-from std import collection.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
+import std.collection.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -3407,12 +3407,12 @@ class PhoneNumberUtil
 ##### 4.2.1.1 示例
 
 ```cangjie
-from std import collection.*
-from std import regex.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.metadata.*
-from phonenumber import libphonenumber.*
+import std.collection.*
+import std.regex.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.metadata.*
+import phonenumber4cj.libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -3524,10 +3524,10 @@ class PhoneNumberUtil
 ##### 4.3.1.1 示例
 
 ```cangjie
-from std import collection.*
-from phonenumber import libphonenumber.inter.*
-from phonenumber import libphonenumber.data.*
-from phonenumber import libphonenumber.*
+import std.collection.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.*
 
 main() {
     var phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -3732,9 +3732,9 @@ class PhoneNumberToCarrierMapper
 ##### 5.1.1.1 示例
 
 ```cangjie
-from phonenumber import carrier.*
-from phonenumber import prefixmapper.*
-from phonenumber import libphonenumber.inter.*
+import phonenumber4cj.carrier.*
+import phonenumber4cj.prefixmapper.*
+import phonenumber4cj.libphonenumber.inter.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()
@@ -3936,9 +3936,9 @@ public enum Language {
 ##### 5.2.1.1 示例
 
 ```cangjie
-from phonenumber import geocoder.geocoding.*
-from phonenumber import prefixmapper.*
-from phonenumber import libphonenumber.inter.*
+import phonenumber4cj.geocoder.geocoding.*
+import phonenumber4cj.prefixmapper.*
+import phonenumber4cj.libphonenumber.inter.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()
@@ -4061,10 +4061,10 @@ class PrefixFileReader
 ##### 5.3.1.1 示例
 
 ```cangjie
-from phonenumber import geocoder.*
-from phonenumber import prefixmapper.*
-from phonenumber import libphonenumber.inter.*
-from std import collection.*
+import phonenumber4cj.geocoder.*
+import phonenumber4cj.prefixmapper.*
+import phonenumber4cj.libphonenumber.inter.*
+import std.collection.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()
