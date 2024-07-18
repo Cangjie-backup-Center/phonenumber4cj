@@ -141,10 +141,10 @@ cjpm build
 #### 解析电话号码功能示例
 
 ```cangjie
-from std import collection.*
-from phonenumber4cj import libphonenumber.inter.*
-from phonenumber4cj import libphonenumber.data.*
-from phonenumber4cj import libphonenumber.*
+import std.collection.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -236,11 +236,11 @@ preferredDomesticCarrierCode ==>
 #### 格式化电话号码功能示例
 
 ```cangjie
-from std import collection.*
-from std import regex.*
-from phonenumber4cj import libphonenumber.inter.*
-from phonenumber4cj import libphonenumber.data.*
-from phonenumber4cj import libphonenumber.*
+import std.collection.*
+import std.regex.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -263,12 +263,12 @@ PhoneNumberFormat.RFC3966 ==> tel:+1-2530000
 #### 验证电话号码功能示例
 
 ```cangjie
-from std import collection.*
-from phonenumber4cj import libphonenumber.inter.*
-from phonenumber4cj import libphonenumber.data.*
-from phonenumber4cj import libphonenumber.*
-from std import regex.*
-from std import os.*
+import std.collection.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.*
+import std.regex.*
+import std.os.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -300,10 +300,10 @@ false
 #### 根据号码本身获取号码的类型功能示例
 
 ```cangjie
-from std import collection.*
-from phonenumber4cj import libphonenumber.inter.*
-from phonenumber4cj import libphonenumber.data.*
-from phonenumber4cj import libphonenumber.*
+import std.collection.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -324,12 +324,12 @@ FIXED_LINE
 #### 为所有国家/地区提供有效的示例号码功能示例
 
 ```cangjie
-from std import collection.*
-from std import regex.*
-from phonenumber4cj import libphonenumber.inter.*
-from phonenumber4cj import libphonenumber.data.*
-from phonenumber4cj import libphonenumber.metadata.*
-from phonenumber4cj import libphonenumber.*
+import std.collection.*
+import std.regex.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.metadata.*
+import phonenumber4cj.libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -423,12 +423,12 @@ showExamplePhoneNumber ==> None
 #### 在用户输入数字时即时格式化电话号码功能示例
 
 ```cangjie
-from std import collection.*
-from std import regex.*
-from phonenumber4cj import libphonenumber.inter.*
-from phonenumber4cj import libphonenumber.data.*
-from phonenumber4cj import libphonenumber.metadata.*
-from phonenumber4cj import libphonenumber.*
+import std.collection.*
+import std.regex.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.metadata.*
+import phonenumber4cj.libphonenumber.*
 
 main() {
     var asYouTypeFormatter = AsYouTypeFormatter("US")
@@ -488,10 +488,10 @@ main() {
 #### 在文本中查找数字功能示例
 
 ```cangjie
-from std import collection.*
-from phonenumber4cj import libphonenumber.inter.*
-from phonenumber4cj import libphonenumber.data.*
-from phonenumber4cj import libphonenumber.*
+import std.collection.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.*
 
 main() {
     var phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -521,9 +521,9 @@ None...
 #### 根据电话号码查询运营商信息功能示例
 
 ```cangjies
-from phonenumber4cj import carrier.*
-from phonenumber4cj import prefixmapper.*
-from phonenumber4cj import libphonenumber.inter.*
+import phonenumber4cj.carrier.*
+import phonenumber4cj.prefixmapper.*
+import phonenumber4cj.libphonenumber.inter.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()
@@ -550,9 +550,9 @@ China Mobile
 #### 根据电话号码查询地理位置信息功能示例
 
 ```cangjie
-from phonenumber4cj import geocoder.geocoding.*
-from phonenumber4cj import prefixmapper.*
-from phonenumber4cj import libphonenumber.inter.*
+import phonenumber4cj.geocoder.geocoding.*
+import phonenumber4cj.prefixmapper.*
+import phonenumber4cj.libphonenumber.inter.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()
@@ -578,10 +578,10 @@ main() {
 #### 根据电话号码查询时区信息功能示例
 
 ```cangjie
-from phonenumber4cj import geocoder.*
-from phonenumber4cj import prefixmapper.*
-from phonenumber4cj import libphonenumber.inter.*
-from std import collection.*
+import phonenumber4cj.geocoder.*
+import phonenumber4cj.prefixmapper.*
+import phonenumber4cj.libphonenumber.inter.*
+import std.collection.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()
@@ -606,6 +606,17 @@ main() {
 ```shell
 Asia/Shanghai
 ```
+
+## 约束与限制
+
+在下述版本验证通过：
+```shell
+Cangjie Version: 0.53.4
+```
+
+## 开源协议
+
+本项目基于 [Apache License 2.0](https://gitcode.com/Cangjie-TPC/phonenumber4cj/blob/master/LICENSE) ，请自由的享受和参与开源。
 
 ## <img alt="" src="./doc/assets/readme-icon-contribute.png" style="display: inline-block;" width=3%/> 参与贡献
 
