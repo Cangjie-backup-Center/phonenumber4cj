@@ -1,6 +1,10 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
+ */
+
 package phonenumber4cj.libphonenumber.inter
 
-public import std.collection.*
-public import std.io.*
-public import std.convert.*
-public import serialization.serialization.*
+internal import std.collection.*
+internal import std.io.*
+internal import std.convert.*
+internal import serialization.serialization.*
