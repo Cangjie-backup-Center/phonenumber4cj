@@ -2668,7 +2668,7 @@ import phonenumber4cj.libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
-    var phoneNumber: PhoneNumber = phoneNumberUtil.parse("tel:253-0000;phone-context=www.google.com", "US")
+    var phoneNumber: PhoneNumber = phoneNumberUtil.parse("tel:253-0000;phone-context=127.0.0.1", "US")
     var format1: String = phoneNumberUtil.format(phoneNumber, PhoneNumberFormat.RFC3966)
     println("PhoneNumberFormat.RFC3966 ==> ${format1}")
     if (format1 != "tel:+1-2530000") {
@@ -3738,7 +3738,7 @@ import phonenumber4cj.libphonenumber.inter.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()
-    phone.setCountryCodes(86).setNationalNumbers(13967195351)
+    phone.setCountryCodes(86).setNationalNumbers(1123456789)
     var p: PhoneNumberToCarrierMapper = PhoneNumberToCarrierMapper.getInstance().getOrThrow()
     let res: String = p.getNameForNumber(phone, Language.Chinese)
     let res2: String = p.getNameForNumber(phone, Language.English)
@@ -3753,8 +3753,8 @@ main() {
 执行结果如下：
 
 ```shell
-中国移动
-China Mobile
+""
+""
 ```
 
 ##### 5.1.2 内部接口
@@ -3942,7 +3942,7 @@ import phonenumber4cj.libphonenumber.inter.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()
-    phone.setCountryCodes(86).setNationalNumbers(15168316747)
+    phone.setCountryCodes(86).setNationalNumbers(1123456789)
     var p: PhoneNumberOfflineGeocoder = PhoneNumberOfflineGeocoder.getInstance().getOrThrow()
     let res: String = p.getDescriptionForNumber(phone, Language.China, "CN")
     if (!res.isEmpty()) {
@@ -3958,7 +3958,7 @@ main() {
 执行结果如下：
 
 ```shell
-浙江省杭州市
+1
 ```
 
 ##### 5.2.2 内部接口
@@ -4068,7 +4068,7 @@ import std.collection.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()
-    phone.setCountryCodes(86).setNationalNumbers(15091069727)
+    phone.setCountryCodes(86).setNationalNumbers(1123456789)
     var p: PhoneNumberToTimeZonesMapper = PhoneNumberToTimeZonesMapper.getInstance().getOrThrow()
     let str: String = PhoneNumberToTimeZonesMapper.getUnknownTimeZone()
     let arr: ArrayList<String> = p.getTimeZonesForGeographicalNumber(phone)
