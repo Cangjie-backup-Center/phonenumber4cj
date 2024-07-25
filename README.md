@@ -12,7 +12,7 @@
 
 ## <img alt="" src="./doc/assets/readme-icon-introduction.png" style="display: inline-block;" width=3%/>介绍
 
-一个解析、格式化和验证国际电话号码的通用 Java、C++ 和 JavaScript 库。参考：https://github.com/google/libphonenumber
+一个解析、格式化和验证国际电话号码的通用 Java、C++ 和 JavaScript 库
 
 ### 特性
 
