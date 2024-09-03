@@ -5,7 +5,7 @@
 <p align="center">
 <img alt="" src="https://img.shields.io/badge/release-v0.0.1-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjc-v0.53.4-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjc-v0.54.3-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjcov-94.8%25-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/project-open-brightgreen" style="display: inline-block;" />
 </p>
@@ -126,17 +126,10 @@
 cjpm build
 ```
 
-#### Windows环境编译
-
-编译描述和具体cmd命令
-
-```cmd
-cjpm build
-```
-
 ### 功能示例
 
-注意：用例需放入 `test/LLT` 下，执行步骤是 [本项目编译运行方式](#jump1)
+注意：执行编译构建命令后，target/release/phonenumber4cj/下会生成 resources 资源文件包，是支撑此库执行测试用例的元数据。
+（元数据来源：https://github.com/google/libphonenumber/tree/master/resources），本库只支持中国与美国的电话号码作为元数据，如果需要自定义元数据时，请拷贝目标地址中美国(1)和中国(86)的元数据，美国的元数据请放置在resources/1文件夹下，中国的元数据请放置在resources/86文件夹下，时区元数据请放置在resources/tz文件夹下。
 
 #### 解析电话号码功能示例
 
@@ -611,7 +604,7 @@ Asia/Shanghai
 
 在下述版本验证通过：
 ```shell
-Cangjie Version: 0.53.4
+Cangjie Version: 0.54.3
 ```
 
 ## 开源协议

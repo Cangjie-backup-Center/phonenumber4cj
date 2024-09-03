@@ -1,0 +1,42 @@
+[
+    {
+        "Id": "__unknown",
+        "Domestic_Selection_Codes": "\"1[12]xxx\"",
+        "International_Dialling_Codes": "\"1[12]xxx00\"",
+        "Name:en": "",
+        "Name:zh": "",
+        "Name:zh-Hant": ""
+    },
+    {
+        "Id": "cbn",
+        "Domestic_Selection_Codes": "",
+        "International_Dialling_Codes": "",
+        "Name:en": "\"CBN\"",
+        "Name:zh": "\"CBN\"",
+        "Name:zh-Hant": "\"CBN\""
+    },
+    {
+        "Id": "china_mobile",
+        "Domestic_Selection_Codes": "\"179xx\"",
+        "International_Dialling_Codes": "\"179xx00\"",
+        "Name:en": "\"China Mobile\"",
+        "Name:zh": "\"中国移动\"",
+        "Name:zh-Hant": "\"中國移動\""
+    },
+    {
+        "Id": "china_telecom",
+        "Domestic_Selection_Codes": "",
+        "International_Dialling_Codes": "",
+        "Name:en": "\"China Telecom\"",
+        "Name:zh": "\"中国电信\"",
+        "Name:zh-Hant": "\"中國電信\""
+    },
+    {
+        "Id": "china_unicom",
+        "Domestic_Selection_Codes": "",
+        "International_Dialling_Codes": "",
+        "Name:en": "\"China Unicom\"",
+        "Name:zh": "\"中国联通\"",
+        "Name:zh-Hant": "\"中國聯通\""
+    }
+]
