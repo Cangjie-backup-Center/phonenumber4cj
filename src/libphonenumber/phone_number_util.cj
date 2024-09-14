@@ -8,10 +8,11 @@ public open class PhoneNumberUtil {
 
     private static let lock = ReentrantMutex()
 
+    let objId: Int64 = 1
+
     private static let MIN_LENGTH_FOR_NSN: Int64 = 2
 
     static let MAX_LENGTH_FOR_NSN: Int32 = 17
-
 
     private static let MAX_INPUT_STRING_LENGTH: Int32 = 250
 
@@ -165,7 +166,7 @@ public open class PhoneNumberUtil {
     private let regexCache: RegexCache = RegexCache()
     private let supportedRegions: HashSet<String> = HashSet<String>(320)
     private let countryCodesForNonGeographicalRegion: HashSet<Int32> = HashSet<Int32>()
-    private var logger: SimpleLogger = SimpleLogger()
+    private let logger = getGlobalLogger(("name", "PhoneNumberUtil"))
 
     init(metadataSource: MetadataSource, countryCallingCodeToRegionCodeMap: HashMap<Int32, ArrayList<String>>) {
         this.metadataSource = metadataSource
@@ -187,7 +188,7 @@ public open class PhoneNumberUtil {
 
         if (supportedRegions.remove(REGION_CODE_FOR_NON_GEO_ENTITY)) {
             logger.log(LogLevel.WARN, "invalid metadata (country calling code was mapped to the non-geo " +
-            "entity as well as specific region(s))")
+            "entity as well as specific region(s))", ("id", objId))
         }
         
         let opt = countryCallingCodeToRegionCodeMap.get(NANPA_COUNTRY_CODE)
@@ -604,7 +605,7 @@ public open class PhoneNumberUtil {
     public open func getNationalSignificantNumber(number: PhoneNumber): String {
         var nationalNumber: StringBuilder = StringBuilder()
         if (number.isItalianLeadingZeros() && number.getNumbersOfLeadingZeros() > 0) {
-          var zeros: Array<Rune> = Array<Rune>(number.getNumbersOfLeadingZeros(), item: r'0')
+          var zeros: Array<Rune> = Array<Rune>(number.getNumbersOfLeadingZeros(), repeat: r'0')
           nationalNumber.append(String(zeros))
         }
         nationalNumber.append(number.getNationalNumbers())
@@ -1576,7 +1577,7 @@ public open class PhoneNumberUtil {
 
     public func getExampleNumberForType (regionCode: String, PhoneNumberType: PhoneNumberType): Option<PhoneNumber> {
         if (!isValidRegionCode(regionCode)) {
-            logger.log(LogLevel.WARN, "Invalid or unknown region code provided: " + regionCode)
+            logger.log(LogLevel.WARN, "Invalid or unknown region code provided: " + regionCode, ("id", objId))
             return Option<PhoneNumber>.None
         }
         var desc: PhonemetadataPhoneNumberDesc = getNumberDescByType(getMetadataForRegion(regionCode), PhoneNumberType)
@@ -1585,7 +1586,7 @@ public open class PhoneNumberUtil {
                 return parse(desc.getExampleNumber(), regionCode)
             }
         } catch (e: NumberParseException) {
-            logger.log(LogLevel.ERROR, e.toString())
+            logger.log(LogLevel.ERROR, e.toString(), ("id", objId))
         }
         return Option<PhoneNumber>.None
     }
