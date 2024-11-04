@@ -1,5 +1,5 @@
-import std.os.*
 import std.fs.*
+import std.process.*
 
 // Case of pre/post codes for 'cjpm build'.
 /* called before `cjpm build`
@@ -8,12 +8,12 @@ import std.fs.*
  */
 func stagePreBuild(): Int64 {
     // process before "cjpm build"
-    Directory.copy(Path("./resources"), Path("./target/release/phonenumber4cj/resources"), true)
+    copy(Path("./resources"), to: Path("./target/release/phonenumber4cj/resources"), overwrite: true)
     0
 }
 
 main(): Int64 {
-    match (getArgs()[0]) {
+    match (Process.current.arguments[0]) {
         // Add operation here with format: "pre-"/"post-" + optionName
         case "pre-build" => stagePreBuild()
         case _ => 0

@@ -5,8 +5,7 @@
 package phonenumber4cj.prefixmapper
 
 internal import std.fs.*
-internal import std.os.*
-internal import std.os.posix.*
+internal import std.posix.*
 internal import std.collection.*
 internal import encoding.json.*
 internal import phonenumber4cj.libphonenumber.inter.*
