@@ -605,7 +605,7 @@ public open class PhoneNumberUtil {
     public open func getNationalSignificantNumber(number: PhoneNumber): String {
         var nationalNumber: StringBuilder = StringBuilder()
         if (number.isItalianLeadingZeros() && number.getNumbersOfLeadingZeros() > 0) {
-          var zeros: Array<Rune> = Array<Rune>(number.getNumbersOfLeadingZeros(), repeat: r'0')
+          var zeros: Array<Rune> = Array<Rune>(number.getNumbersOfLeadingZeros(), item: r'0')
           nationalNumber.append(String(zeros))
         }
         nationalNumber.append(number.getNationalNumbers())

@@ -1,0 +1,77 @@
+// EXEC: cjc %import-path %L %l %f
+// EXEC: export CJSTACKSIZE=10mb && ./main
+import std.collection.*
+import std.regex.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.metadata.*
+import phonenumber4cj.libphonenumber.*
+
+main() {
+    var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    var reginCode: String = "US"
+    var us = phoneNumberUtil.getExampleNumber(reginCode)
+    if (showExamplePhoneNumber(us, "FIXED_LINE") != 2015550123) {
+        return 1
+    }
+    var us_FIXED_LINE: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.FIXED_LINE)
+    var us_MOBILE: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.MOBILE)
+    var us_FIXED_LINE_OR_MOBILE: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.FIXED_LINE_OR_MOBILE)
+    var us_TOLL_FREE: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.TOLL_FREE)
+    var us_PREMIUM_RATE: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.PREMIUM_RATE)
+    var us_SHARED_COST: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.SHARED_COST)
+    var us_VOIP: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.VOIP)
+    var us_PERSONAL_NUMBER: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.PERSONAL_NUMBER)
+    var us_PAGER: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.PAGER)
+    var us_UAN: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.UAN)
+    var us_VOICEMAIL: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.VOICEMAIL)
+    var us_UNKNOWN: Option<PhoneNumber> = phoneNumberUtil.getExampleNumberForType(reginCode, PhoneNumberType.UNKNOWN)
+    if (showExamplePhoneNumber(us_FIXED_LINE, "FIXED_LINE") != 2015550123) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_MOBILE, "MOBILE") != 2015550123) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_FIXED_LINE_OR_MOBILE, "FIXED_LINE_OR_MOBILE") != 2015550123) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_TOLL_FREE, "TOLL_FREE") != 8002345678) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_PREMIUM_RATE, "PREMIUM_RATE") != 9002345678) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_SHARED_COST, "SHARED_COST") != -1) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_VOIP, "VOIP") != -1) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_PERSONAL_NUMBER, "PERSONAL_NUMBER") != 5002345678 ) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_PAGER, "PAGER") != -1) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_UAN, "UAN") != -1 ) {
+        return 1
+    }
+    if (showExamplePhoneNumber(us_VOICEMAIL, "VOICEMAIL") != -1 ){
+        return 1
+    }
+    if (showExamplePhoneNumber(us_UNKNOWN, "UNKNOWN") != -1 ) {
+        return 1
+    }
+    return 0
+}
+
+func showExamplePhoneNumber(phoneNumber: Option<PhoneNumber>, types: String): Int64 {
+    match(phoneNumber) {
+        case Some(x) =>
+            println("showExamplePhoneNumber ${types} ==> ${x.getNationalNumbers()}")
+            return x.getNationalNumbers()
+        case None =>
+            println("showExamplePhoneNumber ==> None")
+            return -1
+    }
+}

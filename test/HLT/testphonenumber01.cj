@@ -1,0 +1,77 @@
+//3rd_party_lib:phonenumber4cj/build/phonenumber4cj
+
+import std.collection.*
+import phonenumber4cj.libphonenumber.inter.*
+import phonenumber4cj.libphonenumber.data.*
+import phonenumber4cj.libphonenumber.*
+
+@Test
+public class phoneNumber_105{
+
+    @TestCase
+    func phoneNumber_105(): Unit {
+    
+
+    var Phonenumber: PhoneNumber = PhoneNumber()
+    var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
+    phoneNumberUtil.parse("19991822826", "CN",Phonenumber)
+    @Assert(Phonenumber.hasCountryCodes(),true)
+    @Assert(Phonenumber.getCountryCodes(),86)
+    @Assert(Phonenumber.hasNationalNumbers(),true)
+    @Assert(Phonenumber.getNationalNumbers(),19991822826)
+    @Assert(Phonenumber.hasExtensions(),false)
+    @Assert(Phonenumber.getExtensions(),"")
+    @Assert(Phonenumber.hasItalianLeadingZeros(),false)
+    @Assert(Phonenumber.isItalianLeadingZeros(),false)
+    @Assert(Phonenumber.hasNumbersOfLeadingZeros(),false)
+    @Assert(Phonenumber.getNumbersOfLeadingZeros(),1)
+    @Assert(Phonenumber.hasRawInputs(),false)
+    @Assert(Phonenumber.getRawInputs(),"")
+    @Assert(Phonenumber.hasCountryCodeSources(),false)
+    @Assert(Phonenumber.getCountryCodeSources().toString(),"UNSPECIFIED")
+    @Assert(Phonenumber.hasPreferredDomesticCarrierCodes(),false)
+    @Assert(Phonenumber.getPreferredDomesticCarrierCodes(),"")
+    var Phonenumber1=Phonenumber.setCountryCodes(10)
+    var Phonenumber2=Phonenumber1.setNationalNumbers(10)
+    var Phonenumber3=Phonenumber2.setExtensions("qaz")
+    var Phonenumber4=Phonenumber3.setItalianLeadingZeros(true)
+    var Phonenumber5=Phonenumber4.setNumberOfLeadingZeros(20)
+    var Phonenumber6=Phonenumber5.setRawInputs("qwe")
+    var Phonenumber7=Phonenumber6.setPreferredDomesticCarrierCodes("qwe")
+    @Assert(Phonenumber7.hasCountryCodes(),true)
+    @Assert(Phonenumber7.getCountryCodes(),10)
+    @Assert(Phonenumber7.hasNationalNumbers(),true)
+    @Assert(Phonenumber7.getNationalNumbers(),10)
+    @Assert(Phonenumber7.hasExtensions(),true)
+    @Assert(Phonenumber7.getExtensions(),"qaz")
+    @Assert(Phonenumber7.hasItalianLeadingZeros(),true)
+    @Assert(Phonenumber7.isItalianLeadingZeros(),true)
+    @Assert(Phonenumber7.hasNumbersOfLeadingZeros(),true)
+    @Assert(Phonenumber7.getNumbersOfLeadingZeros(),20)
+    @Assert(Phonenumber7.hasRawInputs(),true)
+    @Assert(Phonenumber7.getRawInputs(),"qwe")
+    @Assert(Phonenumber7.hasCountryCodeSources(),false)
+    @Assert(Phonenumber7.getCountryCodeSources().toString(),"UNSPECIFIED")
+    @Assert(Phonenumber7.hasPreferredDomesticCarrierCodes(),true)
+    @Assert(Phonenumber7.getPreferredDomesticCarrierCodes(),"qwe")
+    var Phonenumber8=Phonenumber7.clear()
+    @Assert(Phonenumber8.hasCountryCodes(),false)
+    @Assert(Phonenumber8.getCountryCodes(),0)
+    @Assert(Phonenumber8.hasNationalNumbers(),false)
+    @Assert(Phonenumber8.getNationalNumbers(),0)
+    @Assert(Phonenumber8.hasExtensions(),false)
+    @Assert(Phonenumber8.getExtensions(),"")
+    @Assert(Phonenumber8.hasItalianLeadingZeros(),false)
+    @Assert(Phonenumber8.isItalianLeadingZeros(),false)
+    @Assert(Phonenumber8.hasNumbersOfLeadingZeros(),false)
+    @Assert(Phonenumber8.getNumbersOfLeadingZeros(),1)
+    @Assert(Phonenumber8.hasRawInputs(),false)
+    @Assert(Phonenumber8.getRawInputs(),"")
+    @Assert(Phonenumber8.hasCountryCodeSources(),false)
+    @Assert(Phonenumber8.getCountryCodeSources().toString(),"UNSPECIFIED")
+    @Assert(Phonenumber8.hasPreferredDomesticCarrierCodes(),false)
+    @Assert(Phonenumber8.getPreferredDomesticCarrierCodes(),"")
+
+    }
+
+}
