@@ -8,14 +8,17 @@
 
 package phonenumber4cj.prefixmapper
 
+import std.process.*
+
 func getFilePath(): Path {
-    match(getEnv("LD_LIBRARY_PATH")) {
+    let curProcess = Process.current
+    match(curProcess.getEnv("LD_LIBRARY_PATH")) {
         case Some(str) =>
             if (str.isEmpty() && str.size < 0 && !str.contains(":")) {
                 throw NoneValueException("")
             }
             let paths: Array<String> = str.split(":")
-            for (path in paths where (path.contains("target/phonenumber4cj") || path.contains("target/release/phonenumber4cj")) && path.endsWith("phonenumber4cj") && Directory.exists(path)) {
+            for (path in paths where (path.contains("target/phonenumber4cj") || path.contains("target/release/phonenumber4cj")) && path.endsWith("phonenumber4cj") && exists(path)) {
                 return Path(path)
             }
             throw NoneValueException("")

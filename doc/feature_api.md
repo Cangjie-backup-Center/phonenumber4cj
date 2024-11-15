@@ -2861,7 +2861,6 @@ import phonenumber4cj.libphonenumber.inter.*
 import phonenumber4cj.libphonenumber.data.*
 import phonenumber4cj.libphonenumber.*
 import std.regex.*
-import std.os.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
