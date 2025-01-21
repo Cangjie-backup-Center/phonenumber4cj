@@ -3,9 +3,9 @@
 </div>
 
 <p align="center">
-<img alt="" src="https://img.shields.io/badge/release-v0.0.1-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/release-v1.0.1-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjc-v0.56.4-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjc-v0.58.3-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjcov-94.8%25-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/project-open-brightgreen" style="display: inline-block;" />
 </p>
@@ -54,7 +54,7 @@
 │       ├── data
 │           ├── phone_number_metadata.cj
 │       ├── inter
-│           ├── countrycode_to_region_codeMap.cj
+│           ├── countrycode_to_region_codemap.cj
 │           ├── illegalstate_exception.cj
 │           ├── metadata_loader.cj
 │           ├── missing_metadata_exception.cj
@@ -80,7 +80,7 @@
 │           ├── metadata_parser.cj
 │           ├── metadata_source.cj
 │           ├── metadata_source_impl.cj
-│           ├── multifile_mode_filename_Provider.cj
+│           ├── multifile_mode_filename_provider.cj
 │           ├── non_geographical_entity_metadata_source.cj
 │           ├── phone_metadata_filename_provider.cj
 │           ├── region_metadata_source.cj
@@ -603,7 +603,7 @@ Asia/Shanghai
 
 在下述版本验证通过：
 ```shell
-Cangjie Version: 0.56.4
+Cangjie Version: 0.58.3
 ```
 
 ## 开源协议

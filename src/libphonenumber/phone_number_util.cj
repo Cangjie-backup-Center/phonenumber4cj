@@ -178,9 +178,9 @@ public open class PhoneNumberUtil {
             match (opt) {
                 case Some(v) => 
                     if (regionCodes.size == 1 && REGION_CODE_FOR_NON_GEO_ENTITY == (v)) {
-                        countryCodesForNonGeographicalRegion.put(k)
+                        countryCodesForNonGeographicalRegion.add(k)
                     } else {
-                        supportedRegions.putAll(regionCodes)
+                        supportedRegions.add(all: regionCodes)
                     }
                 case None => ()
             }
@@ -193,7 +193,7 @@ public open class PhoneNumberUtil {
         
         let opt = countryCallingCodeToRegionCodeMap.get(NANPA_COUNTRY_CODE)
         match (opt) {
-            case Some(v) => nanpaRegions.putAll(v)
+            case Some(v) => nanpaRegions.add(all: v)
             case None => ()
         }
     }
@@ -957,16 +957,16 @@ public open class PhoneNumberUtil {
                 if (descHasPossibleNumberData(mobileDesc)) {
                     possibleLengths = ArrayList<Int32>(possibleLengths)
                     if (mobileDesc.getPossibleLengthCount() == 0) {
-                        possibleLengths.appendAll(metadata.getGeneralDesc().getOrThrow().getPossibleLengthList())
+                        possibleLengths.add(all: metadata.getGeneralDesc().getOrThrow().getPossibleLengthList())
                     } else {
-                        possibleLengths.appendAll(mobileDesc.getPossibleLengthList())
+                        possibleLengths.add(all: mobileDesc.getPossibleLengthList())
                     }
                     possibleLengths.sort()
                     if (localLengths.isEmpty()) {
                         localLengths = mobileDesc.getPossibleLengthLocalOnlyList()
                     } else {
                         localLengths = ArrayList<Int32>(localLengths)
-                        localLengths.appendAll(mobileDesc.getPossibleLengthLocalOnlyList())
+                        localLengths.add(all: mobileDesc.getPossibleLengthLocalOnlyList())
                         localLengths.sort()
                     }
                 }

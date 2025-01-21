@@ -17,7 +17,7 @@ import phonenumber4cj.prefixmapper.*
 
 func loadUnKnownTimeZone(): ArrayList<String> {
     var arr: ArrayList<String> = ArrayList<String>(1)
-    arr.append("Etc/Unknown")
+    arr.add("Etc/Unknown")
     return arr
 }
 

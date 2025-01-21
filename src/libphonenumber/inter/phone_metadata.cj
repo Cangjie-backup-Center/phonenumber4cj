@@ -56,7 +56,7 @@ public open class PhonemetadataNumberFormat <: Equatable<PhonemetadataNumberForm
         if (value == Option<String>.None) {
             throw IndexOutOfBoundsException()
         }
-        leadingDigitsPattern_.append(value.getOrThrow())
+        leadingDigitsPattern_.add(value.getOrThrow())
         return this
     }
 
@@ -112,7 +112,7 @@ public open class PhonemetadataNumberFormat <: Equatable<PhonemetadataNumberForm
         setFormat(objectInput.next().getOrThrow())
         var leadingDigitsPatternSize: Int32 = Int32.parse(objectInput.next().getOrThrow())
         while (leadingDigitsPatternSize > 0) {
-            leadingDigitsPattern_.append(objectInput.next().getOrThrow())
+            leadingDigitsPattern_.add(objectInput.next().getOrThrow())
             leadingDigitsPatternSize--
         }
         if (Bool.parse(objectInput.next().getOrThrow())) {
@@ -202,7 +202,7 @@ public open class PhonemetadataPhoneNumberDesc <: Equatable<PhonemetadataPhoneNu
         return possibleLength_.get(Int64(index))
     }
     public func addPossibleLength(value: Int32): PhonemetadataPhoneNumberDesc {
-        possibleLength_.append(value)
+        possibleLength_.add(value)
         return this
     }
     public func clearPossibleLength(): PhonemetadataPhoneNumberDesc {
@@ -221,7 +221,7 @@ public open class PhonemetadataPhoneNumberDesc <: Equatable<PhonemetadataPhoneNu
         return possibleLengthLocalOnly_.get(Int64(index))
     }
     public func addPossibleLengthLocalOnly(value: Int32): PhonemetadataPhoneNumberDesc {
-        possibleLengthLocalOnly_.append(value)
+        possibleLengthLocalOnly_.add(value)
         return this
     }
     public func clearPossibleLengthLocalOnly(): PhonemetadataPhoneNumberDesc {
@@ -259,12 +259,12 @@ public open class PhonemetadataPhoneNumberDesc <: Equatable<PhonemetadataPhoneNu
         }
         var possibleLengthSize: Int64 = Int64.parse(objectInput.next().getOrThrow())
         while (possibleLengthSize > 0) {
-            possibleLength_.append(Int32.parse(objectInput.next().getOrThrow()))
+            possibleLength_.add(Int32.parse(objectInput.next().getOrThrow()))
             possibleLengthSize--
         }
         var possibleLengthLocalOnlySize: Int32 = Int32.parse(objectInput.next().getOrThrow())
         while (possibleLengthLocalOnlySize > 0) {
-            possibleLengthLocalOnly_.append(Int32.parse(objectInput.next().getOrThrow()))
+            possibleLengthLocalOnly_.add(Int32.parse(objectInput.next().getOrThrow()))
             possibleLengthLocalOnlySize--
         }
         if (Bool.parse(objectInput.next().getOrThrow())) {
@@ -785,7 +785,7 @@ public open class PhonemetadataPhoneMetadata <: Equatable<PhonemetadataPhoneMeta
         if (value == Option<PhonemetadataNumberFormat>.None) {
             throw IllegalArgumentException()
         }
-        numberFormat_.append(value.getOrThrow());
+        numberFormat_.add(value.getOrThrow());
         return this
     }
 
@@ -809,7 +809,7 @@ public open class PhonemetadataPhoneMetadata <: Equatable<PhonemetadataPhoneMeta
         if (value == Option<PhonemetadataNumberFormat>.None) {
             throw IllegalArgumentException()
         }
-        intlNumberFormat_.append(value.getOrThrow())
+        intlNumberFormat_.add(value.getOrThrow())
         return this
     }
     public func clearIntlNumberFormat(): PhonemetadataPhoneMetadata {
@@ -1027,14 +1027,14 @@ public open class PhonemetadataPhoneMetadata <: Equatable<PhonemetadataPhoneMeta
         while (nationalFormatSize > 0) {
             var numFormat: PhonemetadataNumberFormat = PhonemetadataNumberFormat()
             numFormat.readExternal(objectInput)
-            numberFormat_.append(numFormat)
+            numberFormat_.add(numFormat)
             nationalFormatSize--
         }
         var intlNumberFormatSize: Int32 = Int32.parse(objectInput.next().getOrThrow())
         while (intlNumberFormatSize > 0) {
             var numFormat: PhonemetadataNumberFormat = PhonemetadataNumberFormat()
             numFormat.readExternal(objectInput)
-            intlNumberFormat_.append(numFormat)
+            intlNumberFormat_.add(numFormat)
             intlNumberFormatSize--
         }
         setMainCountryForCode(Bool.parse(objectInput.next().getOrThrow()))
@@ -1093,7 +1093,7 @@ public open class PhonemetadataPhoneMetadataCollection {
         if (value == Option<PhonemetadataPhoneMetadata>.None) {
             throw IllegalArgumentException()
         }
-        metadata_.append(value.getOrThrow())
+        metadata_.add(value.getOrThrow())
         return this
     }
 
@@ -1103,7 +1103,7 @@ public open class PhonemetadataPhoneMetadataCollection {
         while (size > 0) {
             var metadata: PhonemetadataPhoneMetadata = PhonemetadataPhoneMetadata()
             metadata.readExternal(data)
-            metadata_.append(metadata)
+            metadata_.add(metadata)
             size--
         }
     }
