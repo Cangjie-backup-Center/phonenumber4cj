@@ -13,7 +13,7 @@ public open class RegexCache {
         var reg: ?Regex = cache.get(regex)
         if (let None <- reg) {
             reg = Regex(regex)
-            cache.put(regex, reg.getOrThrow())
+            cache.add(regex, reg.getOrThrow())
         }
         return reg.getOrThrow()
     }

@@ -34,7 +34,7 @@ public class BlockingMetadataBootstrappingGuard<T> <: MetadataBootstrappingGuard
             for (metadata in phoneMetadata) {
                 metadataContainer.accept(metadata)
             }
-            loadedFiles.put(hash.toString(), hash.toString())
+            loadedFiles.add(hash.toString(), hash.toString())
         }
     }
 

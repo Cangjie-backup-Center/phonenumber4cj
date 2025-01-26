@@ -164,9 +164,9 @@ public class PrefixFileReader {
                     var count: Int64 = s.count("&")
                     if (count > 0) {
                         let arr: Array<String> = s.split("&")
-                        res.appendAll(arr)
+                        res.add(all: arr)
                     } else {
-                        res.append(s)
+                        res.add(s)
                     }
                     break
                 case None => 

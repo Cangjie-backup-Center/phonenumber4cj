@@ -74,7 +74,7 @@ public class AsYouTypeFormatter {
                         IsCreateFormattingTemplate = true
                         break
                     } else {
-                        removeList.append(removeNum)
+                        removeList.add(removeNum)
                     }
                     removeNum++
                 case None => break
@@ -83,7 +83,7 @@ public class AsYouTypeFormatter {
         if (IsCreateFormattingTemplate) {
             for (index in 0..possibleFormats.size) {
                 if (!(removeList.contains(index))) {
-                    possibleFormatsList.append(possibleFormats[index])
+                    possibleFormatsList.add(possibleFormats[index])
                 }
             }
             possibleFormats = possibleFormatsList
@@ -130,7 +130,7 @@ public class AsYouTypeFormatter {
                 }
             }
             if (findRes(ELIGIBLE_FORMAT_PATTERN.matcher(format.getFormat()).find())) {
-                possibleFormats.append(format)
+                possibleFormats.add(format)
             }
             times++
         }
@@ -155,7 +155,7 @@ public class AsYouTypeFormatter {
                     var leadingDigitsPattern: Regex = regexCache.getPatternForRegex(format.getLeadingDigitsPattern(lastLeadingDigitsPattern).getOrThrow())
                     var m: Matcher = leadingDigitsPattern.matcher(leadingDigits)
                     if (!findRes(m.matchStart())) {
-                        removeList.append(removeNum)
+                        removeList.add(removeNum)
                     }
                     removeNum++
                 case None => break
@@ -163,7 +163,7 @@ public class AsYouTypeFormatter {
         }
         for (index in 0..possibleFormats.size) {
             if (!(removeList.contains(index))) {
-                possibleFormatsList.append(possibleFormats[index])
+                possibleFormatsList.add(possibleFormats[index])
             }
         }
         possibleFormats = possibleFormatsList

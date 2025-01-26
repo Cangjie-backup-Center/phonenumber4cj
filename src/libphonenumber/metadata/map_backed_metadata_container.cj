@@ -30,7 +30,7 @@ public class MapBackedMetadataContainer<T> <: MetadataContainer where T <: Hasha
     }
 
     public func accept(phonemetadataPhoneMetadata: PhonemetadataPhoneMetadata): Unit {
-        metadataMap.put(keyProvider.getKeyOf(phonemetadataPhoneMetadata), phonemetadataPhoneMetadata)
+        metadataMap.add(keyProvider.getKeyOf(phonemetadataPhoneMetadata), phonemetadataPhoneMetadata)
     }
 }
 
