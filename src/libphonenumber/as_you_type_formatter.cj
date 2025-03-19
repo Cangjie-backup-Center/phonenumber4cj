@@ -185,7 +185,7 @@ public class AsYouTypeFormatter {
         var m: Matcher = regexCache.getPatternForRegex(numberPattern).matcher(longestPhoneNumber)
         match (m.find()) {
             case Some(m) =>
-                var aPhoneNumber: String = m.matchStr()
+                var aPhoneNumber: String = m.matchString()
                 if (aPhoneNumber.size < nationalNumber.size) {
                   return ""
                 }
@@ -203,7 +203,7 @@ public class AsYouTypeFormatter {
         match (m.find()) {
             case Some(x) =>
                 for (i in 1..x.groupNumber() + 1) {
-                    res = numberFormatRuleTmp.replace("$${i}", x.matchStr(i))
+                    res = numberFormatRuleTmp.replace("$${i}", x.matchString(i))
                     numberFormatRuleTmp = res
                 }
             case None => res = m.getString()

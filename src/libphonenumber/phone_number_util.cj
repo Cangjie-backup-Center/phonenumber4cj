@@ -62,7 +62,7 @@ public open class PhoneNumberUtil {
     static let VALID_PUNCTUATION: String = 
         "-x\u{2010}-\u{2015}\u{2212}\u{30FC}\u{FF0D}-\u{FF0F} \u{00A0}\u{00AD}\u{200B}\u{2060}\u{3000}()\u{FF08}\u{FF09}\u{FF3B}\u{FF3D}.\\[\\]/~\u{2053}\u{223C}\u{FF5E}"
 
-    private static let DIGITS: String = "\\d+"
+    private static let DIGITS: String = "\\d"
 
     private static let VALID_ALPHA: String = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
@@ -209,7 +209,7 @@ public open class PhoneNumberUtil {
                 let res2: Option<MatchData> = trailingCharsMatcher.find()
                 match (res2) {
                     case Some(m) =>
-                        let mat: Matcher = Regex("[^0-9A-Za-z#]+$").matcher(m.matchStr())
+                        let mat: Matcher = Regex("[^0-9A-Za-z#]+$").matcher(m.matchString())
                         let matd: Option<MatchData> = mat.find()
                         match (matd) {
                             case Some(y) =>
@@ -244,7 +244,7 @@ public open class PhoneNumberUtil {
         let opt: Option<MatchData> = m.fullMatch()
         match (opt) {
             case Some(v) =>
-                v.matchStr()
+                v.matchString()
                 str = str.replace(str, normalizeHelper(str, ALPHA_PHONE_MAPPINGS, true))
             case None =>
                 str = str.replace(str, normalizeDigitsOnly(str))
@@ -722,7 +722,7 @@ public open class PhoneNumberUtil {
         match (m.find()) {
             case Some(x) =>
                 for (i in 1..x.groupNumber() + 1) {
-                    res = numberFormatRuleTmp.replace("$${i}", x.matchStr(i))
+                    res = numberFormatRuleTmp.replace("$${i}", x.matchString(i))
                     numberFormatRuleTmp = res
                 }
             case None => res = m.getString()
@@ -1102,7 +1102,7 @@ public open class PhoneNumberUtil {
                 var digitMatcher: Option<MatchData>  = CAPTURING_DIGIT_PATTERN.matcher(number.toString()[matchEnd..]).find()
                 match (digitMatcher) {
                     case Some(w) =>
-                        var normalizedGroup: String = normalizeDigitsOnly(w.matchStr(1))
+                        var normalizedGroup: String = normalizeDigitsOnly(w.matchString(1))
                         if (normalizedGroup == ("0")) {
                             return false
                         }
@@ -1183,12 +1183,12 @@ public open class PhoneNumberUtil {
                 var isViableOriginalNumber: Bool = matcherApi.matchNationalNumber(numberStr, generalDesc, false)
                 var numOfGroups: Int32 = Int32(prefixMatcher.allCount())
                 var transformRule: String = metadata.getNationalPrefixTransformRule()
-                if (transformRule.isEmpty() || transformRule.size == 0 || v.matchStr(Int64(numOfGroups)).isEmpty()) {
+                if (transformRule.isEmpty() || transformRule.size == 0 || v.matchString(Int64(numOfGroups)).isEmpty()) {
                     if (isViableOriginalNumber && !matcherApi.matchNationalNumber(numberStr[prefixMatcher.getString().size..], generalDesc, false)) {
                         return false
                     }
-                    if (carrierCode.size > 0 && numOfGroups > 0 && !(v.matchStr(Int64(numOfGroups))).isEmpty()) {
-                    carrierCode.append(v.matchStr(1))
+                    if (carrierCode.size > 0 && numOfGroups > 0 && !(v.matchString(Int64(numOfGroups))).isEmpty()) {
+                    carrierCode.append(v.matchString(1))
                     }
                     let s = number.toString()[1..]
                     number.reset()
@@ -1203,7 +1203,7 @@ public open class PhoneNumberUtil {
                     }
 
                     if (carrierCode.size > 0 && numOfGroups > 1) {
-                        carrierCode.append(v.matchStr(1))
+                        carrierCode.append(v.matchString(1))
                     }
                     numberStr.replace(numberStr, transformedNumberStr)
                     return true
@@ -1219,8 +1219,8 @@ public open class PhoneNumberUtil {
             case Some(v) =>
                 if (isViablePhoneNumber(number.toString()[..v.matchPosition().start])) {
                     for (i in 1..v.groupNumber()) {
-                        if (!v.matchStr(i).isEmpty()){
-                            var extension: String = v.matchStr(i)
+                        if (!v.matchString(i).isEmpty()){
+                            var extension: String = v.matchString(i)
                             var numbers = StringBuilder(number.toString()[v.matchPosition().start..number.size])
                             return (extension, numbers)
                         }

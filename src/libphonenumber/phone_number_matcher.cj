@@ -126,7 +126,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
     private func extractMatch(candidate: String, offset: Int64): Option<PhoneNumberMatch> {
         match (SLASH_SEPARATED_DATES.matcher(candidate).find()) {
             case Some(v) => 
-                v.matchStr()
+                v.matchString()
                 return Option<PhoneNumberMatch>.None
             case None => ()
         }
@@ -134,10 +134,10 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
             case Some(v) => 
                 var followingText: String = text[(offset + candidate.size)..]
                 let m: Option<MatchData> = TIME_STAMPS_SUFFIX.matcher(followingText).matchStart()
-                v.matchStr()
+                v.matchString()
                 match (m) {
                     case Some(k) => 
-                        k.matchStr()
+                        k.matchString()
                         return Option<PhoneNumberMatch>.None
                     case None => ()
                 }
@@ -169,7 +169,7 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
                     maxTries = maxTries -1
                     isFirstMatch = false
                 }
-                var group: String = trimAfterFirstMatch(PhoneNumberUtil.UNWANTED_END_CHAR_PATTERN, gMatch.getOrThrow().matchStr(1))
+                var group: String = trimAfterFirstMatch(PhoneNumberUtil.UNWANTED_END_CHAR_PATTERN, gMatch.getOrThrow().matchString(1))
                 var n: Option<PhoneNumberMatch> = parseAndVerify(group, (offset + gMatch.getOrThrow().matchPosition(1).start))
                 if (let Some(v) <- n) {
                     v.toString()
@@ -185,21 +185,21 @@ class PhoneNumberMatcher <: Iterator<PhoneNumberMatch> {
         try {
             match (MATCHING_BRACKETS.matcher(candidate).fullMatch()) {
                 case Some(v) => 
-                    v.matchStr()
+                    v.matchString()
                     ()
                 case None =>
                     return Option<PhoneNumberMatch>.None
             }
             match (PUB_PAGES.matcher(candidate).find()) {
                 case Some(k) => 
-                    k.matchStr()
+                    k.matchString()
                     return Option<PhoneNumberMatch>.None
                 case None => ()
             }
             if (offset > 0) {
                 match (LEAD_CLASS.matcher(candidate).matchStart()) {
                     case Some(v) => 
-                        v.matchStr()
+                        v.matchString()
                         ()
                     case None =>
                         var previousChar: Rune = Rune(text[offset - 1])
