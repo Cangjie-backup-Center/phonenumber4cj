@@ -13,7 +13,7 @@ import phonenumber4cj.prefixmapper.*
 
 public class PhoneNumberOfflineGeocoder {
 
-    private static let lock = ReentrantMutex()
+    private static let lock = Mutex()
     private static var instance: Option<PhoneNumberOfflineGeocoder> = Option<PhoneNumberOfflineGeocoder>.None
     private var phonePrefixDataDirectory: String = ""
     private let prefixFileReader: PrefixFileReader

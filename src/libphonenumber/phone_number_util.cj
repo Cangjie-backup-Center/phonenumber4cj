@@ -6,7 +6,7 @@ package phonenumber4cj.libphonenumber
 
 public open class PhoneNumberUtil {
 
-    private static let lock = ReentrantMutex()
+    private static let lock = Mutex()
 
     let objId: Int64 = 1
 
