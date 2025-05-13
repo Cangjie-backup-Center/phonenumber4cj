@@ -6,7 +6,7 @@ package phonenumber4cj.libphonenumber.metadata
 
 public class BlockingMetadataBootstrappingGuard<T> <: MetadataBootstrappingGuard<T> where T <: MetadataContainer {
 
-    private static let lock = ReentrantMutex()
+    private static let lock = Mutex()
     private let metadataLoader: MetadataLoader
     private let metadataParser: MetadataParser
     private let metadataContainer: T

@@ -23,7 +23,7 @@ func loadUnKnownTimeZone(): ArrayList<String> {
 
 public class PhoneNumberToTimeZonesMapper {
     static let UNKNOWN_TIME_ZONE_LIST: ArrayList<String> = loadUnKnownTimeZone()
-    private static let lock = ReentrantMutex()
+    private static let lock = Mutex()
     private static let UNKNOWN_TIMEZONE: String = "Etc/Unknown"
     private static var instance: Option<PhoneNumberToTimeZonesMapper> = Option<PhoneNumberToTimeZonesMapper>.None
     private var phonePrefixDataDirectory: String = ""

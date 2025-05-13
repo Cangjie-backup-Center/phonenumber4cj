@@ -10,7 +10,7 @@ internal import std.unicode.*
 internal import std.io.*
 internal import std.regex.*
 internal import std.sync.*
-internal import log.*
+internal import stdx.log.*
 internal import std.sort.SortExtension
 internal import std.convert.Parsable
 internal import phonenumber4cj.libphonenumber.internal.*

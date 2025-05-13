@@ -12,7 +12,7 @@ import phonenumber4cj.prefixmapper.*
 
 public class PhoneNumberToCarrierMapper {
 
-    private static let lock = ReentrantMutex()
+    private static let lock = Mutex()
     private static var instance: Option<PhoneNumberToCarrierMapper> = Option<PhoneNumberToCarrierMapper>.None
     private var phonePrefixDataDirectory: String = ""
     private let prefixFileReader: PrefixFileReader

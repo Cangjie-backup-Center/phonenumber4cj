@@ -7,4 +7,4 @@ package phonenumber4cj.libphonenumber.inter
 internal import std.collection.*
 internal import std.io.*
 internal import std.convert.*
-internal import serialization.serialization.*
+internal import stdx.serialization.serialization.*
