@@ -40,8 +40,6 @@
 ├── README.md
 ├── doc
 │   ├── assets
-│   ├── cjcov
-│   ├── design.md
 │   ├── feature_api.md
 ├── src
 │   └── carrier
@@ -97,11 +95,8 @@
     ├── LLT
     └── UT
 ├── CHANGELOG.md
-├── gitee_gate.cfg
+├── cjpm.toml
 ├── LICENSE
-├── module.json
-├── phonenumber_build.bat
-├── phonenumber_build.sh
 ├── README.md
 ├── README.OpenSource
 ```
@@ -128,8 +123,8 @@ cjpm build
 
 ### 功能示例
 
-注意：执行编译构建命令后，target/release/phonenumber4cj/下会生成 resources 资源文件包，是支撑此库执行测试用例的元数据。
-（元数据来源：https://github.com/google/libphonenumber/tree/master/resources），本库只支持中国与美国的电话号码作为元数据，如果需要自定义元数据时，请拷贝目标地址中美国(1)和中国(86)的元数据，美国的元数据请放置在resources/1文件夹下，中国的元数据请放置在resources/86文件夹下，时区元数据请放置在resources/tz文件夹下。
+注意：执行编译构建命令后，target/release/phonenumber4cj/下会生成 resources 资源文件包，是支撑此库执行测试用例的元数据。（元数据来源：https://github.com/google/libphonenumber/tree/master/resources）
+本库只支持中国与美国的电话号码作为元数据，如果需要自定义元数据时，请拷贝目标地址中美国(1)和中国(86)的元数据，美国的元数据请放置在resources/1文件夹下，中国的元数据请放置在resources/86文件夹下，时区元数据请放置在resources/tz文件夹下。
 
 #### 解析电话号码功能示例
 
