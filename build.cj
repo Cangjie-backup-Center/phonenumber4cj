@@ -8,7 +8,7 @@ import std.process.*
  */
 func stagePreBuild(): Int64 {
     // process before "cjpm build"
-    copy(Path("./resources"), to: Path("./target/release/phonenumber4cj/resources"), overwrite: true)
+    copy(Path("./resources"), to: Path("./target/release/phonenumber4cj@cangjie_tpc/resources"), overwrite: true)
     0
 }
 

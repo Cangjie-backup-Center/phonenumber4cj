@@ -2,7 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-package phonenumber4cj.libphonenumber.internal
+package cangjie_tpc::phonenumber4cj.libphonenumber.internal
 
 public class RegexBasedMatcher <: MatcherApi {
     public static func create(): MatcherApi {

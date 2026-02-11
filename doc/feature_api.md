@@ -2463,9 +2463,9 @@ class PhoneNumber
 
 ```cangjie
 import std.collection.*
-import phonenumber4cj.libphonenumber.inter.*
-import phonenumber4cj.libphonenumber.data.*
-import phonenumber4cj.libphonenumber.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.inter.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.data.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -2662,9 +2662,9 @@ class PhoneNumberUtil
 ```cangjie
 import std.collection.*
 import std.regex.*
-import phonenumber4cj.libphonenumber.inter.*
-import phonenumber4cj.libphonenumber.data.*
-import phonenumber4cj.libphonenumber.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.inter.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.data.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -2751,10 +2751,10 @@ class PhoneNumberUtil
 ```cangjie
 import std.collection.*
 import std.regex.*
-import phonenumber4cj.libphonenumber.inter.*
-import phonenumber4cj.libphonenumber.data.*
-import phonenumber4cj.libphonenumber.metadata.*
-import phonenumber4cj.libphonenumber.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.inter.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.data.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.metadata.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -2857,9 +2857,9 @@ class PhoneNumberUtil
 
 ```cangjie
 import std.collection.*
-import phonenumber4cj.libphonenumber.inter.*
-import phonenumber4cj.libphonenumber.data.*
-import phonenumber4cj.libphonenumber.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.inter.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.data.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.*
 import std.regex.*
 
 main() {
@@ -2973,9 +2973,9 @@ enum PhoneNumberType
 
 ```cangjie
 import std.collection.*
-import phonenumber4cj.libphonenumber.inter.*
-import phonenumber4cj.libphonenumber.data.*
-import phonenumber4cj.libphonenumber.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.inter.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.data.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -3408,10 +3408,10 @@ class PhoneNumberUtil
 ```cangjie
 import std.collection.*
 import std.regex.*
-import phonenumber4cj.libphonenumber.inter.*
-import phonenumber4cj.libphonenumber.data.*
-import phonenumber4cj.libphonenumber.metadata.*
-import phonenumber4cj.libphonenumber.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.inter.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.data.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.metadata.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.*
 
 main() {
     var phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -3524,9 +3524,9 @@ class PhoneNumberUtil
 
 ```cangjie
 import std.collection.*
-import phonenumber4cj.libphonenumber.inter.*
-import phonenumber4cj.libphonenumber.data.*
-import phonenumber4cj.libphonenumber.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.inter.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.data.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.*
 
 main() {
     var phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance().getOrThrow()
@@ -3731,9 +3731,9 @@ class PhoneNumberToCarrierMapper
 ##### 5.1.1.1 示例
 
 ```cangjie
-import phonenumber4cj.carrier.*
-import phonenumber4cj.prefixmapper.*
-import phonenumber4cj.libphonenumber.inter.*
+import cangjie_tpc::phonenumber4cj..carrier.*
+import cangjie_tpc::phonenumber4cj..prefixmapper.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.inter.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()
@@ -3935,9 +3935,9 @@ public enum Language {
 ##### 5.2.1.1 示例
 
 ```cangjie
-import phonenumber4cj.geocoder.geocoding.*
-import phonenumber4cj.prefixmapper.*
-import phonenumber4cj.libphonenumber.inter.*
+import cangjie_tpc::phonenumber4cj..geocoder.geocoding.*
+import cangjie_tpc::phonenumber4cj..prefixmapper.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.inter.*
 
 main() {
     var phone: PhoneNumber = PhoneNumber()
@@ -4060,9 +4060,9 @@ class PrefixFileReader
 ##### 5.3.1.1 示例
 
 ```cangjie
-import phonenumber4cj.geocoder.*
-import phonenumber4cj.prefixmapper.*
-import phonenumber4cj.libphonenumber.inter.*
+import cangjie_tpc::phonenumber4cj..geocoder.*
+import cangjie_tpc::phonenumber4cj..prefixmapper.*
+import cangjie_tpc::phonenumber4cj..libphonenumber.inter.*
 import std.collection.*
 
 main() {

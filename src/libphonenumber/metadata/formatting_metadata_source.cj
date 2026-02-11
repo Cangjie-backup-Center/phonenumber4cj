@@ -2,7 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-package phonenumber4cj.libphonenumber.metadata
+package cangjie_tpc::phonenumber4cj.libphonenumber.metadata
 
 public interface FormattingMetadataSource {
     

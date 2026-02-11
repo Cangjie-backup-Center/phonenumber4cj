@@ -6,14 +6,14 @@
  * @file The file declars the PhoneNumberToTimeZonesMapper class.
  */
 
-package phonenumber4cj.geocoder
+package cangjie_tpc::phonenumber4cj.geocoder
 
 import std.collection.*
 import std.sync.*
-import phonenumber4cj.libphonenumber.*
-import phonenumber4cj.libphonenumber.metadata.*
-import phonenumber4cj.libphonenumber.inter.*
-import phonenumber4cj.prefixmapper.*
+import cangjie_tpc::phonenumber4cj.libphonenumber.*
+import cangjie_tpc::phonenumber4cj.libphonenumber.metadata.*
+import cangjie_tpc::phonenumber4cj.libphonenumber.inter.*
+import cangjie_tpc::phonenumber4cj.prefixmapper.*
 
 func loadUnKnownTimeZone(): ArrayList<String> {
     var arr: ArrayList<String> = ArrayList<String>(1)

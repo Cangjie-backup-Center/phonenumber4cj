@@ -19,17 +19,22 @@
 [dependencies]
 
 [package]
-  cjc-version = "1.0.0"
-  compile-option = "-O2 -Woff all"
-  description = "nothing here"
-  link-option = ""
-  name = "phonenumber4cj"
-  output-type = "dynamic"
-  src-dir = "src"
-  target-dir = ""
-  version = "1.0.4"
-  package-configuration = {}
-  scripts = {}
+cjc-version = "1.1.0"
+compile-option = "-O2 -Woff unused"
+name = "phonenumber4cj"
+organization = "cangjie_tpc"
+description = "一个用于解析、格式化和验证国际电话号码的库"
+version = "1.0.5"
+output-type = "dynamic"
+authors = []
+repository = "https://gitcode.com/Cangjie-TPC/phonenumber4cj"
+homepage = "https://gitcode.com/Cangjie-TPC/phonenumber4cj"
+documentation = "https://gitcode.com/Cangjie-TPC/phonenumber4cj/blob/develop/doc/feature_api.md"
+tag = ["cangjie"]
+category = ["Utility"]
+license = ["Apache-2.0"]
+include = ["src"]
+exclude = []
 
 [profile]
   [profile.build]

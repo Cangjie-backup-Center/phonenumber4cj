@@ -2,14 +2,14 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-package phonenumber4cj.geocoder.geocoding
+package cangjie_tpc::phonenumber4cj.geocoder.geocoding
 
 import std.sync.*
 import std.collection.*
-import phonenumber4cj.libphonenumber.*
-import phonenumber4cj.libphonenumber.metadata.*
-import phonenumber4cj.libphonenumber.inter.*
-import phonenumber4cj.prefixmapper.*
+import cangjie_tpc::phonenumber4cj.libphonenumber.*
+import cangjie_tpc::phonenumber4cj.libphonenumber.metadata.*
+import cangjie_tpc::phonenumber4cj.libphonenumber.inter.*
+import cangjie_tpc::phonenumber4cj.prefixmapper.*
 
 public class PhoneNumberOfflineGeocoder {
 
